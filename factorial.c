@@ -16,17 +16,18 @@ int main(){
     factorial(6);
     factorial(7);
     factorial(10);
-    factorial(15);
-    factorial(20);
+    factorial(11);
+    factorial(12);
+    factorial(13);
+    factorial(14);
     return 0 ;
 }
 
 
 int factorial(int num){
     long int  res = 1 ; 
-    if(!(isdigit)){printf("%s","error in input");exit(1);}
     for(int i = 1 ; i <= num ; i++){
-        res += res * i;
+        res *= i;
     }
     printf("%d\n ,",res);
 }
