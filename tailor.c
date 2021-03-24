@@ -3,43 +3,44 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define INF 10 
-#define PIE 3.14159 
+#define INF 5 
 
-int factorial(int num);
+unsigned long long factorial(double num);
 double taylor(double angle);
-double convert_to_rad(double angle);
+double convert_to_rad(float angle);
 
 
 int main(){
-     taylor(60);
+     taylor(90);
      taylor(120);
-     taylor(240);
+     taylor(360);
     return 0; 
 }
 
 
-double convert_to_rad(double angle){
-     double res = (angle *  (PIE / 180.0)) ;
-     return res;
+double convert_to_rad(float degree){
+    double pi = 3.14159265359;
+    printf("this is x : %u , \n",(degree * (pi / 180)));
+    return (degree * (pi / 180));
 }
 
-int factorial(int num){
-    long int  res = 1 ; 
+unsigned long long factorial(double num){
+    if(num < 0 ){"%s","error  factorial of a nagtive number \n";exit(1);}
+    unsigned long long  res = 1 ; 
     for(int i = 1 ; i <= num ; i++){
-        res += res*i;
+        res *= i;
     }
+    return res;
 }
 
 
 double taylor(double angle){
-    double X = 4.18;
-    double sin = 0.0 ;
-    float num_i = 0.0 ;  
-    for(int i = 0 ; i < INF ; i++){
-        num_i = i%2?1:-1;
-        printf(" this is num_i :%u",num_i);  
-        sin  = sin + ((num_i / factorial(2*i+1)) * pow(X,2*i+i));
+    double X = convert_to_rad(angle);
+    double sin = 0.0 ;  
+    for(int i = 0 ; i < INF ; i++){        
+        sin  += ((i%2 ? 1 : -1) / factorial(2*i+1)) * pow(X,2*i+1);
+        printf(" this is the resualt : %f , \n",sin);
     }
+    printf(" this is the final resualt! : %f , \n",sin);
     return sin ; 
 }

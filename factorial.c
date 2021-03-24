@@ -1,13 +1,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-
-int factorial(int num) ;
-
-
+unsigned long long factorial(double num);
+    
 int main(){
-    printf("%s","hello world \n");
     factorial(0);
     factorial(2);
     factorial(3);
@@ -24,10 +20,12 @@ int main(){
 }
 
 
-int factorial(int num){
-    long int  res = 1 ; 
+unsigned long long factorial(double num){
+    if(num < 0 ){"%s","error  factorial of a nagtive number \n";exit(1);}
+    unsigned long long  res = 1 ; 
     for(int i = 1 ; i <= num ; i++){
         res *= i;
     }
-    printf("%d\n ,",res);
+    printf("this is the final resualt : %lu , \n",res);
+    return res;
 }
