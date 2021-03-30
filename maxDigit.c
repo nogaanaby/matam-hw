@@ -42,25 +42,27 @@ int maxdigit(int num ){
 }
 
 int removeMaxDigit(int num ){
-    int max_dig = maxdigit(num),size = 0,temp_num = num ;
+    int max_dig = maxdigit(num),size = 0,temp_num = num, final_num = 0  ;
     if ( num < 0 ){printf("%s : %d \n","error nagtive Intger",num);exit(1);} 
     while(temp_num != 0 ){
         size++; 
         temp_num /= 10 ; 
     }
     printf("this is size  : %d\n",size);
-    int  arr_num[size]; 
+    int  arr_num[size-1]; 
     for(int i = 0 ; i < size && num != 0 ; i++){
-        if(max_dig != num % 10)
+        if(max_dig == (num % 10)){
+            arr_num[i] == 0;
+        }else
         arr_num[i] = num % 10 ;
-        num /= 10 ;  
+        num /= 10 ; 
     }
-    int final_num = 0 ; 
-    for(int index = size-1;  0 < size ;index-- ,size-- ){
-        if(arr_num[index] != 0 )
-        final_num += arr_num[index]*pow(10,size);
+    
+    for(int index = size-1;  0 < index+1 ;index-- ){
+        if(arr_num[index] != 0 ){
+        final_num += arr_num[index]*pow(10,index);
+        }
     }
-
     return final_num;
 }
 
