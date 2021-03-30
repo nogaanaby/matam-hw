@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #define SIZE 10 
 
-// part 1
+/* part 1 */
 int numOccurs(int digit , long number );
-// part 2
+/* part 2 */
 int  maxOccurs(long number);
 
 int main(){
-    // numOccurs(3,31573);
-    // numOccurs(8,31573);
-    // numOccurs(1,31573);
-    // numOccurs(9,3157452368);
+    numOccurs(3,31573);
+    numOccurs(8,31573); 
+    numOccurs(1,31573);
+    numOccurs(9,3157452368);
     maxOccurs(34573);
     maxOccurs(35777);
     maxOccurs(7987878);
@@ -35,7 +35,7 @@ int maxOccurs(long number){
     long temp_num = number , maxOccurs = 0 , dig = 0 ;
     int arr[SIZE] = { 0 };
     while( temp_num != 0){
-        printf("%d , \n",temp_num % 10); 
+        printf("%ld , \n",temp_num % 10); 
         arr[(temp_num % 10)]++; 
         temp_num /= 10;
     }
@@ -44,7 +44,7 @@ int maxOccurs(long number){
         if(maxOccurs < arr[i] ){maxOccurs = arr[i] ; dig = i ; }
         else if( dig < i && arr[i] == maxOccurs){dig = i ;}
     }
-    printf("resualt is  : %d , \n",dig);
+    printf("resualt is  : %ld , \n",dig);
     return  dig; 
 }
 
