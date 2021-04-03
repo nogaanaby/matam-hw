@@ -23,6 +23,6 @@ void printPythagoreanTriples(){
     }
 }
  
-int main(){
+void main(){
     printPythagoreanTriples();
 }
