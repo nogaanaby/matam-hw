@@ -12,12 +12,14 @@ int numOccurs(int digit , long number );
 int  maxOccurs(long number);
 /* part 3 */
 long delReverse(long number, int digit);
+/* part 4 */
 void printDigits(long number);
 
 int main(){
     printf("delReverse(1234454647448494, 4)= %d \n", delReverse(1234454647448494, 4));
-    //printf("printDigits(77724457)= %d \n", printDigits(77724457));
-    printDigits(2727724557);
+    
+    printDigits(77275513);
+    printDigits(0);
 
     numOccurs(3,31573);
     numOccurs(8,31573); 
@@ -59,8 +61,6 @@ int maxOccurs(long number){
     printf("resualt is  : %ld , \n",dig);
     return  dig; 
 }
-
-
 
 
 long delReverse (long number, int digit){
@@ -111,25 +111,33 @@ void printDigits(long number){
             singles[types]=cur; 
             countHowMeny[types]=1;
             types++;
-            countHowMeny_len  gth++;
+            countHowMeny_length++;
         }
         i++;
     }
 
+    //now it bubble sorts singles (exc [7,5,4,2]) by the size of coundHowMany (exc [4,2,1,3])
+    int x, y,temp1,temp2;
+    for (x = 0; x < countHowMeny_length-1; x++){
+        for (y = 0; y < countHowMeny_length-x-1; y++){
+            if (countHowMeny[y] < countHowMeny[y+1]){
+                temp1=countHowMeny[y];
+                temp2=singles[y];
 
-    printf("singles: [ ");
-    for(int x=0;x<countHowMeny_length ;x++){
-        printf("%d, ", singles[x]);
+                countHowMeny[y]=countHowMeny[y+1];
+                countHowMeny[y+1]=temp1;
+
+                singles[y]=singles[y+1];
+                singles[y+1]=temp2;
+            }
+
+        }
     }
-    printf("] \n");
 
-
-    printf("countHowMeny: [ ");
-    for(int x=0;x<countHowMeny_length ;x++){
-        printf("%d, ", countHowMeny[x]);
+    printf("The digits are: ");
+    for(x=0;x<countHowMeny_length ;x++){
+        printf("%d ", singles[x]);
     }
-    printf("] \n");
-
-
-    //now it sorts singles (exc [7,5,4,2]) by the size of coundHowMany (exc [4,2,1,3])
+    printf("\n");
 }
+
