@@ -70,7 +70,7 @@ void tester(){
 int main(){
     tester();
     int k;
-    char original[20];
+    char original[255];
 
     printf("Please type an encryption key (make sure it is positive and integer): ");
     scanf("%d", &k);
