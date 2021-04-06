@@ -21,11 +21,14 @@ int main(){
 
 
 unsigned long long factorial(double num){
-    if(num < 0 ){"%s","error  factorial of a nagtive number \n";exit(1);}
+    if(num < 0 ){
+        printf("error factorial of a nagtive number \n");
+        exit(1);
+    }
     unsigned long long  res = 1 ; 
     for(int i = 1 ; i <= num ; i++){
         res *= i;
     }
-    printf("this is the final resualt : %lu , \n",res);
+    printf("this is the final resualt : %llu , \n",res);
     return res;
 }

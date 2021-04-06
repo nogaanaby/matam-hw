@@ -50,52 +50,32 @@ char decrypt(char sm, unsigned int k){
     return (char)oldCaplVal;
 }
 
-void tester(){
-    TRY { 
-        printf("should be c: %c \n", encrypt('A', 2));
-        printf("should be a: %c \n", encrypt('X', 3));
-        printf("should be error negative: %c \n", encrypt('X', -3));
-        printf("should be error negative: %c \n", encrypt('X', 3.7));
-        printf("should be b: %c \n", encrypt('V', 32));
-        printf("should be error: %c \n", encrypt('a', 32));
-    }
-    CATCH(2) {
-        printf("ERROR! your text might not contain only small letters \n");
-    }  CATCH(1) {
-        printf("ERROR! your text might not contain only capital letters \n");
-    } 
-    CATCHALL { 
-        printf("ERROR! invalid input \n");
-    }
-}
-
 int main(){
     int k;
     char original[255];
-    tester();
 
     printf("Please type an encryption key (make sure it is positive and integer): ");
     scanf("%d", &k);
     printf("Please type your encryption text in capital letters: ");
     scanf("%s", original);
 
-    printf("Your encrypted text is: \n");
+    printf("Your encrypted text is: ");
     for(int i=0; i<strlen(original);i++){
         TRY { 
            printf("%c", encrypt(original[i], k));
         }
         CATCH(2) {
             printf("ERROR! your text might not contain only small letters \n");
-            return 0;
+            return 2;
         }  
         CATCH(1) {
             printf("ERROR! your text might not contain only capital letters \n");
-            return 0;
+            return 1;
         } 
         CATCHALL { 
             printf("ERROR! invalid input \n");
-            return 0;
+            return -1;
         }
     }
-    return 1;
+    return 0;
 }

@@ -25,5 +25,5 @@ void printPythagoreanTriples(){
  
 int main(){
     printPythagoreanTriples();
-    return 1;
+    return 0;
 }

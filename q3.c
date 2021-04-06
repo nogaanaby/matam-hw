@@ -32,7 +32,7 @@ int numOccurs(int digit,long number){
 }
 
 int maxOccurs(long number){
-    long temp_num = number , maxOccurs = 0 , dig = 0 ;
+    long temp_num = number , maxOccurs = 0 , dig = 0;
     int arr[SIZE] = { 0 };
     while( temp_num != 0){
         arr[(temp_num % 10)]++; 
@@ -43,7 +43,7 @@ int maxOccurs(long number){
         if(maxOccurs < arr[i] ){maxOccurs = arr[i] ; dig = i ; }
         else if( dig < i && arr[i] == maxOccurs){dig = i ;}
     }
-    return  dig; 
+    return dig; 
 }
 
 
