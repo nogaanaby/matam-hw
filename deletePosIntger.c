@@ -45,7 +45,7 @@ int numOccurs(int digit,long number){
 }
 
 int maxOccurs(long number){
-    long temp_num = number , maxOccurs = 0 , dig = 0,i ;
+    long temp_num = number , maxOccurs = 0 , dig = 0 ;
     int arr[SIZE] = { 0 };
     while( temp_num != 0){
         /* printf("%ld , \n",temp_num % 10); */
@@ -53,7 +53,7 @@ int maxOccurs(long number){
         temp_num /= 10;
     }
     maxOccurs = *arr ; 
-    for(i = 1 ; i < SIZE ; i++){
+    for(int i = 1 ; i < SIZE ; i++){
         if(maxOccurs < arr[i] ){maxOccurs = arr[i] ; dig = i ; }
         else if( dig < i && arr[i] == maxOccurs){dig = i ;}
     }

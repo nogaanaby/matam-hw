@@ -12,8 +12,7 @@ bool isPythagorean(unsigned int num1, unsigned int num2){
 }
 
 void printPythagoreanTriples(){
-    int i;
-    for(i=1;i<100;i++){
+    for(int i=1;i<100;i++){
         int j=i;
         while( pow(i,2)+pow(j,2)<=pow(99,2) ){
             if(isPythagorean(i,j)){

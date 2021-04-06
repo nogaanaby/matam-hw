@@ -70,7 +70,7 @@ void tester(){
 }
 
 int main(){
-    int k,i;
+    int k;
     char original[255];
     tester();
 
@@ -80,7 +80,7 @@ int main(){
     scanf("%s", original);
 
     printf("Your encrypted text is: \n");
-    for(i=0; i<strlen(original);i++){
+    for(int i=0; i<strlen(original);i++){
         TRY { 
            printf("%c", encrypt(original[i], k));
         }
