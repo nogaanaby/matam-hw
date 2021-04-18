@@ -10,7 +10,7 @@ void printMat(int *mat);
 
 
 int main(){
-    int matrix[N][N] = {3,2,12,9,34,6,7,90,30,20,15,4,8,63,3,5} ;
+    int matrix[N][N] = {{3,2,12,9},{34,6,7,90},{30,15,2,7},{9,12,18,47}} ;
     printMat((int*)matrix);
     printf("\n");
     printf("print diagnole : \n");

@@ -8,7 +8,7 @@ void print_num_to_matrix(int *matrix,int num,int row,int col);
 void print_matrix(int *matrix,int size);
 
 int main(){
-    int matrix[N][N] = {3,2,12,9,34,6,7,90,30,15,2,7,9,12,18.47} ;
+    int matrix[N][N] = {{3,2,12,9},{34,6,7,90},{30,15,2,7},{9,12,18,47}} ;
     int matrix_out[2*N][2*N] = {0}; 
     printf("before \n\n");  
     print_matrix((int*)matrix,0);
