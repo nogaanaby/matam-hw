@@ -10,21 +10,35 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define GENDER_MALE=0
-#define GENDER_FEMALE=1
-#define GENDER_OTHER=2
-#define MAX_GRADE_SIZE=13
-#define NOT_GRADED=-1
+#define TEN 10
+#define FIVE 5
 
-struct Student {
-  char first_name[16];
-  char last_name[16];
-  unsigned int gender;
-  int id[9];
-  float lab_grades[13];
+
+struct Supplier {
+  char id[TEN];
+  char name[FIVE];
+  char phone_number[TEN];
+  int count_transactions;
+  int sum_of_total_transactions_price;
 };
-struct Student create_student(char first_name[], char last_name[], int id[],unsigned int gender);
-struct Student update_lab_grade(struct Student* stu,unsigned int lab_number, float grade);
-struct Student print_student(struct Student* stu);
+
+// create array of Suppliers with stdin input M , set the fildes to zero 
+int createSuppliersList(struct Supplier* sup);
+
+// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
+// 3. return error if in array 
+ struct Supplier* addNewSupplier(char* id[],char name[], char phone_number[],
+ int count_transactions,int sum_of_total_transactions_price);
+
+// sarch for cars in data base 
+ struct Supplier* searchBy( struct Supplier* sup, char attr[], char* value);
+
+// delte car cy id number
+int deleteSupplier(char* Supplier_id);
+
+// delete all cars 
+int deleteAllSuppliers();
+
+
 #endif
 

@@ -1,5 +1,5 @@
-#ifndef CUSTOMER.H 
-#define CUSTOMER.H
+#ifndef CLIENT.H 
+#define CLIENT.H
 
 #include<stdio.h>
 
@@ -11,7 +11,7 @@
 
 typedef struct Date{
     int day;
-    char manth[MAX_LEN_FOUR];
+    int month;
     int year;
 };
 
@@ -20,7 +20,7 @@ typedef struct Time{
     int hour;
 };
 
-typedef struct Customer{
+typedef struct Client{
      char first_name[MAX_LEN_NAME];
      char last_name[MAX_LEN_NAME];
      char id[MAX_LEN_SEVEN]; 
@@ -34,21 +34,22 @@ typedef struct Customer{
 
 
 
-// create array of cluint with stdin input M , set the fildes to zero 
-struct Customer* createCustomer();
+// create array of clients with stdin input M , set the fildes to zero 
+int createClientsList(struct Client* cli);
 
 // add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
 // 3. return error if in array 
- struct Customer* addNewCustomer(char first_name[], );
+ struct Client* addNewClient(char first_name[],char last_name[],char* id,char car_license_id[],
+ int year,int month, int day,int hour,int minutes,int price_per_hour);
 
 // sarch for cars in data base 
- struct CarCustomers* SarchCustomer( struct Customer* C);
+ struct Client* searchBy( struct Client* cli, char attr[], char* value);
 
 // delte car cy id number
-void deleteCustomer(char* Customer_id);
+int deleteClient(char* client_id);
 
 // delete all cars 
-void deleteAllCustomer();
+int deleteAllClients();
 
 
 #endif
