@@ -2,8 +2,8 @@
 //global variables use outside the class declare, 
 //and types
 
-#ifndef STUDENT_H
-#define STUDENT_H
+#ifndef SUPPLIER_H
+#define SUPPLIER_H
 
 #include <stdio.h>
 #include <math.h>
@@ -38,7 +38,6 @@ int deleteSupplier(char* Supplier_id);
 
 // delete all cars 
 int deleteAllSuppliers();
-
 
 #endif
 

@@ -2,22 +2,19 @@
 #include "IO.h"
 
 char* setCharInput(char *attr){
-    printf("please type the %s: ",attr);
-    scanf("%s \n",&buf_id);
-    return "zibi";
+    char res="ok";
+    return res;
 }
 
-int setIntInput(char *attr){
-    printf("please type the supplier id: ");
-    char buf_id[TEN];
-    scanf("%s \n",&buf_id);
-    return "zibi";
+int setIntInput(int *attr){
+    int res=1;
+    return res;
 }
 
 int validateInput(){
     return 0;
 }
 
-void printError(){}
+void printError(int errorCode){}
 
 void printData(){}
