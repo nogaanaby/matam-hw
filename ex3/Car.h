@@ -7,8 +7,7 @@
 #define N 10000 
 
 #include<stdio.h>
-
-
+#include<string.h>
 
 typedef struct Car
 {
@@ -26,20 +25,21 @@ typedef struct Car
 
 
 // create array of cars fix size N, set the fildes to zero 
-int createCarList(struct Cars* carsList);
+int createCarList(struct Car* carsList);
 
 // add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
 // 3. return error if in array 
 struct Car* addNewCar(char* license_id, char frame_id[], char manufacturer_name[],char model_name[],
-char color[],int year_of_relase, int road_raising_year, int supplier_price, int current_price, int engine_capacity);
+char color[],int year_of_relase, int road_raising_year, 
+int supplier_price, int current_price, int engine_capacity);
 
 // sarch for cars in data base 
-struct Car* searchBy( struct Cars* car, char attr[], char* value);
+struct Car* searchBy( struct Car* car, char attr[], char* value);
 
 // delte car cy id number
 int deleteCar(char* license_id);
 
 // delete all cars 
-int deleteAllCars();
+int deleteAllCars(struct Car* carsList);
 
 #endif
