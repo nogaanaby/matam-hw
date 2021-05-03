@@ -21,6 +21,7 @@ typedef struct Car
     int supplier_price;
     int current_price;
     int engine_capacity;
+    int is_empty ; 
 };
 
 
@@ -34,8 +35,10 @@ char color[],int year_of_relase, int road_raising_year,
 int supplier_price, int current_price, int engine_capacity);
 
 // sarch for cars in data base 
-struct Car* searchBy( struct Car* car, char attr[], char* value);
+struct Car* searchBy_license_id( struct Car* car, char* value);
 
+struct Car* searchBy_engine_capacity( struct Car* car, char* value);
+void print_car(struct Car* car);
 // delte car cy id number
 int deleteCar(char* license_id);
 

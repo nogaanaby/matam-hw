@@ -2,22 +2,23 @@
 #include "car.h"
 
 // create array of cars fix size N, set the fildes to zero 
-int createCarList(struct Car* carsList){
+int createCarList(struct Car* car){
 // to Do
-    //check if the carsList has the correct types and size
-        if(carsList == NULL ){printf("error list is empty\n");return -1;}
+    //check if the(car has the correct types and size
+        if(car == NULL ){printf("error list is empty\n");return -1;}
         for(int i = 0 ; i <  N ; i++){
             /* init the string with zero*/
-            strcpy((carsList+i)->color,"");
-            (carsList+i)->current_price =0;
-            (carsList+i)->engine_capacity =0;
-            strcpy((carsList+i)->frame_id,"");
-            strcpy((carsList+i)->license_id,"");
-            strcpy((carsList+i)->manufacturer_name,"");
-            strcpy((carsList+i)->model_name,"");
-            (carsList+i)->road_raising_year = 0;
-            (carsList+i)->supplier_price = 0;
-            (carsList+i)->year_of_relase = 0;            
+            strcpy((car+i)->color,"");
+            (car+i)->current_price =0;
+            (car+i)->engine_capacity =0;
+            strcpy((car+i)->frame_id,"");
+            strcpy((car+i)->license_id,"");
+            strcpy((car+i)->manufacturer_name,"");
+            strcpy((car+i)->model_name,"");
+            (car+i)->road_raising_year = 0;
+            (car+i)->supplier_price = 0;
+            (car+i)->year_of_relase = 0;
+            (car+i)->is_empty = 1 ;             
         }
     return 0;
 }
@@ -28,30 +29,77 @@ struct Car* addNewCar(char* license_id, char frame_id[], char manufacturer_name[
 char color[],int year_of_relase, int road_raising_year, 
 int supplier_price, int current_price, int engine_capacity){
 // to Do
+    /* chenge is_empty to false*/
+    /*splite into 3 function 1. get_input 2. check input 3. 
+    return car and put into array in index  */
     struct Car* pointer_to_car_object; 
     return pointer_to_car_object;
 }
 
 // sarch for cars in data base 
-struct Car* searchBy( struct Car* car, char attr[], char* value){
+struct Car* searchBy_license_id( struct Car* car, char* value){
 // to Do
-    // loop->
-    //     if(car_ptr.attr==value){
-    //         return car_ptr;
-    //     }
-    struct Car* pointer_to_car_in_array;
-    return pointer_to_car_in_array;
+    if(car == NULL ){printf("error list is empty\n");return -1;}
+    for(int i =0 ; i < N ; i++){
+        if((car+i)->is_empty == 1){ return NULL;}
+        if( strcmp((car+i)->license_id,value) == 0 ){
+            return (car+i);
+        }
+    }
+    return NULL;
+}
+
+void print_car(struct Car* car){
+    for(int i = 0 ; i <  N ; i++){
+            if(car->is_empty == 1 ){
+                printf("car is empty\n");
+            }else {
+            /* init the string with zero*/
+                printf("color : %s\n",(car+i)->color);
+                printf("price : %d\n",(car+i)->current_price);
+                printf("engine capcity  : %d\n",(car+i)->engine_capacity);
+                printf("freme number : %s\n",(car+i)->frame_id);
+                printf("license number : %s\n",(car+i)->license_id);
+                printf("manufacturer name : %s\n",(car+i)->manufacturer_name);
+                printf("model name : %s\n",(car+i)->model_name);
+                printf("price : %d\n",(car+i)->road_raising_year);
+                printf("supplier_price : %d\n",(car+i)->supplier_price);
+                printf("year of relase : %d\n",(car+i)->year_of_relase);
+            }
+    }     
+}
+
+struct Car* searchBy_engine_capacity( struct Car* car, char* value){
+    if(car == NULL ){printf("error list is empty\n");return -1;}
+        for(int i =0 ; i < N ; i++){
+            if((car+i)->is_empty == 1){return NULL;}
+            if( (car+i)->engine_capacity == value ){
+                return (car+i);
+            }
+    }
+    return NULL;
 }
 
 // delte car cy id number
 int deleteCar(char* license_id){
-// to Do
+    // do we need to move all the valus of array backword  ?
 }
 
 // delete all cars 
-int deleteAllCars(struct Car* carsList){
-    for(int i = 0 ; i < N && (carsList+i) != NULL ; i++){
-
+int deleteAllCars(struct Car* car){
+    if(car == NULL ){printf("list is empty\n");return -1;}
+    for(int i = 0 ; i < N && (car+i) != NULL ; i++){
+            strcpy((car+i)->color,"");
+            (car+i)->current_price = 0;
+            (car+i)->engine_capacity = 0;
+            strcpy((car+i)->frame_id,"");
+            strcpy((car+i)->license_id,"");
+            strcpy((car+i)->manufacturer_name,"");
+            strcpy((car+i)->model_name,"");
+            (car+i)->road_raising_year = 0;
+            (car+i)->supplier_price = 0;
+            (car+i)->year_of_relase = 0;  
     }
+    car = NULL ; 
     return 0 ; 
 }
