@@ -8,22 +8,18 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <ctype.h>
 
 #define TEN 10
 #define FIVE 5
 
+enum error {size_,negitive_,type_};
 
-struct IO {
 
-};
+int validateInput(char* data,unsigned int size);
+int validateInputInt(int data,unsigned int size);
+void printError(int errorCode);
 
-char* setInput();
-
-int validateInput();
-
-void printError();
-
-void printData();
 
 #endif
 
