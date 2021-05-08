@@ -2,8 +2,8 @@
 //global variables use outside the class declare, 
 //and types
 
-#ifndef IO_H
-#define IO_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -16,10 +16,12 @@
 enum error {size_,negitive_,type_};
 
 
-int validateInput(char* data,unsigned int size);
+int validateInput(char* data,unsigned int size,int fixedSize);
 int validateInputInt(int data,unsigned int size);
-void printError(int errorCode);
 
+void printError(int errorCode);
+int get_chr_input(char text[],char *attr,int attr_size);
+int get_int_input(char text[],int *attr,int attr_size);
 
 #endif
 
