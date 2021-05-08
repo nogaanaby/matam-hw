@@ -13,8 +13,9 @@ int main(){
     struct Car list_car[N]; 
     createCarList(list_car);
     print_car_list(list_car);
+
     struct Car c = addNewCar();
-    print_Car(c);
+    print_car(&c);
     printf("\n");
     return 0;
 }
