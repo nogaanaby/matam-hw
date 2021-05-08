@@ -1,7 +1,7 @@
-#ifndef CLIENT.H 
-#define CLIENT.H
+#ifndef CLIENT_H 
+#define CLIENT_H
 
-#include<stdio.h>
+#include <stdio.h>
 
 #define MAX_LEN_NAME 20 
 #define MAX_LEN_FOUR 4
@@ -13,12 +13,12 @@ typedef struct Date{
     int day;
     int month;
     int year;
-};
+}Date;
 
 typedef struct Time{
     int minutes;
     int hour;
-};
+}Time;
 
 typedef struct Client{
      char first_name[MAX_LEN_NAME];
@@ -28,7 +28,7 @@ typedef struct Client{
      struct Date start_rent_date;
      struct Time start_rent_time;
      int price_per_hour;
-};
+}Client;
 
 
 
@@ -39,8 +39,7 @@ int createClientsList(struct Client* cli);
 
 // add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
 // 3. return error if in array 
- struct Client* addNewClient(char first_name[],char last_name[],char* id,char car_license_id[],
- int year,int month, int day,int hour,int minutes,int price_per_hour);
+ struct Client* addNewClient();
 
 // sarch for cars in data base 
  struct Client* searchBy( struct Client* cli, char attr[], char* value);
@@ -50,6 +49,7 @@ int deleteClient(char* client_id);
 
 // delete all cars 
 int deleteAllClients();
+void print_client(struct Client* cli);
 
 
 #endif
