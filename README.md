@@ -2,3 +2,7 @@
 #Applied by:
 Noga Anaby 318298296
 Shahar Amshili 308054337
+
+
+gcc main.c -o main
+gcc mySource.c -ansi -Wall -pedantic-errors -lm -o myProg
