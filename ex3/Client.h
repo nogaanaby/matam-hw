@@ -1,8 +1,6 @@
 #ifndef CLIENT_H 
 #define CLIENT_H
 
-#include <stdio.h>
-
 #define MAX_LEN_NAME 20 
 #define MAX_LEN_FOUR 4
 #define MAX_LEN_ID 9

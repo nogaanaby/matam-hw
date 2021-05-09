@@ -1,6 +1,5 @@
 #include "Client.h" 
 #include "Utils.h"
-#include "Utils.c"
 
 // create array of cluint with stdin input M , set the fildes to zero 
 int createClientsList(struct Client* cli){
