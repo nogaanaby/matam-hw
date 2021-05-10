@@ -38,7 +38,7 @@ int validateInputInt(int data,unsigned int size){
         char temp_buf[TEN+1];
         /*convert int to char array seve into temp_buf*/
         sprintf(temp_buf,"%d",data);
-        if(sizeof(temp_buf) != size){
+        if(strlen(temp_buf) != size){
             printf("intger value error:\t\n");
             printError(size_);
             return -1;
@@ -70,17 +70,24 @@ int get_chr_input(char text[],char *attr,int attr_size ){
     printf("%s:\t\n",text);
     scanf("%s",attr);
     if(validateInput(attr,attr_size,0) == 0 ){
-        printf("passed the valid chack");
         return 0;
     }else{
         return -1;
     }
 }
+
+//this function thows an error
 int get_int_input(char text[],int *attr,int attr_size ){
     printf("%s:\t\n",text);
-    scanf("%d",attr);
-    if(validateInputInt(attr,attr_size) == 0 )
+    int input;
+    //Im not sure if it scans the value properly
+    scanf("%d",*attr);
+    //*attr=input;
+    printf("attr = %d:\t\n",*attr);
+    if(validateInputInt(*attr,attr_size) == 0 ){
+        printf("ok:\t\n");
         return 0;
+    }
     else
         return -1;    
 }

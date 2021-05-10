@@ -25,9 +25,9 @@ typedef struct Client{
      char last_name[MAX_LEN_NAME];
      char id[MAX_LEN_SEVEN]; 
      char car_license_id[MAX_LEN_SEVEN];
+     int price_per_hour;
      struct Date start_rent_date;
      struct Time start_rent_time;
-     int price_per_hour;
 }Client;
 
 

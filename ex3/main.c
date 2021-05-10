@@ -8,8 +8,6 @@
 
 #define N 30 
 
-
-
 int main(){
     /* test for car */
     // struct Car list_car[N]; 
