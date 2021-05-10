@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include<ctype.h>
+#include <ctype.h>
 
 
 #define TEN 10

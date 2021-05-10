@@ -74,18 +74,24 @@ int get_chr_input(char text[],char *attr,int attr_size ){
     scanf("%s",attr);
     attr[attr_size-1] = '\0';
     if(validateInput(attr,attr_size,0) == 0 ){
-        printf("passed the valid chack\n");
         return 0;
     }else{
         return -1;
     }
 }
+
+//this function thows an error
 int get_int_input(char text[],int *attr,int attr_size ){
-    printf("%s\t\n",text);
-    scanf("%d",attr);
+    printf("%s:\t\n",text);
+    int input;
+    //Im not sure if it scans the value properly
+    scanf("%d",*attr);
+    //*attr=input;
+    printf("attr = %d:\t\n",*attr);
     if(validateInputInt(*attr,attr_size) == 0 ){
-        printf("passed the valid chack\n");
+        printf("ok:\t\n");
         return 0;
-    }else
+    }
+    else
         return -1;    
 }
