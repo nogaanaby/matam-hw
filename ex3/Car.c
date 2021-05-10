@@ -26,15 +26,21 @@ int createCarList(struct Car* car){
 
 // add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
 // 3. return error if in array 
-struct Car addNewCar(){
+int addNewCar(struct Car *car_list){
 // to Do 
     Car temp_car ;
-    get_input_from_user(&temp_car);
-    print_car(&temp_car);
+    int res = get_input_from_user(&temp_car);
+    if(res != -1){
+        print_car(&temp_car);
+        addCarToArray(temp_car,car_list);
+        // add car to array function 
+    }
+    printf("erorr invalid input, input is rejacted ! \n");
+    return -1;
     /* chenge is_empty to false*/
     /*splite into 3 function 1. get_input 2. check input 3. 
     return car and put into array in index  */
-    return temp_car;
+    
 }
 
 int get_input_from_user(struct Car *temp_car){
@@ -51,6 +57,7 @@ int get_input_from_user(struct Car *temp_car){
     res = get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car->engine_capacity,MAX_LEN_FOUR);
     if(res == -1){
         printf("error input is invlid \n");
+        (temp_car)->is_empty = 1 ;
         return -1 ;
     }
     printf("\n");
@@ -58,10 +65,31 @@ int get_input_from_user(struct Car *temp_car){
     return 0; 
 }
     
+struct Car copy_car(struct Car *other){
+        struct Car temp ; 
+        strcpy(temp.color,other->color);
+        temp.current_price = other->current_price;
+        temp.engine_capacity = other->engine_capacity;
+        strcpy(temp.frame_id,other->frame_id);
+        strcpy(temp.license_id,other->license_id);
+        strcpy(temp.manufacturer_name,other->manufacturer_name);
+        strcpy(temp.model_name,other->model_name);
+        temp.road_raising_year = other->road_raising_year;
+        temp.supplier_price = other->supplier_price;
+        temp.year_of_relase = other->year_of_relase;
+        temp.is_empty = 0 ;
+        return temp;     
+}
 
-// int addCarToArray(struct Car car){
 
-// }
+int addCarToArray(struct Car car,struct Car *car_list){
+    if(!car_list){
+        car_list[count_index_array] = copy_car(&car);
+        count_index_array++;
+        return 0 ; 
+    }
+    return -1 ; 
+}
 
 // sarch for cars in data base 
 struct Car* searchBy_license_id( struct Car* car, char* value){
