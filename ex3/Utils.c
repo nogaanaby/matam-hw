@@ -72,7 +72,8 @@ void printError(int errorCode){
 int get_chr_input(char text[],char *attr,int attr_size ){
     printf("%s\t\n",text);
     scanf("%s",attr);
-    attr[attr_size-1] = '\0';
+    // close the string 
+    *(attr+strlen(attr)+1) = '\0';
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;
     }else{
@@ -82,14 +83,11 @@ int get_chr_input(char text[],char *attr,int attr_size ){
 
 //this function thows an error
 int get_int_input(char text[],int *attr,int attr_size ){
-    printf("%s:\t\n",text);
-    int input;
-    //Im not sure if it scans the value properly
-    scanf("%d",*attr);
-    //*attr=input;
-    printf("attr = %d:\t\n",*attr);
+    printf("%s\t\n",text);
+    // fix 
+    //chenge from = > *attr => attr becuse  the function get => int *attr 
+    scanf("%d",attr);
     if(validateInputInt(*attr,attr_size) == 0 ){
-        printf("ok:\t\n");
         return 0;
     }
     else

@@ -24,69 +24,76 @@ int createCarList(struct Car* car){
     return 0;
 }
 
-// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
-// 3. return error if in array 
+// add a new car to array of cars = > 1->check for this car in data 2->find the pleace in array 
+// 3-> return error if in array 
 int addNewCar(struct Car *car_list){
 // to Do 
-    Car temp_car ;
-    int res = get_input_from_user(&temp_car);
+    struct Car to_car ;
+    int res = get_input_from_user(&to_car);
     if(res != -1){
-        print_car(&temp_car);
-        addCarToArray(temp_car,car_list);
+        print_car(&to_car);
+        addCarToArray(&to_car,car_list);
         // add car to array function 
+        printf("add new car to array\n");
+    }else {
+        printf("erorr invalid input, input is rejacted ! \n");
+        return -1;
     }
-    printf("erorr invalid input, input is rejacted ! \n");
-    return -1;
+    
     /* chenge is_empty to false*/
-    /*splite into 3 function 1. get_input 2. check input 3. 
+    /*splite into 3 function 1-> get_input 2-> check input 3-> 
     return car and put into array in index  */
     
 }
 
-int get_input_from_user(struct Car *temp_car){
+int get_input_from_user(struct Car *to_car){
     int res = 0 ; 
-    res = get_chr_input("Please enter (7 digit) license id number:\t",temp_car->license_id,MAX_LEN_SEVEN);
-    res = get_chr_input("Please enter (5 digit) frame id number:\t",temp_car->frame_id,MAX_LEN_FIVE);
-    res = get_chr_input("Please enter (10 digit) manufacturer name:\t",temp_car->manufacturer_name,MAX_LEN_TEN);
-    res = get_chr_input("Please enter (10 digit) model name:\t",temp_car->model_name,MAX_LEN_TEN);
-    res = get_chr_input("Please enter (7 digit) color of car:\t",temp_car->color,MAX_LEN_SEVEN);
-    res = get_int_input("Please enter (4 digit) year of relase:\t",&temp_car->year_of_relase,MAX_LEN_FOUR);
-    res = get_int_input("Please enter (4 digit) road raising year:\t",&temp_car->road_raising_year,MAX_LEN_FOUR);
-    res = get_int_input("Please enter (7 digit) supplier price:\t",&temp_car->supplier_price,MAX_LEN_SEVEN);
-    res = get_int_input("Please enter (7 digit) current price:\t",&temp_car->current_price,MAX_LEN_SEVEN);
-    res = get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car->engine_capacity,MAX_LEN_FOUR);
+    res = get_chr_input("Please enter (7 digit) license id number:\t",to_car->license_id,MAX_LEN_SEVEN);
+    res = get_chr_input("Please enter (5 digit) frame id number:\t",to_car->frame_id,MAX_LEN_FIVE);
+    res = get_chr_input("Please enter (10 digit) manufacturer name:\t",to_car->manufacturer_name,MAX_LEN_TEN);
+    res = get_chr_input("Please enter (10 digit) model name:\t",to_car->model_name,MAX_LEN_TEN);
+    res = get_chr_input("Please enter (7 digit) color of car:\t",to_car->color,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (4 digit) year of relase:\t",&to_car->year_of_relase,MAX_LEN_FOUR);
+    res = get_int_input("Please enter (4 digit) road raising year:\t",&to_car->road_raising_year,MAX_LEN_FOUR);
+    res = get_int_input("Please enter (7 digit) supplier price:\t",&to_car->supplier_price,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (7 digit) current price:\t",&to_car->current_price,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (4 digit) engine_capacity:\t",&to_car->engine_capacity,MAX_LEN_FOUR);
+    // res is overlodad  not god  need  to fix  //
     if(res == -1){
         printf("error input is invlid \n");
-        (temp_car)->is_empty = 1 ;
+        (to_car)->is_empty = 1 ;
         return -1 ;
     }
     printf("\n");
-    (temp_car)->is_empty = 0 ;
+    (to_car)->is_empty = 0 ;
     return 0; 
 }
     
-struct Car copy_car(struct Car *other){
-        struct Car temp ; 
-        strcpy(temp.color,other->color);
-        temp.current_price = other->current_price;
-        temp.engine_capacity = other->engine_capacity;
-        strcpy(temp.frame_id,other->frame_id);
-        strcpy(temp.license_id,other->license_id);
-        strcpy(temp.manufacturer_name,other->manufacturer_name);
-        strcpy(temp.model_name,other->model_name);
-        temp.road_raising_year = other->road_raising_year;
-        temp.supplier_price = other->supplier_price;
-        temp.year_of_relase = other->year_of_relase;
-        temp.is_empty = 0 ;
-        return temp;     
+int  copy_car(struct Car *to,struct Car *from){ 
+        if(to && from){
+        strcpy(to->color,from->color);
+        to->current_price = from->current_price;
+        to->engine_capacity = from->engine_capacity;
+        strcpy(to->frame_id,from->frame_id);
+        strcpy(to->license_id,from->license_id);
+        strcpy(to->manufacturer_name,from->manufacturer_name);
+        strcpy(to->model_name,from->model_name);
+        to->road_raising_year = from->road_raising_year;
+        to->supplier_price = from->supplier_price;
+        to->year_of_relase = from->year_of_relase;
+        to->is_empty = 0 ;
+        return 1;     
+        }
+        return -1; 
 }
 
 
-int addCarToArray(struct Car car,struct Car *car_list){
-    if(!car_list){
-        car_list[count_index_array] = copy_car(&car);
-        count_index_array++;
-        return 0 ; 
+int addCarToArray(struct Car* car,struct Car* car_list){
+    if(car_list && car ){
+        if(copy_car((car_list+count_index_array),car)){
+            count_index_array++;
+            return 0 ; 
+        }
     }
     return -1 ; 
 }
