@@ -9,9 +9,9 @@ int createClientsList(struct Client* cli){
 
 // add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
 // 3. return Utils if in array 
- struct Client* addNewClient(){
+ struct Client addNewClient(){
     char first_name[MAX_LEN_NAME], last_name[MAX_LEN_NAME],id[MAX_LEN_SEVEN], car_license_id[MAX_LEN_SEVEN];
-    int *year, *month, *day, *hour, *minutes, *price_per_hour;
+    int year, month, day, hour, minutes, price_per_hour;
     Client* temp_client;
     // Date* temp_date;
     // struct Time* temp_time;
@@ -26,22 +26,22 @@ int createClientsList(struct Client* cli){
     strcpy((temp_client)->car_license_id,car_license_id);
 
     //there`s still a problem with scannig the int input 
-    get_int_input("Please enter price_per_hour",price_per_hour,4);
-    (temp_client)->price_per_hour=*price_per_hour;
+    get_int_input("Please enter price_per_hour",&price_per_hour,4);
+    (temp_client)->price_per_hour=price_per_hour;
 
-    get_int_input("Please enter (4 digit) year of start_rent_date",year,4);
-    (temp_client)->start_rent_date.year=*year;
-    get_int_input("Please enter (2 digit) month of start_rent_date",month,2);
-    (temp_client)->start_rent_date.month=*month;
-    get_int_input("Please enter (2 digit) day of start_rent_date",day,2);
-    (temp_client)->start_rent_date.day=*day;
+    get_int_input("Please enter (4 digit) year of start_rent_date",&year,4);
+    (temp_client)->start_rent_date.year=year;
+    get_int_input("Please enter (2 digit) month of start_rent_date",&month,2);
+    (temp_client)->start_rent_date.month=month;
+    get_int_input("Please enter (2 digit) day of start_rent_date",&day,2);
+    (temp_client)->start_rent_date.day = day;
 
-    get_int_input("Please enter (2 digit) minutes of start_rent_time",minutes,2);
-    (temp_client)->start_rent_time.minutes=*minutes;
-    get_int_input("Please enter (2 digit) hour of start_rent_date",hour,2);
-    (temp_client)->start_rent_time.hour=*hour; 
+    get_int_input("Please enter (2 digit) minutes of start_rent_time",&minutes,2);
+    (temp_client)->start_rent_time.minutes=minutes;
+    get_int_input("Please enter (2 digit) hour of start_rent_date",&hour,2);
+    (temp_client)->start_rent_time.hour=hour; 
 
-    return temp_client; 
+    return *temp_client; 
  }
 void print_client(struct Client* client){
             //if(car->is_empty){

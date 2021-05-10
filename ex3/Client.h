@@ -37,7 +37,7 @@ int createClientsList(struct Client* cli);
 
 // add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
 // 3. return error if in array 
- struct Client* addNewClient();
+ struct Client addNewClient();
 
 // sarch for cars in data base 
  struct Client* searchBy( struct Client* cli, char attr[], char* value);
