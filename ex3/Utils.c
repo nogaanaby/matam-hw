@@ -1,6 +1,5 @@
 
 #include "Utils.h"
-#include <string.h>
 
 //theres a problem here -> some of the fields has a maximum size that smaller one does much as well
 int validateInput(char* data,unsigned int size,int fixedSize){
@@ -15,9 +14,9 @@ int validateInput(char* data,unsigned int size,int fixedSize){
         return -1;
     }
     int i;
-    for(i = 0;i < strlen(data); i++){
+    for(i = 0 ; i < strlen(data); i++){
         /*check type error*/
-        if(!(isalpha(data[i])) && !(isdigit(data[i])) && !(isspace(data[i])) ){
+        if(!isalpha(data[i]) && !isdigit(data[i]) && !isspace(data[i]) ){
             printError(type_);
             return -1;
         }
@@ -30,15 +29,19 @@ int validateInputInt(int data,unsigned int size){
     if(data < 0 ){
         printError(negitive_);
         return -1;  
-    }else if(!isdigit(data)){
-         printError(type_);
-         return -1;
     }else{
         int i = 0 ; 
         char temp_buf[TEN+1];
         /*convert int to char array seve into temp_buf*/
         sprintf(temp_buf,"%d",data);
-        if(strlen(temp_buf) != size){
+        for(i = 0 ; i < strlen(temp_buf) ;i++){
+            if(!isdigit(temp_buf[i])){
+                printError(type_);
+                return -1;
+            }
+        }
+        if(!(strlen(temp_buf) <= size)){
+            printf("size of input:\t%d\n",strlen(temp_buf));
             printf("intger value error:\t\n");
             printError(size_);
             return -1;
@@ -67,8 +70,9 @@ void printError(int errorCode){
 }
 
 int get_chr_input(char text[],char *attr,int attr_size ){
-    printf("%s:\t\n",text);
+    printf("%s\t\n",text);
     scanf("%s",attr);
+    attr[attr_size-1] = '\0';
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;
     }else{

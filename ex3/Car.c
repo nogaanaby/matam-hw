@@ -1,6 +1,6 @@
 
 #include "car.h"
-#include "Error.h"
+#include "Utils.h"
 
 // create array of cars fix size N, set the fildes to zero 
 int createCarList(struct Car* car){
@@ -28,7 +28,8 @@ int createCarList(struct Car* car){
 // 3. return error if in array 
 struct Car addNewCar(){
 // to Do 
-    Car temp_car =  get_input_from_user();
+    Car temp_car ;
+    get_input_from_user(&temp_car);
     print_car(&temp_car);
     /* chenge is_empty to false*/
     /*splite into 3 function 1. get_input 2. check input 3. 
@@ -36,53 +37,25 @@ struct Car addNewCar(){
     return temp_car;
 }
 
-struct Car get_input_from_user(){
-    char *license_id,*frame_id,*manufacturer_name,*model_name,*color;
-    int supplier_price,current_price,engine_capacity,year_of_relase,road_raising_year;
-    Car* temp_car ;
-    printf("Please enter (7 digit) license id number:\t\n");
-    scanf("%s",license_id);
-    if(validateInput(license_id,MAX_LEN_SEVEN) == 0 )
-        strcpy((temp_car)->license_id,license_id);
-    printf("Please enter (5 digit) frame id number:\t\n");
-    scanf("%s",frame_id);
-    if(validateInput(frame_id,MAX_LEN_SEVEN) == 0 )
-        strcpy((temp_car)->frame_id,frame_id);
-    printf("Please enter (10 digit) manufacturer name:\t\n");
-    scanf("%s",manufacturer_name);
-    if(validateInput(manufacturer_name,MAX_LEN_TEN) == 0 )
-        strcpy((temp_car)->manufacturer_name,manufacturer_name);
-    printf("Please enter (10 digit) model name:\t\n");
-    scanf("%s",model_name);
-    if(validateInput(model_name,MAX_LEN_TEN) == 0)
-        strcpy((temp_car)->model_name,model_name);
-    printf("Please enter (7 digit) color of car:\t\n");
-    scanf("%s",color);
-    if(validateInput(color,MAX_LEN_SEVEN) == 0 )
-        strcpy((temp_car)->color,color);
-    printf("Please enter (4 digit) year of relase:\t\n");
-    scanf("%d",&year_of_relase);
-    if(validateInputInt(year_of_relase,MAX_LEN_FOUR) == 0)
-        (temp_car)->year_of_relase = year_of_relase;
-    printf("Please enter (4 digit) road raising year:\t\n");
-    scanf("%d",&road_raising_year);
-    if(validateInputInt(road_raising_year,MAX_LEN_FOUR) == 0)
-        (temp_car)->road_raising_year = road_raising_year;
-    printf("Please enter (7 digit) supplier price:\t\n");
-    scanf("%d",&supplier_price);
-    if(validateInputInt(supplier_price,MAX_LEN_SEVEN) == 0)
-        (temp_car)->supplier_price = supplier_price;        
-    printf("Please enter (7 digit) current price:\t\n");
-    scanf("%d",&current_price);
-    if(validateInputInt(current_price,MAX_LEN_SEVEN) == 0)
-        (temp_car)->current_price = current_price;       
-    printf("Please enter (4 digit) engine_capacity:\t\n");
-    scanf("%d",&engine_capacity);
-    if(validateInputInt(engine_capacity,MAX_LEN_SEVEN) == 0)
-        (temp_car)->engine_capacity = engine_capacity;
-    (temp_car)->is_empty = 1 ;
-
-    return *temp_car; 
+int get_input_from_user(struct Car *temp_car){
+    int res = 0 ; 
+    res = get_chr_input("Please enter (7 digit) license id number:\t",temp_car->license_id,MAX_LEN_SEVEN);
+    res = get_chr_input("Please enter (5 digit) frame id number:\t",temp_car->frame_id,MAX_LEN_FIVE);
+    res = get_chr_input("Please enter (10 digit) manufacturer name:\t",temp_car->manufacturer_name,MAX_LEN_TEN);
+    res = get_chr_input("Please enter (10 digit) model name:\t",temp_car->model_name,MAX_LEN_TEN);
+    res = get_chr_input("Please enter (7 digit) color of car:\t",temp_car->color,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (4 digit) year of relase:\t",&temp_car->year_of_relase,MAX_LEN_FOUR);
+    res = get_int_input("Please enter (4 digit) road raising year:\t",&temp_car->road_raising_year,MAX_LEN_FOUR);
+    res = get_int_input("Please enter (7 digit) supplier price:\t",&temp_car->supplier_price,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (7 digit) current price:\t",&temp_car->current_price,MAX_LEN_SEVEN);
+    res = get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car->engine_capacity,MAX_LEN_FOUR);
+    if(res == -1){
+        printf("error input is invlid \n");
+        return -1 ;
+    }
+    printf("\n");
+    (temp_car)->is_empty = 0 ;
+    return 0; 
 }
     
 
@@ -107,7 +80,7 @@ struct Car* searchBy_engine_capacity( struct Car* car, char* value){
     if(car == NULL ){printf("error list is empty\n");return NULL;}
         for(int i =0 ; i < N ; i++){
             if(!((car+i)->is_empty)){
-                if( (car+i)->engine_capacity == value ){
+                if( strcmp((car+i)->license_id,value) == 0 ){
                     return (car+i);
                 }
             }
@@ -128,7 +101,7 @@ void print_car(struct Car* car){
                 printf("license number:\t%s\n",(car)->license_id);
                 printf("manufacturer name:\t%s\n",(car)->manufacturer_name);
                 printf("model name:\t%s\n",(car)->model_name);
-                printf("price:\t%d\n",(car)->road_raising_year);
+                printf("road rising year :\t%d\n",(car)->road_raising_year);
                 printf("supplier_price:\t%d\n",(car)->supplier_price);
                 printf("year of relase:\t%d\n\n",(car)->year_of_relase);
             }  

@@ -5,10 +5,6 @@
 #ifndef SUPPLIER_H
 #define SUPPLIER_H
 
-#include <stdio.h>
-#include <math.h>
-#include <stdbool.h>
-#include <string.h>
 
 #define TEN 10
 #define FIVE 5
@@ -31,7 +27,7 @@ int createSuppliersList(struct Supplier* sup);
  int count_transactions,int sum_of_total_transactions_price);
 
 // sarch for cars in data base 
- struct Supplier* searchBy( struct Supplier* sup, char attr[], char* value);
+struct Suppliers* searchBy( struct Supplier* cli, char attr[], char* value);
 
 // delte car cy id number
 int deleteSupplier(char* Supplier_id);

@@ -6,8 +6,7 @@
 #define MAX_LEN_FIVE 5
 #define N 30
 
-#include<stdio.h>
-#include<string.h>
+
 enum type{int_,char_};
 
 typedef struct Car
@@ -32,7 +31,7 @@ int createCarList(struct Car* carsList);
 // 3. return error if in array 
 struct Car addNewCar();
 //splite addNewCar into 3 function 1.input 2. valid input => (inside file io.h) 3. add to array 
-struct Car get_input_from_user();
+int get_input_from_user(struct Car *temp_car);
 int addCarToArray(struct Car car);
 // sarch for cars in data base 
 struct Car* searchBy_license_id( struct Car* car, char* value);
