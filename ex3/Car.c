@@ -48,7 +48,7 @@ int addNewCar(struct Car *car_list){
 
 int get_input_from_user(struct Car *to_car){
     int res = 0 ; 
-    res = get_chr_input("Please enter (7 digit) license id number:\t",to_car->license_id,MAX_LEN_SEVEN);
+    res = get_chr_input("Please enter (7 digit) license id number:\t",to_car->license_id,MAX_LEN_SEVEN+1);
     res = get_chr_input("Please enter (5 digit) frame id number:\t",to_car->frame_id,MAX_LEN_FIVE);
     res = get_chr_input("Please enter (10 digit) manufacturer name:\t",to_car->manufacturer_name,MAX_LEN_TEN);
     res = get_chr_input("Please enter (10 digit) model name:\t",to_car->model_name,MAX_LEN_TEN);
@@ -103,23 +103,27 @@ struct Car* searchBy_license_id( struct Car* car, char* value){
 // to Do
     if(car == NULL ){printf("error list is empty\n");return NULL;}
     for(int i = 0 ; i < N ; i++){
-        if((car+i)->is_empty == 1){ return NULL;}
-        if( strcmp((car+i)->license_id,value) == 0 ){
-            return (car+i);
+        if(!(car+i)->is_empty == 1){ 
+             if( strcmp((car+i)->license_id,value) == 0 ){
+               return (car+i);
+            }
         }
     }
     return NULL;
 }
 
-struct Car* searchBy_engine_capacity( struct Car* car, char* value){
-    if(car == NULL ){printf("error list is empty\n");return NULL;}
+struct Car* searchBy_engine_capacity( struct Car* car, int value){
+    if(car == NULL ){
+        printf("error list is empty\n");
+        return NULL;
+    }
         for(int i =0 ; i < N ; i++){
             if(!((car+i)->is_empty)){
-                if( strcmp((car+i)->license_id,value) == 0 ){
+                if((car+i)->engine_capacity == value ){
                     return (car+i);
                 }
             }
-    }
+        }
     return NULL;
 }
 

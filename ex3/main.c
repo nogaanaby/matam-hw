@@ -1,15 +1,7 @@
 #include "Car.h"
 #include <stdio.h>
-#include "Client.h"
-
-
-void clients(){
-    struct Client c = addNewClient();
-    print_client(&c);
-}
 
 int main(){
-    clients();
     /* test for car */
     struct Car list_car[N]; 
     createCarList(list_car);
@@ -26,5 +18,11 @@ int main(){
         printf("-");
     printf("\n");
     print_car_list(list_car);
+
+    // search  result  in array 
+    print_car(searchBy_license_id(list_car,"1234"));
+    print_car(searchBy_engine_capacity(list_car,2000));
+    
+
     return 0;
 }

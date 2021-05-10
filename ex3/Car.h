@@ -7,8 +7,6 @@
 #define N 8
 
 
-enum type{int_,char_};
-
 static int count_index_array = 0 ; 
 typedef struct Car
 {
@@ -36,7 +34,7 @@ int get_input_from_user(struct Car *temp_car);
 int addCarToArray(struct Car *car,struct Car *car_list);
 // sarch for cars in data base 
 struct Car* searchBy_license_id( struct Car* car, char* value);
-struct Car* searchBy_engine_capacity( struct Car* car, char* value);
+struct Car* searchBy_engine_capacity( struct Car* car, int value);
 // print car and car list 
 void print_car(struct Car* car);
 void print_car_list(struct Car* car);
