@@ -5,7 +5,7 @@ Shahar Amshili 308054337
 
 
 gcc main.c -o main
-gcc mySource.c -ansi -Wall -pedantic-errors -lm -o myProg
+gcc Car.c -ansi -Wall -pedantic-errors -lm -o car
 
 gcc -g  Client.c -o client_c
 gcc -g  Utils.c -o Utils_c
