@@ -4,8 +4,8 @@
 
 
 void clients(){
-    struct Client *c = addNewClient();
-    print_client(c);
+    struct Client c = addNewClient();
+    print_client(&c);
 }
 
 int main(){
