@@ -19,10 +19,17 @@ int main(){
     printf("\n");
     print_car_list(list_car);
 
-    // search  result  in array 
-    print_car(searchBy_license_id(list_car,"1234"));
-    print_car(searchBy_engine_capacity(list_car,2000));
-    
+    // search  result  in array
+    struct Car *res ; 
+    res = searchBy_engine_capacity(list_car,2000);
+    if(res){
+        print_car(res);
+    }
+
+    res = searchBy_license_id(list_car,12345);
+    if(res){
+        print_car(res);
+    }
 
     return 0;
 }
