@@ -113,17 +113,41 @@ void print_cars(struct Car *list_car){
     printf("\n");
     print_car_list(list_car);
 }
-
-void run_clients_test(struct Client* clients_list){
+void fill_in_clients_list(struct Client* clients_list){
     createClientsList(clients_list);
-    for(int i = 0 ; i < 2 ; i++){
+    for(int i = 0 ; i < 4 ; i++){
         addNewClient(clients_list);
     }
     print_clients_list(clients_list);
 
+}
+
+void fill_in_cars_list(struct Car* cars_list){
+    createCarList(cars_list);
+    for(int i = 0 ; i < 3 ; i++){
+        addNewCar(cars_list);
+    }
+    print_cars(cars_list);
+}
+
+
+void run_clients_test(struct Client* clients_list){
+    fill_in_clients_list(clients_list);
+
     printf("------------------------after insert clients data--------------------\n");
 
-    deleteClient((clients_list+0)->id,clients_list);
+    deleteAllClients(clients_list);
+
+    //deleteClient((clients_list+0)->id,clients_list);
 
     print_clients_list(clients_list);
+    
+}
+
+void run_clients_and_cars_test(struct Client* clients_list,struct Car* cars_list){
+    fill_in_clients_list(clients_list);
+    fill_in_cars_list(cars_list);
+
+    int cli= clientNumberWithGivenCarYear(2004, cars_list, clients_list);
+    printf("there are %d clients who have cars from %d", cli, 2004);
 }

@@ -74,8 +74,6 @@ int get_chr_input(char text[],char *attr,int attr_size ){
     scanf("%s",attr);
     // close the string
     strcat(attr,"\0");
-    printf("%s\t\n",attr);
-    
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;
     }else{

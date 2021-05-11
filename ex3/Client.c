@@ -96,34 +96,23 @@ void print_clients_list(struct Client* client){
     }     
 }
 
-// int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list){
-//     //go to each client -> car_license_id
-//     int count=0;
-//     int temp_license_id;
-//     struct Car myCar;
-//     for(int i = 0 ; i < NUM ; i++){
-//         temp_license_id=(client_list+i)->car_license_id;
-//         struct Car *temp_car = searchBy_license_id(cars_list,temp_license_id );
-//         if(temp_car!=NULL){
-//             if((temp_car)->year_of_relase==year){
-//                 count++;
-//             }
-//         }
+int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list){
+    int count=0;
+    int temp_license_id;
+    struct Car myCar;
+    for(int i = 0 ; i < NUM ; i++){
+        temp_license_id=(client_list+i)->car_license_id;
+        struct Car *temp_car = searchBy_license_id(cars_list,temp_license_id );
+        if(temp_car!=NULL){
+            if((temp_car)->year_of_relase==year){
+                count++;
+            }
+        }
 
-//     } 
-//     return count;
-//     //searchBy_license_id(client_car_license_id)
-//     //check if the seach doesnt return null
-//     //check wether this car year_of_relase is the same year I looking for
-//     //if so, i count +1
-//     //struct Car* searchBy_license_id( struct Car* car, int value);
-// }
+    } 
+    return count;
+}
 
-// sarch for Client in data base 
-//  struct Client* searchBy( struct Client* cli, char attr[], char* value){
-//     struct Client cli;
-//     return &cli;
-//  }
 
 // delte Client by id number
 int deleteClient(char* client_id,struct Client *clients_list){
@@ -150,7 +139,7 @@ int deleteClient(char* client_id,struct Client *clients_list){
 int deleteAllClients(struct Client *clients_list){
     if(clients_list == NULL ){printf("list is empty\n");return -1;}
     for(int i = 0 ; i < NUM ; i++){
-        deleteClient( (clients_list+i)->id,clients_list ); 
+        deleteClient( (clients_list+i)->id,clients_list );
     } 
     return 0 ; 
 }

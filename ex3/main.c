@@ -37,8 +37,10 @@ int main(){
     //     run_test_car(list_car);
     // }
     /*start test sup*/
-    struct Client clients_list[2];
+    struct Client clients_list[3];
+    struct Car cars_list[3];
     run_clients_test(clients_list);
+    //run_clients_and_cars_test(clients_list,cars_list);
     // {
     //     struct Supplier sup_list[K];    
     //     run_test_supplier(sup_list);
