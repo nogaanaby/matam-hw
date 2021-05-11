@@ -2,13 +2,10 @@
 #include "car.h"
 #include "Utils.h"
 
-// create array of cars fix size N, set the fildes to zero 
+/* create array of cars fix size N, set the fildes to zero */ 
 int createCarList(struct Car* car){
-// to Do
-    //check if the(car has the correct types and size
         if(car == NULL ){printf("error list is empty\n");return -1;}
         for(int i = 0 ; i <  N ; i++){
-            /* init the string with zero*/
             strcpy((car+i)->color,"");
             (car+i)->current_price =0;
             (car+i)->engine_capacity =0;
@@ -24,14 +21,12 @@ int createCarList(struct Car* car){
     return 0;
 }
 
-// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
-// 3. return error if in array 
+ 
 /* chenge is_empty to false*/
 /*splite into 3 function 1. get_input 2. check input 3. 
 return car and put into array in index  */
   
-int  addNewCar(struct Car *car_list){
-// to Do 
+int  addNewCar(struct Car *car_list){ 
     Car temp_car ;
     get_input_from_user(&temp_car);
     addCarToArray(&temp_car,car_list);
@@ -84,9 +79,8 @@ int addCarToArray(struct Car *car,struct Car *car_list){
     return -1; 
 }
 
-// sarch for cars in data base, return pointer  from struct 
+/* sarch for cars in data base, return pointer from struct */ 
 struct Car* searchBy_license_id( struct Car* car,int value){
-// to Do
 if(car == NULL ){printf("error list is empty\n");return NULL;}
     for(int i = 0 ; i < N ; i++){
         if(!(car+i)->is_empty == 1){ 
@@ -117,7 +111,6 @@ void print_car(struct Car* car){
             if(car->is_empty){
                 printf("car is empty\n");
             }else {
-            /* init the string with zero*/
                 printf("color:\t%s\n",(car)->color);
                 printf("price:\t%d\n",(car)->current_price);
                 printf("engine capcity\t%d\n",(car)->engine_capacity);
@@ -138,9 +131,8 @@ void print_car_list(struct Car* car){
     }     
 }
 
-// delte car cy id number
+/* delte car by id number*/
 int deleteCar(struct Car* car,int license_id){
-    // do we need to move all the valus of array backword  ?
     struct Car* res = searchBy_license_id(car,license_id);
     if(res != NULL ){
         deleteSingleCar(res);
@@ -149,7 +141,7 @@ int deleteCar(struct Car* car,int license_id){
     return -1 ; 
 }
 
-// delete all cars 
+/* delete all cars */
 int deleteAllCars(struct Car* car){
     if(car == NULL ){printf("list is empty\n");return -1;}
     for(int i = 0 ; i < count_index_array ; i++){
