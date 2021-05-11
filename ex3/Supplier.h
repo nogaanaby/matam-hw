@@ -10,30 +10,34 @@
 #define FIVE 5
 #define K 50 
 
+static unsigned int size_k = 0 ;
+static unsigned int count_index = 0 ; 
+
 struct Supplier {
-  char id[TEN];
+  int id;
   char name[FIVE];
-  char phone_number[TEN];
+  int phone_number;
   int count_transactions;
   int sum_of_total_transactions_price;
+  int is_empty;
 };
 
-// create array of Suppliers with stdin input M , set the fildes to zero 
-int createSuppliersList(struct Supplier* sup);
-
-// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
-// 3. return error if in array 
- struct Supplier* addNewSupplier(char* id[],char name[], char phone_number[],
- int count_transactions,int sum_of_total_transactions_price);
-
-// sarch for cars in data base 
-struct Suppliers* searchBy( struct Supplier* cli, char attr[], char* value);
-
-// delte car cy id number
-int deleteSupplier(char* Supplier_id);
-
-// delete all cars 
-int deleteAllSuppliers();
+/* create array of Suppliers with stdin input K */
+int createSuppliersList(struct Supplier* sup_list);
+/* add new supplier function */ 
+int addNewSupplier(struct Supplier *temp_sup);
+int addSupToArray(struct Supplier *temp_sup,struct Supplier* sup_list);
+int get_input_from_user_sup(struct Supplier *temp_sup);
+/* search function */
+struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list, int supplier_id);
+struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list);
+/* print function */
+void print_sup_list(struct Supplier* sup_list);
+void print_sup(struct Supplier* sup);
+/* delete function */
+int deleteSupplier(struct Supplier* sup_list,int Supplier_id);
+void deletSingleSupplier(struct Supplier *s); 
+int deleteAllSuppliers(struct Supplier *sup_list);
 
 #endif
 

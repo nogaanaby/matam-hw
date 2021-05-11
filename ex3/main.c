@@ -1,35 +1,21 @@
 #include "Car.h"
-#include <stdio.h>
+#include "Supplier.h"
+#include "test.h"
+
+
 
 int main(){
-    /* test for car */
-    struct Car list_car[N]; 
-    createCarList(list_car);
-    // print_car_list(list_car);
-    for(int i = 0 ; i < 2 ; i++)
-        addNewCar(list_car);
-    //  struct Client *c = addNewClient();
-    //  print_client(c);
-    printf("\n");
-    for(int i =0 ; i < 10 ;i++)
-        printf("-");
-    printf(" print car list ");
-    for(int i =0 ; i < 10 ;i++)
-        printf("-");
-    printf("\n");
-    print_car_list(list_car);
-
-    // search  result  in array
-    struct Car *res ; 
-    res = searchBy_engine_capacity(list_car,2000);
-    if(res){
-        print_car(res);
+    /*start test car*/
+    // {
+    //     struct Car list_car[N];
+    //     run_test_car(list_car);
+    // }
+    /*start test sup*/
+    
+    {
+        struct Supplier sup_list[K];    
+        run_test_supplier(sup_list);
     }
-
-    res = searchBy_license_id(list_car,12345);
-    if(res){
-        print_car(res);
-    }
-
-    return 0;
+     return 0;
 }
+
