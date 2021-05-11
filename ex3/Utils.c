@@ -72,7 +72,6 @@ void printError(int errorCode){
 int get_chr_input(char text[],char *attr,int attr_size ){
     printf("%s\t\n",text);
     scanf("%s",attr);
-    printf("%s = attr\t\n",*attr);
     // close the string
     if(validateInput(attr,attr_size,0) == 0 ){
          printf("got inside ok\t\n");
