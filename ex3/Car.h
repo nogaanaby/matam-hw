@@ -4,16 +4,15 @@
 #define MAX_LEN_FOUR  4 
 #define MAX_LEN_SEVEN 7
 #define MAX_LEN_FIVE 5
-#define N 8
+#define N 3
 
-
-enum type{int_,char_};
 
 static int count_index_array = 0 ; 
+
 typedef struct Car
 {
-    char license_id[MAX_LEN_SEVEN];
-    char frame_id[MAX_LEN_FIVE];
+    int license_id;
+    int frame_id;
     char manufacturer_name[MAX_LEN_TEN];
     char model_name[MAX_LEN_TEN];
     char color[MAX_LEN_SEVEN];
@@ -35,15 +34,15 @@ int addNewCar(struct Car *car_list);
 int get_input_from_user(struct Car *temp_car);
 int addCarToArray(struct Car *car,struct Car *car_list);
 // sarch for cars in data base 
-struct Car* searchBy_license_id( struct Car* car, char* value);
-struct Car* searchBy_engine_capacity( struct Car* car, char* value);
+struct Car* searchBy_license_id( struct Car* car, int value);
+int carNumberWithGivenCapacity( struct Car* car, int value);
 // print car and car list 
 void print_car(struct Car* car);
 void print_car_list(struct Car* car);
 // make adeep copy of car objrct 
 int  copy_car(struct Car *to,struct Car *from); 
 // delte car by engine value
-int deleteCar(struct Car* car,char* license_id);
+int deleteCar(struct Car* car,int license_id);
 // delete all cars 
 int deleteAllCars(struct Car* carsList);
 void deleteSingleCar(struct Car* c); 

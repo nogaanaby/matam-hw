@@ -72,8 +72,8 @@ void printError(int errorCode){
 int get_chr_input(char text[],char *attr,int attr_size ){
     printf("%s\t\n",text);
     scanf("%s",attr);
-    // close the string 
-    *(attr+strlen(attr)+1) = '\0';
+    // close the string
+    attr[attr_size-1] = '\0'; 
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;
     }else{
