@@ -8,7 +8,7 @@
 
 #define TEN 10
 #define FIVE 5
-
+#define K 50 
 
 struct Supplier {
   char id[TEN];
