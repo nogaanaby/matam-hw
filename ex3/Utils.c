@@ -74,7 +74,6 @@ int get_chr_input(char text[],char *attr,int attr_size ){
     scanf("%s",attr);
     printf("%s = attr\t\n",*attr);
     // close the string
-    attr[attr_size-1] = '\0'; 
     if(validateInput(attr,attr_size,0) == 0 ){
          printf("got inside ok\t\n");
         return 0;

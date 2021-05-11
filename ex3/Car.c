@@ -19,7 +19,7 @@ int createCarList(struct Car* car){
             (car+i)->road_raising_year = 0;
             (car+i)->supplier_price = 0;
             (car+i)->year_of_relase = 0;
-            (car+i)->is_empty = 0 ;             
+            (car+i)->is_empty = 1 ;             
         }
     return 0;
 }
@@ -67,18 +67,19 @@ int  copy_car(struct Car *to,struct Car *from){
             (to)->supplier_price = from->supplier_price;
             (to)->year_of_relase = from->year_of_relase;
             (to)->is_empty = 0 ;
-            return 0 ;                      
+            return 1 ;                      
     }
-    return -1 ;
+    return 0 ;
 } 
 
 
 int addCarToArray(struct Car *car,struct Car *car_list){
-    if(car && car_list){
-        copy_car(car_list+count_index_array,car);
-        printf("add new  car to array in index %d \n",count_index_array);
-        count_index_array++;
-        return 0; 
+    if(car && car_list && (car_list+count_index_array)->is_empty){
+        if(copy_car(car_list+count_index_array,car)){
+            printf("add new  car to array in index %d \n",count_index_array);
+            count_index_array++;
+            return 0; 
+        }
     }
     return -1; 
 }
@@ -90,7 +91,7 @@ if(car == NULL ){printf("error list is empty\n");return NULL;}
     for(int i = 0 ; i < N ; i++){
         if(!(car+i)->is_empty == 1){ 
             if((car+i)->license_id == value ){
-                printf("***find car in index %d***\n",i);
+                    printf("***find car in index %d***\n",i);
                     return (car+i);
             }
         }
@@ -100,10 +101,9 @@ if(car == NULL ){printf("error list is empty\n");return NULL;}
 
 int carNumberWithGivenCapacity( struct Car* car, int value){
     int count = 0 ; 
-    if(car == NULL ){printf("error list is empty\n");return NULL;}
+    if(car == NULL ){printf("error list is empty\n");return 0;}
         for(int i =0 ; i < N ; i++){
             if(!((car+i)->is_empty)){
-                printf("***find car in index %d***\n",i);
                 if( (car+i)->engine_capacity == value ){
                     count++;
                 }
@@ -133,7 +133,7 @@ void print_car(struct Car* car){
 
 void print_car_list(struct Car* car){
     for(int i = 0 ; i <  N ; i++){
-        printf("index in array:\t%d\n",i);
+        printf("index :\t%d\n",i);
         print_car(car+i);
     }     
 }
@@ -152,10 +152,10 @@ int deleteCar(struct Car* car,int license_id){
 // delete all cars 
 int deleteAllCars(struct Car* car){
     if(car == NULL ){printf("list is empty\n");return -1;}
-    for(int i = 0 ; i < N && (car+i) != NULL ; i++){
+    for(int i = 0 ; i < count_index_array ; i++){
         deleteSingleCar(car+i); 
-    }
-    car = NULL ; 
+    } 
+    count_index_array = 0 ; 
     return 0 ; 
 }
 

@@ -1,4 +1,6 @@
 #include "Car.h"
+#include "Supplier.h"
+#include "test.h"
 #include <stdio.h>
 #include "Client.h"
 
@@ -35,15 +37,21 @@ void cars(){
         print_car(res);
     }
 
-    res = searchBy_license_id(list_car,12345);
-    if(res){
-        print_car(res);
-    }
-}
 
 
 int main(){
+    /*start test car*/
+    // {
+    //     struct Car list_car[N];
+    //     run_test_car(list_car);
+    // }
+    /*start test sup*/
     clients();
-
+    {
+        struct Supplier sup_list[K];    
+        run_test_supplier(sup_list);
+    }
     return 0;
 }
+     
+
