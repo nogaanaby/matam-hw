@@ -1,7 +1,7 @@
 
 #include "Utils.h"
 #include <stdio.h>
-//theres a problem here -> some of the fields has a maximum size that smaller one does much as well
+
 int validateInput(char* data,unsigned int size,int fixedSize){
     if(fixedSize==1 && strlen(data) != size ){
         /*check size error*/
@@ -86,7 +86,6 @@ int get_chr_input(char text[],char *attr,int attr_size ){
     return -1; 
 }
 
-//this function thows an error
 int get_int_input(char text[],int *attr,int attr_size ){
     printf("%s\t\n",text);
     scanf("%d",attr);

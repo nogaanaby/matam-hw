@@ -25,25 +25,25 @@ typedef struct Car
 }Car;
 
 
-// create array of cars fix size N, set the fildes to zero 
+/*create array of cars fix size N, set the fildes to zero */ 
 int createCarList(struct Car* carsList);
-// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
-// 3. return error if in array 
+/* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
+ 3. return error if in array */ 
 int addNewCar(struct Car *car_list);
-//splite addNewCar into 3 function 1.input 2. valid input => (inside file io.h) 3. add to array 
+/*splite addNewCar into 3 function 1.input 2. valid input => (inside file io.h) 3. add to array */
 int get_input_from_user(struct Car *temp_car);
 int addCarToArray(struct Car *car,struct Car *car_list);
-// sarch for cars in data base 
+/* sarch for cars in data base */ 
 struct Car* searchBy_license_id( struct Car* car, int value);
 int carNumberWithGivenCapacity( struct Car* car, int value);
-// print car and car list 
+/* print car and car list */
 void print_car(struct Car* car);
 void print_car_list(struct Car* car);
-// make adeep copy of car objrct 
+/* make adeep copy of car objrct */
 int  copy_car(struct Car *to,struct Car *from); 
-// delte car by engine value
+/* delte car by engine value */
 int deleteCar(struct Car* car,int license_id);
-// delete all cars 
+/* delete all cars */
 int deleteAllCars(struct Car* carsList);
 void deleteSingleCar(struct Car* c); 
 
