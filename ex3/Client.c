@@ -1,49 +1,83 @@
 #include "Client.h" 
 #include "Utils.h"
-#include "Utils.c"
 
 // create array of cluint with stdin input M , set the fildes to zero 
-int createClientsList(struct Client* cli){
-    // to do 
+int createClientsList(struct Client* client){
+    if(client == NULL ){
+        printf("error list is empty\n");
+        return -1;
+    }
+        for(int i = 0 ; i < NUM; i++){
+            /* init the string with zero*/
+            strcpy((client+i)->first_name,"");
+            strcpy((client+i)->last_name,"");
+            strcpy((client+i)->id,"");
+            strcpy((client+i)->car_license_id,"");
+            
+            (client+i)->price_per_hour =0;
+            (client+i)->start_rent_date.year =0;
+            (client+i)->start_rent_date.month =0;
+            (client+i)->start_rent_date.day =0;
+            (client+i)->start_rent_time.hour =0;
+            (client+i)->start_rent_time.minutes =0;
+
+        }
     return 0;
 }
 
 // add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
 // 3. return Utils if in array 
- struct Client addNewClient(){
-    char first_name[MAX_LEN_NAME], last_name[MAX_LEN_NAME],id[MAX_LEN_SEVEN], car_license_id[MAX_LEN_SEVEN];
-    int year, month, day, hour, minutes, price_per_hour;
-    Client* temp_client;
-    // Date* temp_date;
-    // struct Time* temp_time;
-
-    get_chr_input("Please enter (20 digit) client first name",first_name,MAX_LEN_NAME);
-    strcpy((temp_client)->first_name,first_name);
-    get_chr_input("Please enter (20 digit) client last name",last_name,MAX_LEN_NAME);
-    strcpy((temp_client)->last_name,last_name);
-    get_chr_input("Please enter (7 digit) client id",id,MAX_LEN_SEVEN);
-    strcpy((temp_client)->id,id);
-    get_chr_input("Please enter (7 digit) car_license_id",car_license_id,MAX_LEN_SEVEN);
-    strcpy((temp_client)->car_license_id,car_license_id);
-
-    //there`s still a problem with scannig the int input 
-    get_int_input("Please enter price_per_hour",&price_per_hour,4);
-    (temp_client)->price_per_hour=price_per_hour;
-
-    get_int_input("Please enter (4 digit) year of start_rent_date",&year,4);
-    (temp_client)->start_rent_date.year=year;
-    get_int_input("Please enter (2 digit) month of start_rent_date",&month,2);
-    (temp_client)->start_rent_date.month=month;
-    get_int_input("Please enter (2 digit) day of start_rent_date",&day,2);
-    (temp_client)->start_rent_date.day = day;
-
-    get_int_input("Please enter (2 digit) minutes of start_rent_time",&minutes,2);
-    (temp_client)->start_rent_time.minutes=minutes;
-    get_int_input("Please enter (2 digit) hour of start_rent_date",&hour,2);
-    (temp_client)->start_rent_time.hour=hour; 
-
-    return *temp_client; 
+ int addNewClient(struct Client* clients_list){
+    Client temp_client;
+    get_client_input_from_user(&temp_client);
+    addClientToArray(&temp_client,clients_list);
+    return 0; 
  }
+
+int get_client_input_from_user(struct Client *temp_client){
+    get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
+    get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
+    get_chr_input("Please enter (7 digit) client id:\t",temp_client->id,MAX_LEN_SEVEN);
+    get_chr_input("Please enter (7 digit) car_license_id:\t",temp_client->car_license_id,MAX_LEN_SEVEN);
+
+    get_int_input("Please enter price_per_hour:\t",&temp_client->price_per_hour,4);
+    get_int_input("Please enter start rent year (4 digits):\t",&temp_client->start_rent_date.year,4);
+    get_int_input("Please enter start rent month (2 digits):\t",&temp_client->start_rent_date.month,2);
+    get_int_input("Please enter start rent day (2 digits):\t",&temp_client->start_rent_date.day,2);
+    get_int_input("Please enter start rent hour (2 digits between 0-23):\t",&temp_client->start_rent_time.hour,2);
+    get_int_input("Please enter start rent minutes (2 digits between 0-59):\t",&temp_client->start_rent_time.minutes,2);
+
+    return 0; 
+}
+
+int copy_client(struct Client *to,struct Client *from){
+    if(from && to){
+            strcpy((to)->first_name,from->first_name);
+            strcpy((to)->last_name,from->last_name);
+            strcpy((to)->id,from->id);
+            strcpy((to)->car_license_id,from->car_license_id);
+
+            (to)->price_per_hour =from->price_per_hour;
+            (to)->start_rent_date.year =from->start_rent_date.year;
+            (to)->start_rent_date.month =from->start_rent_date.month;
+            (to)->start_rent_date.day =from->start_rent_date.day;
+            (to)->start_rent_time.hour =from->start_rent_time.hour;
+            (to)->start_rent_time.minutes =from->start_rent_time.minutes;
+            return 0 ;                      
+    }
+    return -1 ;
+} 
+
+int addClientToArray(struct Client *client,struct Client *clients_list){
+    if(client && clients_list){
+        copy_client(clients_list+count_array_index,client);
+        printf("add new client to array in index %d \n",count_array_index);
+        count_array_index++;
+        return 0; 
+    }
+    return -1; 
+}
+
 void print_client(struct Client* client){
             //if(car->is_empty){
             //    printf("car is empty\n");
@@ -55,6 +89,12 @@ void print_client(struct Client* client){
                 printf("car_license_id :\t%s\n",(client)->car_license_id);
              
             //}  
+}
+void print_clients_list(struct Client* client){
+    for(int i = 0 ; i < NUM; i++){
+        printf("index in array:\t%d\n",i);
+        print_client(client+i);
+    }     
 }
 
 // sarch for Client in data base 

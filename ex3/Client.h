@@ -6,6 +6,9 @@
 #define MAX_LEN_ID 9
 #define MAX_LEN_SEVEN 7 
 #define MAX_LEN_COST 5
+#define NUM 3
+
+static int count_array_index = 0;
 
 typedef struct Date{
     int day;
@@ -30,24 +33,27 @@ typedef struct Client{
 
 
 
-
-
 // create array of clients with stdin input M , set the fildes to zero 
-int createClientsList(struct Client* cli);
+int createClientsList(struct Client* clientsList);
 
-// add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
+// add a new client to array of client = > 1.check for this client in data 2.find the pleace in array 
 // 3. return error if in array 
- struct Client addNewClient();
+int addNewClient(struct Client *clientsList);
 
-// sarch for cars in data base 
- struct Client* searchBy( struct Client* cli, char attr[], char* value);
+int get_client_input_from_user(struct Client *temp_client);
+int addClientToArray(struct Client *client,struct Client *clientsList);
+int copy_client(struct Client *to,struct Client *from); 
 
-// delte car cy id number
+void print_client(struct Client* cli);
+void print_clients_list(struct Client* clientsList);
+
+// sarch for client in data base 
+struct Client* searchBy( struct Client* cli, char attr[], char* value);
+
+// delte client cy id number
 int deleteClient(char* client_id);
 
-// delete all cars 
+// delete all client 
 int deleteAllClients();
-void print_client(struct Client* cli);
-
 
 #endif
