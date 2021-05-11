@@ -4,14 +4,7 @@
 #include <stdio.h>
 #include "Client.h"
 
-void clients(){
-    struct Client clients_list[1]; 
-    createClientsList(clients_list);
-    for(int i = 0 ; i < 1 ; i++){
-        addNewClient(clients_list);
-    }
-    print_clients_list(clients_list);
-}
+
 // void cars(){
 //     /* test for car */
 //     struct Car list_car[N]; 
@@ -44,7 +37,8 @@ int main(){
     //     run_test_car(list_car);
     // }
     /*start test sup*/
-    clients();
+    struct Client clients_list[2];
+    run_clients_test(clients_list);
     // {
     //     struct Supplier sup_list[K];    
     //     run_test_supplier(sup_list);

@@ -26,7 +26,7 @@ typedef struct Client{
      char first_name[MAX_LEN_NAME];
      char last_name[MAX_LEN_NAME];
      char id[MAX_LEN_SEVEN]; 
-     char car_license_id[MAX_LEN_SEVEN];
+     int car_license_id;
      int price_per_hour;
      struct Date start_rent_date;
      struct Time start_rent_time;
@@ -53,7 +53,7 @@ void print_clients_list(struct Client* clientsList);
 int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
 
 // delte client cy id number
-int deleteClient(char* client_id);
+int deleteClient(char* client_id,struct Client *clients_list);
 
 // delete all client 
 int deleteAllClients(struct Client *clients_list);
