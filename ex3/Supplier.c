@@ -80,7 +80,7 @@ void print_sup_list(struct Supplier* sup_list){
 }
 
 struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list){
-
+    
 }
 
 // sarch for Supplier in data base 
