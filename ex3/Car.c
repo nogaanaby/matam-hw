@@ -103,17 +103,18 @@ if(car == NULL ){printf("error list is empty\n");return NULL;}
     return NULL;
 }
 
-struct Car* searchBy_engine_capacity( struct Car* car, int value){
+int carNumberWithGivenCapacity( struct Car* car, int value){
+    int count = 0 ; 
     if(car == NULL ){printf("error list is empty\n");return NULL;}
         for(int i =0 ; i < N ; i++){
             if(!((car+i)->is_empty)){
                 printf("***find car in index %d***\n",i);
                 if( (car+i)->engine_capacity == value ){
-                    return (car+i);
+                    count++;
                 }
             }
     }
-    return NULL;
+    return count;
 }
 
 

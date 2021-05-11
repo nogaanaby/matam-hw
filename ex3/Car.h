@@ -35,7 +35,7 @@ int get_input_from_user(struct Car *temp_car);
 int addCarToArray(struct Car *car,struct Car *car_list);
 // sarch for cars in data base 
 struct Car* searchBy_license_id( struct Car* car, int value);
-struct Car* searchBy_engine_capacity( struct Car* car, int value);
+int carNumberWithGivenCapacity( struct Car* car, int value);
 // print car and car list 
 void print_car(struct Car* car);
 void print_car_list(struct Car* car);
