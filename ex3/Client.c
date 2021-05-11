@@ -1,5 +1,6 @@
 #include "Client.h" 
 #include "Utils.h"
+#include "Utils.c"
 
 // create array of cluint with stdin input M , set the fildes to zero 
 int createClientsList(struct Client* cli){
@@ -57,9 +58,10 @@ void print_client(struct Client* client){
 }
 
 // sarch for Client in data base 
- struct Client* searchBy( struct Client* cli, char attr[], char* value){
-     return cli;
- }
+//  struct Client* searchBy( struct Client* cli, char attr[], char* value){
+//     struct Client cli;
+//     return &cli;
+//  }
 
 // delte Client by id number
 int deleteClient(char* client_id){

@@ -1,35 +1,42 @@
 #include "Car.h"
 #include <stdio.h>
+#include "Client.h"
+#include "Client.c"
 
+void clients(){
+    struct Client cli= addNewClient();
+    print_client(&cli);
+}
 int main(){
+    clients();
     /* test for car */
-    struct Car list_car[N]; 
-    createCarList(list_car);
+    // struct Car list_car[N]; 
+    // createCarList(list_car);
+    // // print_car_list(list_car);
+    // for(int i = 0 ; i < 2 ; i++)
+    //     addNewCar(list_car);
+    // //  struct Client *c = addNewClient();
+    // //  print_client(c);
+    // printf("\n");
+    // for(int i =0 ; i < 10 ;i++)
+    //     printf("-");
+    // printf(" print car list ");
+    // for(int i =0 ; i < 10 ;i++)
+    //     printf("-");
+    // printf("\n");
     // print_car_list(list_car);
-    for(int i = 0 ; i < 2 ; i++)
-        addNewCar(list_car);
-    //  struct Client *c = addNewClient();
-    //  print_client(c);
-    printf("\n");
-    for(int i =0 ; i < 10 ;i++)
-        printf("-");
-    printf(" print car list ");
-    for(int i =0 ; i < 10 ;i++)
-        printf("-");
-    printf("\n");
-    print_car_list(list_car);
 
-    // search  result  in array
-    struct Car *res ; 
-    res = searchBy_engine_capacity(list_car,2000);
-    if(res){
-        print_car(res);
-    }
+    // // search  result  in array
+    // struct Car *res ; 
+    // res = searchBy_engine_capacity(list_car,2000);
+    // if(res){
+    //     print_car(res);
+    // }
 
-    res = searchBy_license_id(list_car,12345);
-    if(res){
-        print_car(res);
-    }
+    // res = searchBy_license_id(list_car,12345);
+    // if(res){
+    //     print_car(res);
+    // }
 
     return 0;
 }
