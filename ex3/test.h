@@ -10,6 +10,6 @@ void print_prompt(char *text);
 void print_cars(struct Car *list_car);
 void run_test_car(struct Car *list);
 void run_test_supplier(struct Supplier* list_car);
-void run_clients_test();
+void run_clients_test(struct Client* clients_list);
 
 #endif
