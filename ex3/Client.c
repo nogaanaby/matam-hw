@@ -1,4 +1,5 @@
 #include "Client.h" 
+#include "Car.h" 
 #include "Utils.h"
 
 // create array of cluint with stdin input M , set the fildes to zero 
@@ -79,22 +80,41 @@ int addClientToArray(struct Client *client,struct Client *clients_list){
 }
 
 void print_client(struct Client* client){
-            //if(car->is_empty){
-            //    printf("car is empty\n");
-            //}else {
-            /* init the string with zero*/
-                printf("first_name:\t%s\n",(client)->first_name);
-                printf("last_name:\t%d\n",(client)->last_name);
-                printf("id \t%d\n",(client)->id);
-                printf("car_license_id :\t%s\n",(client)->car_license_id);
-             
-            //}  
+    printf("first_name:\t%s\n",(client)->first_name);
+    printf("last_name:\t%s\n",(client)->last_name);
+    printf("id \t%s\n",(client)->id);
+    printf("car_license_id :\t%s\n",(client)->car_license_id);
+
+    printf("price_per_hour :\t%d\n",(client)->price_per_hour);
+    printf("start_rent_date :\t%d.%d.%d\n",(client)->start_rent_date.day,(client)->start_rent_date.month,(client)->start_rent_date.year);
+    printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
 }
 void print_clients_list(struct Client* client){
     for(int i = 0 ; i < NUM; i++){
         printf("index in array:\t%d\n",i);
         print_client(client+i);
     }     
+}
+
+int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list){
+    //go to each client -> car_license_id
+    int count=0;
+    struct Car myCar;
+    for(int i = 0 ; i < NUM ; i++){
+        struct Car *temp_car = searchBy_license_id( (client_list+i)->car_license_id )
+        if(temp_car!=NULL){
+            if((temp_car)->year_of_relese==year){
+                count++;
+            }
+        }
+
+    } 
+    return count;
+    //searchBy_license_id(client_car_license_id)
+    //check if the seach doesnt return null
+    //check wether this car year_of_relase is the same year I looking for
+    //if so, i count +1
+    //struct Car* searchBy_license_id( struct Car* car, int value);
 }
 
 // sarch for Client in data base 
@@ -104,12 +124,33 @@ void print_clients_list(struct Client* client){
 //  }
 
 // delte Client by id number
-int deleteClient(char* client_id){
-    return 0;
+int deleteClient(char client_id,struct Client *clients_list){
+    for(int i = 0 ; i < NUM ; i++){
+        if((clients_list+i)->id==client_id){
+            free(clients_list+i);
+            return 0;
+        }
+    } 
+    return -1;
+    // strcpy((client)->first_name,"");
+    // strcpy((client)->last_name,"");
+    // strcpy((client)->id,"");
+    // strcpy((client)->car_license_id,"");
+    
+    // (client)->price_per_hour =0;
+    // (client)->start_rent_date.year =0;
+    // (client)->start_rent_date.month =0;
+    // (client)->start_rent_date.day =0;
+    // (client)->start_rent_time.hour =0;
+    // (client)->start_rent_time.minutes =0;
 }
 
 // delete all Client 
-int deleteAllClients(){
-    return 0;
+int deleteAllClients(struct Client *clients_list){
+    if(clients_list == NULL ){printf("list is empty\n");return -1;}
+    for(int i = 0 ; i < NUM ; i++){
+        deleteClient( (clients_list+i)->id,clients_list ); 
+    } 
+    return 0 ; 
 }
 

@@ -5,9 +5,9 @@
 #include "Client.h"
 
 void clients(){
-    struct Client clients_list[N]; 
+    struct Client clients_list[1]; 
     createClientsList(clients_list);
-    for(int i = 0 ; i < 2 ; i++){
+    for(int i = 0 ; i < 1 ; i++){
         addNewClient(clients_list);
     }
     print_clients_list(clients_list);
