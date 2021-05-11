@@ -36,7 +36,7 @@ void cars(){
     if(res){
         print_car(res);
     }
-
+}
 
 
 int main(){
