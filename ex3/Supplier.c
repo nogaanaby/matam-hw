@@ -44,13 +44,11 @@ int add_to_bigest_sup_sum(struct Supplier *s,struct Supplier *push_here){
         strcpy((push_here+count_index)->name,s->name);
         (push_here+count_index)->phone_number = s->phone_number;
         (push_here+count_index)->sum_of_total_transactions_price = s->sum_of_total_transactions_price;
-        (push_here+count_index)->is_empty = 0 ;
-        printf("count->index =  %d \n",count_index); 
+        (push_here+count_index)->is_empty = 0 ; 
         return 0 ;
     }else if( s && push_here){
         int i = 0 ; 
         for(i = 0 ; i < FIVE-2 ; i++){
-            printf("count->index =  %d \n",count_index);
             if((push_here+i)->sum_of_total_transactions_price < s->sum_of_total_transactions_price){
                 (push_here+i)->count_transactions = s->count_transactions;
                 (push_here+i)->id = s->id;
@@ -128,7 +126,7 @@ int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,cha
     struct Supplier *s =  searchBy_Supplier_name(sup_list,name);
     if(s){
         (s)->sum_of_total_transactions_price += amount;
-        printf("add %d to sum of  transactions of supplier : %s ",amount,s->name);
+        printf("add %d to sum of  transactions of supplier : %s \n",amount,s->name);
     }
     return -1;
 }

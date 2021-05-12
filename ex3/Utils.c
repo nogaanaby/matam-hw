@@ -16,7 +16,7 @@ int validateInput(char* data, int size,int fixedSize){
     }
     for(i = 0 ; i < strlen(data); i++){
         /*check type error*/
-        if(!isalpha(*(data+i)) && !isdigit(*(data+i)) && !isspace(*(data+i)) ){
+        if(!isalpha(((int)*(data+i))) && !isdigit(((int)*(data+i))) && !isspace(((int)*(data+i))) ){
             printError(type_);
             return -1;
         }
@@ -35,7 +35,7 @@ int validateInputInt(int data, int size){
         /*convert int to char array seve into temp_buf*/
         sprintf(temp_buf,"%d",data);
         for(i = 0 ; i < strlen(temp_buf) ;i++){
-            if(!isdigit(*(temp_buf+i))){
+            if(!isdigit(((int)*(temp_buf+i)))){
                 printError(type_);
                 return -1;
             }
