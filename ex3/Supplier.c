@@ -1,8 +1,9 @@
 #include "Utils.h"
 #include "Supplier.h"
+ int size_k = 0 ;
+ int count_index = 0 ;
 
-
-int createSuppliersList(struct Supplier* sup_list){
+int createSuppliersList(struct Supplier* sup_list){ 
     int i = 0 ;
     get_int_input("please enter size of array",&size_k,TEN);
     while(size_k < 1 && size_k >  K ){
@@ -24,8 +25,8 @@ int createSuppliersList(struct Supplier* sup_list){
     return -1;
 }
 
-// add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
-// 3. return error if in array 
+/* add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
+ 3. return error if in array */ 
  int addNewSupplier(struct Supplier* sup_list,struct Supplier *push_here){
      struct Supplier temp_sup;
      if(get_input_from_user_sup(&temp_sup))
@@ -114,7 +115,7 @@ void print_sup_list(struct Supplier* sup_list){
     }     
 }
 
-struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list){
+void threeGreatestSuppliers(struct Supplier* sup_list){
         int i = 0; 
         if(sup_list){
             for(; i < FIVE -2 ; i++){
@@ -132,7 +133,7 @@ int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,cha
     return -1;
 }
 
-// sarch for Supplier in data base 
+/* sarch for Supplier in data base */ 
  struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list,int Supplier_id){
      int i = 0 ; 
      if(sup_list){
@@ -157,7 +158,7 @@ struct Supplier* searchBy_Supplier_name( struct Supplier* sup_list,char* value){
     return NULL;  
 }
 
-// delte Supplier by id number
+/* delte Supplier by id number */
 int deleteSupplier(struct Supplier* sup_list,int Supplier_id){
      struct Supplier* s = searchBy_Supplier_id(sup_list,Supplier_id);
      if(s){
@@ -177,7 +178,7 @@ void deletSingleSupplier(struct Supplier *s){
         (s)->is_empty = 1; 
 }
 
-// delete all Supplier 
+/* delete all Supplier  */
 int deleteAllSuppliers(struct Supplier *sup_list){
     int i = 0 ; 
     if(sup_list){

@@ -11,8 +11,8 @@
 
 enum error {size_,negitive_,type_};
 
-int validateInput(char* data,unsigned int size,int fixedSize);
-int validateInputInt(int data,unsigned int size);
+int validateInput(char* data, int size,int fixedSize);
+int validateInputInt(int data, int size);
 
 void printError(int errorCode);
 

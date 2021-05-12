@@ -1,3 +1,5 @@
+ 
+
 #ifndef CAR_H
 #define CAR_H
 #include "Supplier.h"
@@ -8,7 +10,7 @@
 #define N 3
 
 
-static int count_index_array = 0 ; 
+
 
 typedef struct Car
 {

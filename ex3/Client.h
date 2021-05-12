@@ -9,7 +9,7 @@
 #define MAX_LEN_COST 5
 #define NUM 4
 
-static int count_array_index = 0;
+ 
 
 typedef struct Date{
     int day;
@@ -49,7 +49,7 @@ void print_client(struct Client* cli);
 void print_clients_list(struct Client* clientsList);
 
 /* sarch for client in data base */
-//struct Client* searchBy( struct Client* cli, char attr[], char* value);
+/*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
 int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
 
 /* delte client cy id number*/

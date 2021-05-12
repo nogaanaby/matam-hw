@@ -6,11 +6,11 @@
 
 
 int main(){
-    print_Welcome_prompt();
     struct Car list_car[N];
     struct Client clients_list[3];
     struct Supplier bugest_three_sup[3];
     struct Supplier sup_list[K];
+    print_Welcome_prompt();
     {
             
         run_test_supplier(sup_list,bugest_three_sup);

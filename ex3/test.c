@@ -118,10 +118,10 @@ void print_prompt(char* text){
     printf("\n");
 }
 void print_Welcome_prompt(){
+    int i = 0 ; 
     print_prompt("**-- Welcome --**");
     print_prompt(" this is a test of the partz car system programe please Follow the instructions ");
-    int i = 0 ; 
-    for ( ; i < TEN - 5 ; i++){
+    for ( ; i < TEN - 7 ; i++){
         printf("\n");
     }
 }
@@ -132,8 +132,9 @@ void print_cars(struct Car *list_car){
     print_car_list(list_car);
 }
 void fill_in_clients_list(struct Client* clients_list){
+    int i = 0;
     createClientsList(clients_list);
-    for(int i = 0 ; i < 4 ; i++){
+    for( ; i < 4 ; i++){
         addNewClient(clients_list);
     }
     print_clients_list(clients_list);
@@ -141,8 +142,9 @@ void fill_in_clients_list(struct Client* clients_list){
 }
 
 void fill_in_cars_list(struct Car* cars_list,struct Supplier* list_sup){
+    int i = 0;
     createCarList(cars_list);
-    for(int i = 0 ; i < 3 ; i++){
+    for( ; i < 3 ; i++){
         addNewCar(cars_list,list_sup);
     }
     print_cars(cars_list);
@@ -163,9 +165,9 @@ void run_clients_test(struct Client* clients_list,struct Supplier* list_sup){
 }
 
 void run_clients_and_cars_test(struct Client* clients_list,struct Car* cars_list,struct Supplier* list_sup){
+    int cli = 0;
     fill_in_clients_list(clients_list);
     fill_in_cars_list(cars_list,list_sup);
-
-    int cli= clientNumberWithGivenCarYear(2004, cars_list, clients_list);
+    cli= clientNumberWithGivenCarYear(2004, cars_list, clients_list);
     printf("there are %d clients who have cars from %d", cli, 2004);
 }

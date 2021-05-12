@@ -1,6 +1,8 @@
 
 #include "car.h"
 #include "Utils.h"
+ int count_index_array = 0 ;
+
 
 /* create array of cars fix size N, set the fildes to zero */ 
 int createCarList(struct Car* car){

@@ -1,13 +1,14 @@
 #include "Client.h" 
 #include "Utils.h"
-
+int count_array_index = 0;
 /* create array of client with stdin input M , set the fildes to zero */ 
 int createClientsList(struct Client* client){
+    int i = 0 ;
     if(client == NULL ){
         printf("error list is empty\n");
         return -1;
     }
-        for(int i = 0 ; i < NUM; i++){
+        for(; i < NUM; i++){
             /* init the string with zero*/
             strcpy((client+i)->first_name,"");
             strcpy((client+i)->last_name,"");
@@ -82,14 +83,15 @@ void print_client(struct Client* client){
     printf("first_name:\t%s\n",(client)->first_name);
     printf("last_name:\t%s\n",(client)->last_name);
     printf("id \t%s\n",(client)->id);
-
     printf("car_license_id :\t%d\n",(client)->car_license_id);
     printf("price_per_hour :\t%d\n",(client)->price_per_hour);
     printf("start_rent_date :\t%d.%d.%d\n",(client)->start_rent_date.day,(client)->start_rent_date.month,(client)->start_rent_date.year);
     printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
 }
+
 void print_clients_list(struct Client* client){
-    for(int i = 0 ; i < NUM; i++){
+    int i = 0;
+    for( ; i < NUM; i++){
         printf("index in array:\t%d\n",i);
         print_client(client+i);
     }     
@@ -97,11 +99,12 @@ void print_clients_list(struct Client* client){
 
 int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list){
     int count=0;
+    int i = 0;
+    struct Car *temp_car;
     int temp_license_id;
-    struct Car myCar;
-    for(int i = 0 ; i < NUM ; i++){
+    for( ; i < NUM ; i++){
         temp_license_id=(client_list+i)->car_license_id;
-        struct Car *temp_car = searchBy_license_id(cars_list,temp_license_id );
+        temp_car = searchBy_license_id(cars_list,temp_license_id );
         if(temp_car!=NULL){
             if((temp_car)->year_of_relase==year){
                 count++;
@@ -115,7 +118,8 @@ int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client 
 
 /* delte Client by id number*/
 int deleteClient(char* client_id,struct Client *clients_list){
-    for(int i = 0 ; i < NUM ; i++){
+    int i = 0;
+    for( ; i < NUM ; i++){
         if((clients_list+i)->id==client_id){
             strcpy((clients_list+i)->first_name,"");
             strcpy((clients_list+i)->last_name,"");
@@ -136,8 +140,9 @@ int deleteClient(char* client_id,struct Client *clients_list){
 
 /* delete all Client */ 
 int deleteAllClients(struct Client *clients_list){
+    int i = 0;
     if(clients_list == NULL ){printf("list is empty\n");return -1;}
-    for(int i = 0 ; i < NUM ; i++){
+    for( ; i < NUM ; i++){
         deleteClient( (clients_list+i)->id,clients_list );
     } 
     return 0 ; 

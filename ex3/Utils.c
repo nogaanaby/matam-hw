@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include <stdio.h>
 
-int validateInput(char* data,unsigned int size,int fixedSize){
+int validateInput(char* data, int size,int fixedSize){
     int i;
     if(fixedSize==1 && strlen(data) != size ){
         /*check size error*/
@@ -25,7 +25,7 @@ int validateInput(char* data,unsigned int size,int fixedSize){
     return 0 ; 
 }
 
-int validateInputInt(int data,unsigned int size){
+int validateInputInt(int data, int size){
     if(data < 0 ){
         printError(negitive_);
         return -1;  
