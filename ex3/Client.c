@@ -3,12 +3,14 @@
 int count_array_index = 0;
 /* create array of client with stdin input M , set the fildes to zero */ 
 int createClientsList(struct Client* client){
-    int i = 0 ;
+    int i = 0, m;
     if(client == NULL ){
         printf("error list is empty\n");
         return -1;
     }
-        for(; i < NUM; i++){
+    get_int_input("Please enter the amount of clients you would like to add:\t",&m,M);
+    printf("m = %d\n",m);
+        for(; i < m; i++){
             /* init the string with zero*/
             strcpy((client+i)->first_name,"");
             strcpy((client+i)->last_name,"");
@@ -39,6 +41,10 @@ int get_client_input_from_user(struct Client *temp_client){
     get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
     get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
     get_chr_input("Please enter (7 digit) client id:\t",temp_client->id,MAX_LEN_SEVEN);
+    while(*temp_client->id=='0'){
+        printf("ID can not be 0 \n");
+        get_chr_input("Please enter (7 digit) client id:\t",temp_client->id,MAX_LEN_SEVEN);
+    }
     
     get_int_input("Please enter (7 digit) car_license_id:\t",&temp_client->car_license_id,MAX_LEN_SEVEN);
     get_int_input("Please enter price_per_hour:\t",&temp_client->price_per_hour,4);
@@ -91,26 +97,27 @@ void print_client(struct Client* client){
 
 void print_clients_list(struct Client* client){
     int i = 0;
-    for( ; i < NUM; i++){
+    while(*(client+i)->id!=0){ //disable insert id=0
         printf("index in array:\t%d\n",i);
         print_client(client+i);
+        i++;
     }     
 }
 
-int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list){
+int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *clients_list){
     int count=0;
     int i = 0;
     struct Car *temp_car;
     int temp_license_id;
-    for( ; i < NUM ; i++){
-        temp_license_id=(client_list+i)->car_license_id;
+    while(*(clients_list+i)->id!=0){
+        temp_license_id=(clients_list+i)->car_license_id;
         temp_car = searchBy_license_id(cars_list,temp_license_id );
         if(temp_car!=NULL){
             if((temp_car)->year_of_relase==year){
                 count++;
             }
         }
-
+        i++;
     } 
     return count;
 }
@@ -119,7 +126,7 @@ int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client 
 /* delte Client by id number*/
 int deleteClient(char* client_id,struct Client *clients_list){
     int i = 0;
-    for( ; i < NUM ; i++){
+    while(*(clients_list+i)->id!=0 ){
         if((clients_list+i)->id==client_id){
             strcpy((clients_list+i)->first_name,"");
             strcpy((clients_list+i)->last_name,"");
@@ -133,6 +140,7 @@ int deleteClient(char* client_id,struct Client *clients_list){
             (clients_list+i)->start_rent_time.minutes =0;
             return 0;
         }
+        i++;
     } 
     return -1;
 
@@ -142,8 +150,9 @@ int deleteClient(char* client_id,struct Client *clients_list){
 int deleteAllClients(struct Client *clients_list){
     int i = 0;
     if(clients_list == NULL ){printf("list is empty\n");return -1;}
-    for( ; i < NUM ; i++){
+    while(*(clients_list+i)->id!=0){
         deleteClient( (clients_list+i)->id,clients_list );
+        i++;
     } 
     return 0 ; 
 }

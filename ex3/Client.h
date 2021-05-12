@@ -7,7 +7,7 @@
 #define MAX_LEN_ID 9
 #define MAX_LEN_SEVEN 7 
 #define MAX_LEN_COST 5
-#define NUM 4
+#define M 8000
 
  
 

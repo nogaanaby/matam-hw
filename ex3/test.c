@@ -134,7 +134,7 @@ void print_cars(struct Car *list_car){
 void fill_in_clients_list(struct Client* clients_list){
     int i = 0;
     createClientsList(clients_list);
-    for( ; i < 4 ; i++){
+    for( ; i < 3 ; i++){
         addNewClient(clients_list);
     }
     print_clients_list(clients_list);
