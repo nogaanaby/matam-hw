@@ -5,8 +5,8 @@
 int createSuppliersList(struct Supplier* sup_list){
     int i = 0 ;
     get_int_input("please enter size of array",&size_k,TEN);
-    while(size_k < 1){
-        printf("error k suold be grether then 1 \n");
+    while(size_k < 1 && size_k >  K ){
+        printf("error k suold be grether then 1 or biger  then 50 \n");
         get_int_input("please enter size of array",&size_k,TEN);
     }
     if( size_k < K && sup_list){
@@ -26,12 +26,44 @@ int createSuppliersList(struct Supplier* sup_list){
 
 // add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
 // 3. return error if in array 
- int addNewSupplier(struct Supplier* sup_list){
+ int addNewSupplier(struct Supplier* sup_list,struct Supplier *push_here){
      struct Supplier temp_sup;
      if(get_input_from_user_sup(&temp_sup))
      addSupToArray(&temp_sup,sup_list);
+    /*when supplier  is created updatse the three bigest suppliers */
+     add_to_bigest_sup_sum(&temp_sup,push_here);
+     count_index++;
      return 0;   
  }
+
+int add_to_bigest_sup_sum(struct Supplier *s,struct Supplier *push_here){
+    if(count_index < 3  && s && push_here){
+        (push_here+count_index)->count_transactions = s->count_transactions;
+        (push_here+count_index)->id = s->id;
+        strcpy((push_here+count_index)->name,s->name);
+        (push_here+count_index)->phone_number = s->phone_number;
+        (push_here+count_index)->sum_of_total_transactions_price = s->sum_of_total_transactions_price;
+        (push_here+count_index)->is_empty = 0 ;
+        printf("count->index =  %d \n",count_index); 
+        return 0 ;
+    }else if( s && push_here){
+        int i = 0 ; 
+        for(i = 0 ; i < FIVE-2 ; i++){
+            printf("count->index =  %d \n",count_index);
+            if((push_here+i)->sum_of_total_transactions_price < s->sum_of_total_transactions_price){
+                (push_here+i)->count_transactions = s->count_transactions;
+                (push_here+i)->id = s->id;
+                strcpy((push_here+i)->name,s->name);
+                (push_here+i)->phone_number = s->phone_number;
+                (push_here+i)->sum_of_total_transactions_price = s->sum_of_total_transactions_price;
+                (push_here+i)->is_empty = 0 ; 
+                return 0 ; 
+            }
+        }
+    }
+    return -1; 
+
+}
 
 int get_input_from_user_sup(struct Supplier *temp_sup){
     if(temp_sup){
@@ -57,7 +89,6 @@ int addSupToArray(struct Supplier *temp_sup,struct Supplier* sup_list){
         strcpy((sup_list+count_index)->name,temp_sup->name);
         (sup_list+count_index)->phone_number = temp_sup->phone_number;
         (sup_list+count_index)->is_empty = 0; 
-        count_index++;
         return 0; 
     }
     return -1; 
@@ -84,7 +115,12 @@ void print_sup_list(struct Supplier* sup_list){
 }
 
 struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list){
-        
+        int i = 0; 
+        if(sup_list){
+            for(; i < FIVE -2 ; i++){
+                print_sup(sup_list+i);
+            }
+        }
 }
 
 int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,char* name){

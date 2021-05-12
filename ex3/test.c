@@ -1,9 +1,9 @@
 #include "test.h" 
 
-void run_test_supplier(struct Supplier* list_sup){
+void run_test_supplier(struct Supplier* list_sup,struct Supplier* bigest_three_sup){
     int i = 0;
     {
-        print_prompt(" test : create Supplier list, enter k = 3 for readble code test result ");
+        print_prompt(" test : create Supplier list, enter k = 4  for readble code test result ");
         createSuppliersList(list_sup);
         print_prompt(" print Supplier list ");
         print_sup_list(list_sup);
@@ -11,12 +11,18 @@ void run_test_supplier(struct Supplier* list_sup){
 
     {
         print_prompt(" test : add Supplier to list ");
-        for(i = 0 ; i < 2 ; i++)
-            addNewSupplier(list_sup);
+        for(i = 0 ; i < 4 ; i++)
+            addNewSupplier(list_sup,bigest_three_sup);
         print_prompt(" print Supplier list ");
         print_sup_list(list_sup);
     
     }
+    
+    {
+        print_prompt(" test : BIGEST THREE SUPLIERS ");
+        threeGreatestSuppliers(bigest_three_sup);
+    }
+
 
     {
         struct Supplier *s; 
@@ -54,6 +60,7 @@ void run_test_car(struct Car* list_car,struct Supplier* list_sup){
     for( i = 0 ; i < 2 ; i++)
         addNewCar(list_car,list_sup);
     print_cars(list_car);
+    print_prompt(" print list supplier ");
     print_sup_list(list_sup);
     
 
@@ -110,6 +117,14 @@ void print_prompt(char* text){
     for( i = 0 ; i < 10 ;i++)
         printf("-");
     printf("\n");
+}
+void print_Welcome_prompt(){
+    print_prompt("**-- Welcome --**");
+    print_prompt(" this is a test of the partz car system programe please Follow the instructions ");
+    int i = 0 ; 
+    for ( ; i < TEN - 5 ; i++){
+        printf("\n");
+    }
 }
 
 void print_cars(struct Car *list_car){
