@@ -1,7 +1,3 @@
-//declare functions, 
-//global variables use outside the class declare, 
-//and types
-
 #ifndef UTILS_H
 #define UTILS_H
 

@@ -4,8 +4,9 @@
 
 /* create array of cars fix size N, set the fildes to zero */ 
 int createCarList(struct Car* car){
+        int i=0;
         if(car == NULL ){printf("error list is empty\n");return -1;}
-        for(int i = 0 ; i <  N ; i++){
+        for( ; i <  N ; i++){
             strcpy((car+i)->color,"");
             (car+i)->current_price =0;
             (car+i)->engine_capacity =0;
@@ -83,9 +84,10 @@ int addCarToArray(struct Car *car,struct Car *car_list){
 
 /* sarch for cars in data base, return pointer from struct */ 
 struct Car* searchBy_license_id( struct Car* car,int value){
+int i = 0;
 if(car == NULL ){printf("error list is empty\n");return NULL;}
-    for(int i = 0 ; i < N ; i++){
-        if(!(car+i)->is_empty == 1){ 
+    for( ; i < N ; i++){
+        if((!(car+i)->is_empty) == 1){ 
             if((car+i)->license_id == value ){
                     printf("***find car in index %d***\n",i);
                     return (car+i);
@@ -97,8 +99,9 @@ if(car == NULL ){printf("error list is empty\n");return NULL;}
 
 int carNumberWithGivenCapacity( struct Car* car, int value){
     int count = 0 ; 
+    int i =0;
     if(car == NULL ){printf("error list is empty\n");return 0;}
-        for(int i =0 ; i < N ; i++){
+        for( ; i < N ; i++){
             if(!((car+i)->is_empty)){
                 if( (car+i)->engine_capacity == value ){
                     count++;
@@ -127,7 +130,8 @@ void print_car(struct Car* car){
 }
 
 void print_car_list(struct Car* car){
-    for(int i = 0 ; i <  N ; i++){
+    int i = 0;
+    for( ; i <  N ; i++){
         printf("index :\t%d\n",i);
         print_car(car+i);
     }     
@@ -145,8 +149,9 @@ int deleteCar(struct Car* car,int license_id){
 
 /* delete all cars */
 int deleteAllCars(struct Car* car){
+    int i = 0;
     if(car == NULL ){printf("list is empty\n");return -1;}
-    for(int i = 0 ; i < count_index_array ; i++){
+    for( ; i < count_index_array ; i++){
         deleteSingleCar(car+i); 
     } 
     count_index_array = 0 ; 

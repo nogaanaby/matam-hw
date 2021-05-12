@@ -1,6 +1,3 @@
-//declare functions, 
-//global variables use outside the class declare, 
-//and types
 
 #ifndef SUPPLIER_H
 #define SUPPLIER_H

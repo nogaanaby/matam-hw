@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 int validateInput(char* data,unsigned int size,int fixedSize){
+    int i;
     if(fixedSize==1 && strlen(data) != size ){
         /*check size error*/
         printf("char value error:\t\n");
@@ -13,10 +14,9 @@ int validateInput(char* data,unsigned int size,int fixedSize){
         printError(size_);
         return -1;
     }
-    int i;
     for(i = 0 ; i < strlen(data); i++){
         /*check type error*/
-        if(!isalpha(data[i]) && !isdigit(data[i]) && !isspace(data[i]) ){
+        if(!isalpha(*(data+i)) && !isdigit(*(data+i)) && !isspace(*(data+i)) ){
             printError(type_);
             return -1;
         }
@@ -35,13 +35,13 @@ int validateInputInt(int data,unsigned int size){
         /*convert int to char array seve into temp_buf*/
         sprintf(temp_buf,"%d",data);
         for(i = 0 ; i < strlen(temp_buf) ;i++){
-            if(!isdigit(temp_buf[i])){
+            if(!isdigit(*(temp_buf+i))){
                 printError(type_);
                 return -1;
             }
         }
         if(!(strlen(temp_buf) <= size)){
-            printf("intger value error! size of input:\t%d\n",strlen(temp_buf));
+            printf("intger value error! size of input:\t%ld\n",strlen(temp_buf));
             printError(size_);
             return -1;
         }
@@ -71,7 +71,7 @@ void printError(int errorCode){
 int get_chr_input(char text[],char *attr,int attr_size ){
     printf("%s\t\n",text);
     scanf("%s",attr);
-    // close the string
+    /* close the string */
     strcat(attr,"\0");
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;

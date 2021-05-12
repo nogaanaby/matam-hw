@@ -1,7 +1,7 @@
 #include "Client.h" 
 #include "Utils.h"
 
-// create array of cluint with stdin input M , set the fildes to zero 
+/* create array of client with stdin input M , set the fildes to zero */ 
 int createClientsList(struct Client* client){
     if(client == NULL ){
         printf("error list is empty\n");
@@ -25,8 +25,8 @@ int createClientsList(struct Client* client){
     return 0;
 }
 
-// add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
-// 3. return Utils if in array 
+/* add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
+ 3. return Utils if in array */ 
  int addNewClient(struct Client* clients_list){
     Client temp_client;
     get_client_input_from_user(&temp_client);
@@ -113,7 +113,7 @@ int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client 
 }
 
 
-// delte Client by id number
+/* delte Client by id number*/
 int deleteClient(char* client_id,struct Client *clients_list){
     for(int i = 0 ; i < NUM ; i++){
         if((clients_list+i)->id==client_id){
@@ -134,7 +134,7 @@ int deleteClient(char* client_id,struct Client *clients_list){
 
 }
 
-// delete all Client 
+/* delete all Client */ 
 int deleteAllClients(struct Client *clients_list){
     if(clients_list == NULL ){printf("list is empty\n");return -1;}
     for(int i = 0 ; i < NUM ; i++){

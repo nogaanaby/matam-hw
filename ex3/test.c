@@ -53,7 +53,6 @@ void run_test_car(struct Car* list_car,struct Supplier* list_sup){
     /* test for createCarList */ 
     createCarList(list_car);
     print_cars(list_car);
-    // print_car_list(list_car);
 
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
@@ -157,7 +156,7 @@ void run_clients_test(struct Client* clients_list,struct Supplier* list_sup){
 
     deleteAllClients(clients_list);
 
-    //deleteClient((clients_list+0)->id,clients_list);
+    /*deleteClient((clients_list+0)->id,clients_list); */
 
     print_clients_list(clients_list);
     
