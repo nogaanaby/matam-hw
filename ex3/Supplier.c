@@ -5,6 +5,10 @@
 int createSuppliersList(struct Supplier* sup_list){
     int i = 0 ;
     get_int_input("please enter size of array",&size_k,TEN);
+    while(size_k < 1){
+        printf("error k suold be grether then 1 \n");
+        get_int_input("please enter size of array",&size_k,TEN);
+    }
     if( size_k < K && sup_list){
         for(i = 0 ; i < size_k ; i++){
             (sup_list+i)->id = 0 ; 
@@ -32,7 +36,7 @@ int createSuppliersList(struct Supplier* sup_list){
 int get_input_from_user_sup(struct Supplier *temp_sup){
     if(temp_sup){
         get_int_input("Please enter (10 digit) sup id number:\t",&temp_sup->id,TEN);
-        get_int_input("Please enter (10 digit) price amount of transaction:\t",&temp_sup->sum_of_total_transactions_price,TEN);
+        get_int_input("Please enter (10 digit) supplier sum of transactions:\t",&temp_sup->sum_of_total_transactions_price,TEN);
         get_int_input("Please enter (5 digit) amount of transaction:\t",&temp_sup->count_transactions,FIVE);
         get_int_input("Please enter (10 digit) sup phone number:\t",&temp_sup->phone_number,TEN);
         get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,FIVE);
@@ -80,21 +84,42 @@ void print_sup_list(struct Supplier* sup_list){
 }
 
 struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list){
-    
+        
+}
+
+int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,char* name){
+    struct Supplier *s =  searchBy_Supplier_name(sup_list,name);
+    if(s){
+        (s)->sum_of_total_transactions_price += amount;
+        printf("add %d to sum of  transactions of supplier : %s ",amount,s->name);
+    }
+    return -1;
 }
 
 // sarch for Supplier in data base 
- struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list,int value){
+ struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list,int Supplier_id){
      int i = 0 ; 
      if(sup_list){
          for(i = 0 ; i < size_k ; i++){
-            if(!sup_list->is_empty && (sup_list+i)->id == value ){
+            if(!(sup_list+i)->is_empty && (sup_list+i)->id == Supplier_id ){
                 return (sup_list+i); 
             }
          }
      }
      return NULL; 
  }
+
+struct Supplier* searchBy_Supplier_name( struct Supplier* sup_list,char* value){
+    int i = 0 ;
+    if(sup_list){
+        for(i =0 ; i < size_k ; i++){
+            if(!(sup_list+i)->is_empty && strcmp((sup_list+i)->name,value) == 0 ){
+                  return (sup_list+i);
+            } 
+        }
+    }
+    return NULL;  
+}
 
 // delte Supplier by id number
 int deleteSupplier(struct Supplier* sup_list,int Supplier_id){
@@ -108,7 +133,7 @@ int deleteSupplier(struct Supplier* sup_list,int Supplier_id){
 }
 
 void deletSingleSupplier(struct Supplier *s){
-        (s)->id = 0 ; 
+        (s)->id = 0;
         (s)->sum_of_total_transactions_price = 0 ;
         (s)->count_transactions = 0; 
         (s)->phone_number = 0 ; 

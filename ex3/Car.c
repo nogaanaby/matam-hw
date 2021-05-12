@@ -26,14 +26,14 @@ int createCarList(struct Car* car){
 /*splite into 3 function 1. get_input 2. check input 3. 
 return car and put into array in index  */
   
-int  addNewCar(struct Car *car_list){ 
+int  addNewCar(struct Car *car_list,struct Supplier *s){ 
     Car temp_car ;
-    get_input_from_user(&temp_car);
+    get_input_from_user(&temp_car,s);
     addCarToArray(&temp_car,car_list);
     return 0 ;
 }
 
-int get_input_from_user(struct Car *temp_car){
+int get_input_from_user(struct Car *temp_car,struct Supplier *s){
     get_int_input("Please enter (7 digit) license id number:\t",&temp_car->license_id,MAX_LEN_SEVEN);
     get_int_input("Please enter (5 digit) frame id number:\t",&temp_car->frame_id,MAX_LEN_FIVE);
     get_chr_input("Please enter (10 digit) manufacturer name:\t",temp_car->manufacturer_name,MAX_LEN_TEN);
@@ -44,6 +44,8 @@ int get_input_from_user(struct Car *temp_car){
     get_int_input("Please enter (7 digit) supplier price:\t",&temp_car->supplier_price,MAX_LEN_SEVEN);
     get_int_input("Please enter (7 digit) current price:\t",&temp_car->current_price,MAX_LEN_SEVEN);
     get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car->engine_capacity,MAX_LEN_FOUR);
+    /*update sum of transactions in supplier list */
+    add_to_supplier_sum_of_transactions(s,temp_car->supplier_price,temp_car->manufacturer_name);
     printf("\n");
     (temp_car)->is_empty = 0 ;
     return 0; 

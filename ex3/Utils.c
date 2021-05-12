@@ -41,8 +41,7 @@ int validateInputInt(int data,unsigned int size){
             }
         }
         if(!(strlen(temp_buf) <= size)){
-            printf("size of input:\t%d\n",strlen(temp_buf));
-            printf("intger value error:\t\n");
+            printf("intger value error! size of input:\t%d\n",strlen(temp_buf));
             printError(size_);
             return -1;
         }

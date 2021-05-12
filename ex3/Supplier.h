@@ -30,7 +30,10 @@ int addSupToArray(struct Supplier *temp_sup,struct Supplier* sup_list);
 int get_input_from_user_sup(struct Supplier *temp_sup);
 /* search function */
 struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list, int supplier_id);
+struct Supplier* searchBy_Supplier_name( struct Supplier* sup_list,char* value);
 struct Supplier* threeGreatestSuppliers(struct Supplier* sup_list);
+/* update supplier sum of transaction */
+int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,char* name);
 /* print function */
 void print_sup_list(struct Supplier* sup_list);
 void print_sup(struct Supplier* sup);
