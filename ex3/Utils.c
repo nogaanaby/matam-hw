@@ -40,7 +40,7 @@ int validateInputInt(int data, int size){
                 return -1;
             }
         }
-        if(!(strlen(temp_buf) <= size)){
+        if(strlen(temp_buf) > size){
             printf("intger value error! size of input:\t%ld\n",strlen(temp_buf));
             printError(size_);
             return -1;

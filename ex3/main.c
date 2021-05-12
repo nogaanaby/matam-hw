@@ -8,12 +8,13 @@
 int main(){
     struct Car list_car[N];
     struct Client clients_list[M];
-    struct Supplier bugest_three_sup[3];
+    //struct Supplier bugest_three_sup[3];
     struct Supplier sup_list[K];
+    run_test_supplier(sup_list);
     //print_Welcome_prompt();
     // {
             
-    //     run_test_supplier(sup_list,bugest_three_sup);
+    //     
     // }
     // /*start test car*/
     // {

@@ -1,47 +1,38 @@
 #include "test.h" 
 
-void run_test_supplier(struct Supplier* list_sup,struct Supplier* bigest_three_sup){
+void run_test_supplier(struct Supplier* list_sup){
     int i = 0;
-    {
-        print_prompt(" test : create Supplier list, enter k = 4  for readble code test result ");
-        createSuppliersList(list_sup);
-        print_prompt(" print Supplier list ");
-        print_sup_list(list_sup);
-    }
+    createSuppliersList(list_sup);
 
-    {
-        print_prompt(" test : add Supplier to list ");
-        for(i = 0 ; i < 4 ; i++)
-            addNewSupplier(list_sup,bigest_three_sup);
-        print_prompt(" print Supplier list ");
-        print_sup_list(list_sup);
+    print_prompt(" print Supplier list ");
+    print_sup_list(list_sup);
     
-    }
     
-    {
-        print_prompt(" test : BIGEST THREE SUPLIERS ");
-        threeGreatestSuppliers(bigest_three_sup);
+    print_prompt(" test : BIGEST THREE SUPLIERS ");
+    int ids_arr[3];
+    threeGreatestSuppliers(list_sup,ids_arr);
+    for(int i=0;i<3;i++){
+        printf("%d \n", ids_arr[i]);
     }
 
-
-    {
-        struct Supplier *s; 
-        print_prompt(" test : search Supplier in list by id (1234567891) ");
-        s = searchBy_Supplier_id(list_sup,1234567891);
-        print_prompt(" print search result ");
-        if(s)
-            print_sup(s);
-        else
-            print_prompt(" not found "); 
-    }
+    // {
+    //     struct Supplier *s; 
+    //     print_prompt(" test : search Supplier in list by id (1234567891) ");
+    //     s = searchBy_Supplier_id(list_sup,1234567891);
+    //     print_prompt(" print search result ");
+    //     if(s)
+    //         print_sup(s);
+    //     else
+    //         print_prompt(" not found "); 
+    // }
     
-    {
-        print_prompt(" test : delete Supplier from list with id (1234567891) ");
-        deleteSupplier(list_sup,1234567891);
-        print_prompt(" print Supplier list ");
-        print_sup_list(list_sup);
+    // {
+    //     print_prompt(" test : delete Supplier from list with id (1234567891) ");
+    //     deleteSupplier(list_sup,1234567891);
+    //     print_prompt(" print Supplier list ");
+    //     print_sup_list(list_sup);
 
-    }
+    // }
 
     
 }

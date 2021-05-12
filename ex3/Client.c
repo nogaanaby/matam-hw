@@ -9,22 +9,25 @@ int createClientsList(struct Client* client){
         return -1;
     }
     get_int_input("Please enter the amount of clients you would like to add:\t",&m,M);
-    printf("m = %d\n",m);
-        for(; i < m; i++){
-            /* init the string with zero*/
-            strcpy((client+i)->first_name,"");
-            strcpy((client+i)->last_name,"");
-            strcpy((client+i)->id,"");
-            
-            (client+i)->car_license_id =0;
-            (client+i)->price_per_hour =0;
-            (client+i)->start_rent_date.year =0;
-            (client+i)->start_rent_date.month =0;
-            (client+i)->start_rent_date.day =0;
-            (client+i)->start_rent_time.hour =0;
-            (client+i)->start_rent_time.minutes =0;
+    while(m>M){
+        printf("The maximum amout of client the system can hold is: %d \n",M);
+        get_int_input("so please type again:\t",&m,M);
+    }
+    for(; i < m; i++){
+        /* init the string with zero*/
+        strcpy((client+i)->first_name,"");
+        strcpy((client+i)->last_name,"");
+        strcpy((client+i)->id,"");
+        
+        (client+i)->car_license_id =0;
+        (client+i)->price_per_hour =0;
+        (client+i)->start_rent_date.year =0;
+        (client+i)->start_rent_date.month =0;
+        (client+i)->start_rent_date.day =0;
+        (client+i)->start_rent_time.hour =0;
+        (client+i)->start_rent_time.minutes =0;
 
-        }
+    }
     return 0;
 }
 
