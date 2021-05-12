@@ -152,6 +152,7 @@ void fill_in_cars_list(struct Car* cars_list,struct Supplier* list_sup){
 
 
 void run_clients_test(struct Client* clients_list,struct Supplier* list_sup){
+    printf("\n");
     fill_in_clients_list(clients_list);
 
     printf("------------------------after insert clients data--------------------\n");
@@ -161,7 +162,7 @@ void run_clients_test(struct Client* clients_list,struct Supplier* list_sup){
     /*deleteClient((clients_list+0)->id,clients_list); */
 
     print_clients_list(clients_list);
-    
+    printf("\n");
 }
 
 void run_clients_and_cars_test(struct Client* clients_list,struct Car* cars_list,struct Supplier* list_sup){
