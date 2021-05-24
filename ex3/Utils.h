@@ -9,8 +9,9 @@
 
 #define TEN 10
 #define FIVE 5
+#define MAX_STRING_SIZE
 
-enum error {size_,negitive_,type_};
+enum error {size_,negitive_,type_,NULL_};
 
 int validateInput(char* data, int size,int fixedSize);
 int validateInputInt(int data, int size);

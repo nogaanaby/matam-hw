@@ -64,13 +64,13 @@ void printError(int errorCode){
             printf("Error type of input is incorrect \n");
             break;
         case NULL_: 
-            printf("Error aloccation field exit programe \n");
+            printf("Error allocation field exit programe \n");
             exit(1);
             break;
         
     }
 }
-/* get string and return pinter  to alloceted  string */
+/* get string and return pinter to allocated string */
 char* my_strdup (char* str)
 {
     char *tmp_str;
@@ -88,9 +88,9 @@ int get_chr_input(char *text,char *attr,int attr_size ){
     printf("%s\t\n",text);
     if(attr_size == 0){
     scanf("%s",buff);
-    /* allocate new momry for char array  */
+    /* allocation new momry for char array  */
     attr = my_strdup(buff);
-    /* if not alloc then print error and exit */
+    /* if not allocation then print error and exit */
     if(!attr){printError(NULL_);}
     }else{
         scanf("%s",attr);
