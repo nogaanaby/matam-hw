@@ -1,6 +1,5 @@
 
 #include "Utils.h"
-#include <stdio.h>
 
 int validateInput(char* data, int size,int fixedSize){
     int i;
@@ -64,13 +63,38 @@ void printError(int errorCode){
         case type_:    
             printf("Error type of input is incorrect \n");
             break;
+        case NULL_: 
+            printf("Error aloccation field exit programe \n");
+            exit(1);
+            break;
         
     }
 }
-
-int get_chr_input(char text[],char *attr,int attr_size ){
+/* get string and return pinter  to alloceted  string */
+char* my_strdup (char* str)
+{
+    char *tmp_str;
+    tmp_str = (char*)malloc(strlen(str)+1); /*  dynamic allocation*/    
+    if (tmp_str == NULL)/*   always check if the allocation succeed */
+        return NULL;
+    else
+        strcpy(tmp_str, str);
+    return tmp_str; /*  no free is here, otherwise the pointer will be lost */
+}
+/* chenge str_char_input to allocate danmic memory if attr_size == 0 */
+int get_chr_input(char *text,char *attr,int attr_size ){
+    char buff[MAX_STRING_SIZE] = {0};
+    int size_buff;
     printf("%s\t\n",text);
-    scanf("%s",attr);
+    if(attr_size == 0){
+    scanf("%s",buff);
+    /* allocate new momry for char array  */
+    attr = my_strdup(buff);
+    /* if not alloc then print error and exit */
+    if(!attr){printError(NULL_);}
+    }else{
+        scanf("%s",attr);
+    }
     /* close the string */
     strcat(attr,"\0");
     if(validateInput(attr,attr_size,0) == 0 ){
