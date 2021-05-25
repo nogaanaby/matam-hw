@@ -11,7 +11,9 @@
 
 struct Supplier {
   int id;
-  char name[FIVE];
+  /* alloceted  fields  */
+  char *name;
+  /* alloceted  fields  */
   int phone_number;
   int count_transactions;
   int sum_of_total_transactions_price;
