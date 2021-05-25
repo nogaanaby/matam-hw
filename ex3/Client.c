@@ -1,5 +1,4 @@
-#include "Client.h" 
-#include "Utils.h"
+#include "Client.h"
 int count_array_index = 0;
 /* create array of client with stdin input M , set the fildes to zero */ 
 Clients_List* createClientsList(){
@@ -17,7 +16,7 @@ Clients_List* createClientsList(){
 
 /* add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
  3. return Utils if in array */ 
- int addNewClient(Client_Node** head){
+ int addNewClient(Clients_List* clients_list){
     Client_Node* new_client_node;
     Client* new_client;
     new_client_node = (Client_Node *) malloc(sizeof(Client_Node));
@@ -25,8 +24,9 @@ Clients_List* createClientsList(){
 
     get_client_input_from_user(new_client);
     new_client_node->client = new_client;
-    new_client_node->next = *head;
-    *head = new_client_node;
+    new_client_node->next = clients_list->head;
+    clients_list->head = new_client_node;
+    clients_list->size_count+=1;
     return 0; 
  }
 
@@ -62,7 +62,7 @@ void print_client(struct Client* client){
 }
 
 void print_clients_list(Client_Node * head){
-    Client_Node * current = head;
+    Client_Node *current = head;
 
     while (current != NULL) {
         print_client(current->client);
@@ -123,3 +123,59 @@ void print_clients_list(Client_Node * head){
 //     return 0 ; 
 // }
 
+int deleteClient(Clients_List* clients_list, char* id) {
+    int i = 0;
+    //Client *client_to_delete;
+    Client_Node * current = clients_list->head;
+    Client_Node * client_node_to_delete = NULL;
+
+    if(current==NULL){
+        return -1;
+    }
+
+    for (i = 0; i < clients_list->size_count; i++) {
+        printf("**current=%d**\n",*current);
+        if(current != NULL && current->next){
+            printf("**current->next=%d**\n",*current->next);
+            if(strcmp(current->next->client->id,id)==0 ){
+                free(current->next->client);
+                client_node_to_delete = current->next;
+                /*if its not the end of the list I want that the prev node will point the next node: prev->client_to_delete->next*/
+                if (current->next->next) {
+                    current->next=current->next->next;
+                }else{/*it is the end of the list*/
+                    current->next=NULL;
+                }
+                free(client_node_to_delete);
+                clients_list->size_count-=1;
+                return 0;
+            }
+        }
+        current = current->next;
+    }
+    return -1;
+}
+
+int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
+    int price_per_hour, int year, int month, int day, int hour, int minutes){
+        Client_Node* cnode1=(Client_Node *) malloc(sizeof(Client_Node));
+        Client* new_client=(Client *) malloc(sizeof(Client));
+
+        strcpy(new_client->first_name, first_name);
+        strcpy(new_client->last_name, last_name);
+        strcpy(new_client->id, id);
+        
+        new_client->car_license_id=car_license_id;
+        new_client->price_per_hour=price_per_hour;
+        new_client->start_rent_date.year=year;
+        new_client->start_rent_date.month=month;
+        new_client->start_rent_date.day=day;
+        new_client->start_rent_time.hour=hour;
+        new_client->start_rent_time.minutes=minutes;
+
+        cnode1->client=new_client;
+        cnode1->next=clients_list->head;
+        clients_list->head = cnode1;
+        clients_list->size_count+=1;
+        return 0; 
+}

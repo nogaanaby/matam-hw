@@ -145,13 +145,21 @@
 void run_clients_test(){
     printf("\n");
     Clients_List* cl=createClientsList();
-    addNewClient(&cl->head);
-
-    //printf("------------------------after insert clients data--------------------\n");
+    char *noga="noga";
+    char *anaby="anaby";
+    char *idn="1234567";
+    addNewClient_test(cl,noga, anaby, idn, 1326457,44,2004,12,1,15,20);
+    //addNewClient_test(cl,&("tamir"), &("bar"), &("3184759"), 7586524,44,2004,12,1,15,20);
+    //addNewClient(&cl->head);
 
     //deleteAllClients(clients_list);
 
-    /*deleteClient((clients_list+0)->id,clients_list); */
+    print_clients_list(cl->head);
+    printf("\n");
+
+    printf("------------------------after insert clients data--------------------\n");
+
+    deleteClient(cl,idn);
 
     print_clients_list(cl->head);
     printf("\n");
@@ -164,3 +172,6 @@ void run_clients_test(){
 //     cli= clientNumberWithGivenCarYear(2004, cars_list, clients_list);
 //     printf("there are %d clients who have cars from %d", cli, 2004);
 // }
+
+
+

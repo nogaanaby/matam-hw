@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include "Car.h"
+#include "Utils.h"
 #define MAX_LEN_NAME 20 
 #define MAX_LEN_FOUR 4
 #define MAX_LEN_ID 9
@@ -46,7 +47,7 @@ Clients_List* createClientsList();
 
 /* add a new client to array of client = > 1.check for this client in data 2.find the pleace in array 
  3. return error if in array*/ 
-int addNewClient(Client_Node** head);
+int addNewClient(Clients_List* clients_list);
 
 int get_client_input_from_user(struct Client *temp_client);
 
@@ -58,7 +59,9 @@ void print_clients_list(Client_Node* head);
 //int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
 
 /* delte client cy id number*/
-//int deleteClient(char* client_id,struct Client *clients_list);
+int deleteClient(Clients_List* clients_list, char* id);
+int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
+    int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 /* delete all client */ 
 //int deleteAllClients(struct Client *clients_list);

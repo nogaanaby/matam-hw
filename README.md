@@ -12,10 +12,11 @@ dynamic memory alocation
 link list
 
 Noga:
-1.fix threeGreatestSuppliers
-2.validation: consider valid date
-4. link list
+1. clients link list
 2. suppliers
+3.fix threeGreatestSuppliers
+//optional: validation: consider valid date
+
 
 
 Shahar:
