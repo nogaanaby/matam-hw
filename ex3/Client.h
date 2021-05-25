@@ -8,7 +8,6 @@
 #define MAX_LEN_SEVEN 7 
 #define MAX_LEN_COST 5
 #define M 8000
-
  
 
 typedef struct Date{
@@ -32,30 +31,36 @@ typedef struct Client{
      struct Time start_rent_time;
 }Client;
 
+typedef struct Client_Node {
+	Client *client;
+	struct Client_Node* next;
+} Client_Node;
 
+typedef struct {
+	Client_Node* head;
+	unsigned int size_count;
+} Clients_List;
 
 /* create array of clients with stdin input M , set the fildes to zero */
-int createClientsList(struct Client* clientsList);
+Clients_List* createClientsList();
 
 /* add a new client to array of client = > 1.check for this client in data 2.find the pleace in array 
  3. return error if in array*/ 
-int addNewClient(struct Client *clientsList);
+int addNewClient(Client_Node** head);
 
 int get_client_input_from_user(struct Client *temp_client);
-int addClientToArray(struct Client *client,struct Client *clientsList);
-int copy_client(struct Client *to,struct Client *from); 
 
 void print_client(struct Client* cli);
-void print_clients_list(struct Client* clientsList);
+void print_clients_list(Client_Node* head);
 
 /* sarch for client in data base */
 /*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
-int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
+//int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
 
 /* delte client cy id number*/
-int deleteClient(char* client_id,struct Client *clients_list);
+//int deleteClient(char* client_id,struct Client *clients_list);
 
 /* delete all client */ 
-int deleteAllClients(struct Client *clients_list);
+//int deleteAllClients(struct Client *clients_list);
 
 #endif

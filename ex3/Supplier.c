@@ -37,33 +37,6 @@ int createSuppliersList(struct Supplier* sup_list){
      return 0;   
  }
 
-// int add_to_bigest_sup_sum(struct Supplier *s,struct Supplier *push_here){
-//     if(count_index < 3  && s && push_here){
-//         (push_here+count_index)->count_transactions = s->count_transactions;
-//         (push_here+count_index)->id = s->id;
-//         strcpy((push_here+count_index)->name,s->name);
-//         (push_here+count_index)->phone_number = s->phone_number;
-//         (push_here+count_index)->sum_of_total_transactions_price = s->sum_of_total_transactions_price;
-//         (push_here+count_index)->is_empty = 0 ; 
-//         return 0 ;
-//     }else if( s && push_here){
-//         int i = 0 ; 
-//         for(i = 0 ; i < FIVE-2 ; i++){
-//             if((push_here+i)->sum_of_total_transactions_price < s->sum_of_total_transactions_price){
-//                 (push_here+i)->count_transactions = s->count_transactions;
-//                 (push_here+i)->id = s->id;
-//                 strcpy((push_here+i)->name,s->name);
-//                 (push_here+i)->phone_number = s->phone_number;
-//                 (push_here+i)->sum_of_total_transactions_price = s->sum_of_total_transactions_price;
-//                 (push_here+i)->is_empty = 0 ; 
-//                 return 0 ; 
-//             }
-//         }
-//     }
-//     return -1; 
-
-// }
-
 int get_input_from_user_sup(struct Supplier *temp_sup){
     if(temp_sup){
         get_int_input("Please enter (10 digit) sup id number:\t",&temp_sup->id,TEN);
