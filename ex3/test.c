@@ -39,20 +39,18 @@
 
 
 void run_test_car(){
-    List **list_car ; 
+    List *list_car ; 
     int i = 0;
     print_prompt(" test : create car list ");
     /* test for createCarList */ 
-    *list_car = createCarList();
-    printCarList(*list_car);
+    list_car = CreateCarList();
 
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
-    for( i = 0 ; i < 2 ; i++)
         addCarToList(list_car);
         addCarToList(list_car);
         addCarToList(list_car);
-    printCarList(*list_car);
+    printCarList(list_car->head);
 
 
     /*test carNumberWithGivenCapacity*/

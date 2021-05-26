@@ -1,7 +1,6 @@
 #ifndef CLIENT_H 
 #define CLIENT_H
 
-#include "Car.h"
 #include "Utils.h"
 #define MAX_LEN_NAME 20 
 #define MAX_LEN_FOUR 4
