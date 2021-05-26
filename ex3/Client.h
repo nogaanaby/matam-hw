@@ -64,6 +64,6 @@ int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_na
     int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 /* delete all client */ 
-//int deleteAllClients(struct Client *clients_list);
+int deleteAllClients(Clients_List *clients_list);
 
 #endif

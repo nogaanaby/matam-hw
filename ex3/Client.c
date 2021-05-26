@@ -112,31 +112,43 @@ void print_clients_list(Client_Node * head){
 
 // }
 
-// /* delete all Client */ 
-// int deleteAllClients(struct Client *clients_list){
-//     int i = 0;
-//     if(clients_list == NULL ){printf("list is empty\n");return -1;}
-//     while(*(clients_list+i)->id!=0){
-//         deleteClient( (clients_list+i)->id,clients_list );
-//         i++;
-//     } 
-//     return 0 ; 
-// }
+/* delete all Client */ 
+int deleteAllClients(Clients_List *clients_list){
+    int i = 0;
+    if(clients_list == NULL ){
+        printf("list is empty\n");
+        return -1;
+    }
+    while(clients_list->head!= NULL){
+        deleteClient(clients_list,clients_list->head->client->id );
+    } 
+    return 0 ; 
+}
 
 int deleteClient(Clients_List* clients_list, char* id) {
     int i = 0;
-    //Client *client_to_delete;
     Client_Node * current = clients_list->head;
     Client_Node * client_node_to_delete = NULL;
 
+    /*no clients on the list*/
     if(current==NULL){
         return -1;
     }
+    /*if its the head of the list*/
+    if(strcmp(current->client->id,id)==0){
+        free(current->client);
+        if(current->next!=NULL){
+            clients_list->head=current->next;
+        }else{
+            clients_list->head=NULL;
+        }
+        free(current);
+        clients_list->size_count-=1;
+        return 0;
+    }
 
     for (i = 0; i < clients_list->size_count; i++) {
-        printf("**current=%d**\n",*current);
-        if(current != NULL && current->next){
-            printf("**current->next=%d**\n",*current->next);
+        if(current->next){
             if(strcmp(current->next->client->id,id)==0 ){
                 free(current->next->client);
                 client_node_to_delete = current->next;
@@ -153,6 +165,7 @@ int deleteClient(Clients_List* clients_list, char* id) {
         }
         current = current->next;
     }
+    /*if the id wasnt in the list*/
     return -1;
 }
 
