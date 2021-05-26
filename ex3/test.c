@@ -38,46 +38,48 @@ void run_test_supplier(struct Supplier* list_sup){
 }
 
 
-void run_test_car(struct Car* list_car,struct Supplier* list_sup){
+void run_test_car(){
+    List **list_car ; 
     int i = 0;
     print_prompt(" test : create car list ");
     /* test for createCarList */ 
-    createCarList(list_car);
-    print_cars(list_car);
+    *list_car = createCarList();
+    printCarList(*list_car);
 
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
     for( i = 0 ; i < 2 ; i++)
-        addNewCar(list_car,list_sup);
-    print_cars(list_car);
-    print_prompt(" print list supplier ");
-    print_sup_list(list_sup);
-    
+        addCarToList(list_car);
+        addCarToList(list_car);
+        addCarToList(list_car);
+    printCarList(*list_car);
+
 
     /*test carNumberWithGivenCapacity*/
-    print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
+/*     print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
     printf("\n");
     {
     int resulet = carNumberWithGivenCapacity(list_car,2000);
     printf("res = %d \n",resulet);
     }
 
+ */ 
     print_prompt(" test : searchBy_license_id (1234567)");
     printf("\n");
     /*test searchBy_license_id*/
     {
         struct Car *res ;
-        res = searchBy_license_id(list_car,1234567);
+        res = FindCarInListById(list_car,1234567);
         if(res){
-             print_car(res);
+             printCarList(res);
         }
     }
     print_prompt(" test : delete single car  ");
     printf("\n");
     /*test for delete single car */
     {
-    deleteCar(list_car,1234567);
-    print_car_list(list_car);
+    removeCarFromList(list_car,1234567);
+    printCarList(list_car);
     printf("\n");
     }
 
@@ -85,17 +87,11 @@ void run_test_car(struct Car* list_car,struct Supplier* list_sup){
     /*test for delete all cars */
     {
     printf("\n");
-    deleteAllCars(list_car);
-    print_car_list(list_car);
+    destroyCarList(list_car);
+    printCarList(list_car);
     printf("\n");
     }
 
-    {
-        print_prompt(" test : delete all supplier from list ");
-        deleteAllSuppliers(list_sup);
-        print_prompt(" print Supplier list ");
-        print_sup_list(list_sup);
-    }
 }
 
 void print_prompt(char* text){

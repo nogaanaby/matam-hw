@@ -36,7 +36,6 @@ typedef struct Car
 /* sarch for cars in data base */ 
 /* print car and car list */
 void print_car(struct Car* car);
-/* make adeep copy of car objrct */
-int  copy_car(struct Car *to,struct Car *from); 
+/* make adeep copy of car objrct */ 
 /* delte car by engine value */
 #endif
