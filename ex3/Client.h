@@ -2,14 +2,13 @@
 #define CLIENT_H
 
 #include "Car.h"
+#include "Linked_List_car.h"
 #include "Utils.h"
 #define MAX_LEN_NAME 20 
 #define MAX_LEN_FOUR 4
 #define MAX_LEN_ID 9
 #define MAX_LEN_SEVEN 7 
 #define MAX_LEN_COST 5
-#define M 8000
- 
 
 typedef struct Date{
     int day;
@@ -56,7 +55,7 @@ void print_clients_list(Client_Node* head);
 
 /* sarch for client in data base */
 /*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
-//int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *client_list);
+int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
 
 /* delte client cy id number*/
 int deleteClient(Clients_List* clients_list, char* id);

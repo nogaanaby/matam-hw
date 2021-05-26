@@ -1,9 +1,7 @@
 #include "Client.h"
-int count_array_index = 0;
 /* create array of client with stdin input M , set the fildes to zero */ 
 Clients_List* createClientsList(){
     Clients_List *new_list = (Clients_List*) malloc(sizeof(Clients_List));
-    int i = 0, m;
     if(new_list == NULL ){
         printf("error list is empty\n");
     }else{
@@ -11,7 +9,6 @@ Clients_List* createClientsList(){
         new_list->size_count = 0 ; 
         return new_list;
     }
-
 }
 
 /* add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
@@ -70,47 +67,25 @@ void print_clients_list(Client_Node * head){
     }
 }
 
-// int clientNumberWithGivenCarYear(int year, struct Car *cars_list, struct Client *clients_list){
-//     int count=0;
-//     int i = 0;
-//     struct Car *temp_car;
-//     int temp_license_id;
-//     while(*(clients_list+i)->id!=0){
-//         temp_license_id=(clients_list+i)->car_license_id;
-//         temp_car = searchBy_license_id(cars_list,temp_license_id );
-//         if(temp_car!=NULL){
-//             if((temp_car)->year_of_relase==year){
-//                 count++;
-//             }
-//         }
-//         i++;
-//     } 
-//     return count;
-// }
+int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list){
+    int count=0;
+    Client_Node *current_client = clients_list->head;
+    Node *current_car = cars_list->head;
+    while(current_client != NULL){
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->next;
+        }
+        Node *current_car = cars_list->head;
+        current_client=current_client->next;
+    }
+    return count;
+}
 
 
-// /* delte Client by id number*/
-// int deleteClient(char* client_id,struct Client *clients_list){
-//     int i = 0;
-//     while(*(clients_list+i)->id!=0 ){
-//         if((clients_list+i)->id==client_id){
-//             strcpy((clients_list+i)->first_name,"");
-//             strcpy((clients_list+i)->last_name,"");
-//             strcpy((clients_list+i)->id,"");
-//             (clients_list+i)->car_license_id=0;
-//             (clients_list+i)->price_per_hour =0;
-//             (clients_list+i)->start_rent_date.year =0;
-//             (clients_list+i)->start_rent_date.month =0;
-//             (clients_list+i)->start_rent_date.day =0;
-//             (clients_list+i)->start_rent_time.hour =0;
-//             (clients_list+i)->start_rent_time.minutes =0;
-//             return 0;
-//         }
-//         i++;
-//     } 
-//     return -1;
-
-// }
 
 /* delete all Client */ 
 int deleteAllClients(Clients_List *clients_list){

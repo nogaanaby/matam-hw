@@ -38,67 +38,66 @@
 //}
 
 
-void run_test_car(){
-    List **list_car ; 
-    int i = 0;
-    print_prompt(" test : create car list ");
-    /* test for createCarList */ 
-    *list_car = createCarList();
-    printCarList(*list_car);
+// void run_test_car(){
+//     List **list_car ; 
+//     int i = 0;
+//     print_prompt(" test : create car list ");
+//     /* test for createCarList */ 
+//     *list_car = createCarList();
+//     printCarList(*list_car);
 
-    /* test for  addNewCar*/
-    print_prompt(" test : add new car ");
-    for( i = 0 ; i < 2 ; i++)
-        addCarToList(list_car);
-        addCarToList(list_car);
-        addCarToList(list_car);
-    printCarList(*list_car);
+//     /* test for  addNewCar*/
+//     print_prompt(" test : add new car ");
+//     for( i = 0 ; i < 2 ; i++)
+//         addCarToList(list_car);
+//         addCarToList(list_car);
+//         addCarToList(list_car);
+//     printCarList(*list_car);
 
 
-    /*test carNumberWithGivenCapacity*/
-/*     print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
+//     /*test carNumberWithGivenCapacity*/
+// /*     print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
 
- */ 
-    print_prompt(" test : searchBy_license_id (1234567)");
-    printf("\n");
-    /*test searchBy_license_id*/
-    {
-        struct Car *res ;
-        res = FindCarInListById(list_car,1234567);
-        if(res){
-             printCarList(res);
-        }
-    }
-    print_prompt(" test : delete single car  ");
-    printf("\n");
-    /*test for delete single car */
-    {
-    removeCarFromList(list_car,1234567);
-    printCarList(list_car);
-    printf("\n");
-    }
+//  */ 
+//     print_prompt(" test : searchBy_license_id (1234567)");
+//     printf("\n");
+//     /*test searchBy_license_id*/
+//     {
+//         struct Car *res ;
+//         res = FindCarInListById(list_car,1234567);
+//         if(res){
+//              printCarList(res);
+//         }
+//     }
+//     print_prompt(" test : delete single car  ");
+//     printf("\n");
+//     /*test for delete single car */
+//     {
+//     removeCarFromList(list_car,1234567);
+//     printCarList(list_car);
+//     printf("\n");
+//     }
 
-    printf("\n");
-    destroyCarList(list_car);
-    printCarList(list_car);
-    printf("\n");
+//     printf("\n");
+//     destroyCarList(list_car);
+//     printCarList(list_car);
+//     printf("\n");
 
-}
+// }
 
   
-// void run_clients_and_cars_test(struct Client* clients_list,struct Car* cars_list,struct Supplier* list_sup){
-//     int cli = 0;
-//     fill_in_clients_list(clients_list);
-//     fill_in_cars_list(cars_list,list_sup);
-//     cli= clientNumberWithGivenCarYear(2004, cars_list, clients_list);
-//     printf("there are %d clients who have cars from %d", cli, 2004);
+// void run_clients_and_cars_test(){
+//     Clients_List* cll=createClientsList();
+//     add_example_clients(cll);
+//     // List* cal=createCarsList();
+//     // add_example_clients(cal);
+//     // int cli= clientNumberWithGivenCarYear(2004, cll,cal);
+//     // printf("there are %d clients who have cars from %d", cli, 2004);
 // }
 
 void run_clients_test(){
-    printf("\n");
     Clients_List* cl=createClientsList();
     add_example_clients(cl);
-    //addNewClient_test(cl,&("tamir"), &("bar"), &("3184759"), 7586524,44,2004,12,1,15,20);
     //addNewClient(&cl->head);
 
     //deleteAllClients(clients_list);
@@ -127,4 +126,30 @@ void add_example_clients(Clients_List *cl){
     addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
 }
 
+
+void run_suppliers_test(){
+    Suppliers_List* sl=createSuppliersList();
+    add_example_suppliers(sl);
+    //addNewClient(&cl->head);
+
+    //deleteAllSuppliers(sl);
+
+    print_sup_list(sl->head);
+    printf("\n");
+
+    printf("------------------------after insert Suppliers data--------------------\n");
+    deleteSupplier(sl,1234567);
+
+    print_sup_list(sl->head);
+    printf("\n");
+}
+
+
+void add_example_suppliers(Suppliers_List *sl){
+    char *misubitchi="misubitchi";
+    addNewSupplier_test(sl,1234567, misubitchi,1234567891,44,2400,0);
+
+    char *toyota="toyota";
+    addNewSupplier_test(sl,2222222, toyota,1234567891,10,50000,0);
+}
 
