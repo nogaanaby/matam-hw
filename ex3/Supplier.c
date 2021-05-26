@@ -91,6 +91,52 @@ void print_sup_list(Supplier_Node* head){
 //         }
 // }
 
+void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, int* licenses_arr){
+    if (Suppliers_list->size_count<=3){
+        int i=0;
+        Supplier_Node *current = Suppliers_list->head;
+        //go throught all list
+        while (current != NULL) {
+            //add the licens
+            licenses_arr[i]=current->supplier->id;
+            current = current->next;
+            i++;
+        }   
+    }else{
+        //go throgh all the list and pull out the supplier with the smallerst transaction
+        Suppliers_List *poped_list=createSuppliersList();
+        ShallowCopySuppliersList(poped_list,Suppliers_list);
+        popSmallestTransactionsSupplier(poped_list);
+        threeGreatestSupplier_REC(poped_list, licenses_arr);
+        free(poped_list);
+    }
+}
+
+void ShallowCopySuppliersList(Suppliers_List *to, Suppliers_List *from){
+        Supplier_Node *from_current = from->head;
+        Supplier_Node *to_current = to->head;
+        to->head=from->head;
+        while (from_current->next != NULL) {
+            to_current->next=from_current->next;
+            from_current = from_current->next;
+            to->size_count+=1;
+        } 
+}
+
+int popSmallestTransactionsSupplier(Suppliers_List *sl){
+    int min=-1,sup_id;
+    Supplier_Node *current = sl->head;
+
+    while (current != NULL) {
+        if(current->supplier->sum_of_total_transactions_price <min || min==-1){
+            min=current->supplier->sum_of_total_transactions_price;
+            sup_id=current->supplier->id;
+        }
+        current = current->next;
+    } 
+    return deleteSupplier(sl,sup_id);
+}
+
 /* delete all Supplier */ 
 int deleteAllSuppliers(Suppliers_List *Suppliers_list){
     int i = 0;
@@ -155,17 +201,23 @@ int addNewSupplier_test(Suppliers_List* sup_list,int id,char *name,int phone_num
         Supplier_Node* cnode1=(Supplier_Node *) malloc(sizeof(Supplier_Node));
         Supplier* new_Supplier=(Supplier *) malloc(sizeof(Supplier));
 
+        printf("---mallocate?--\n");
         strcpy(new_Supplier->name, name);
-        
+        printf("---new_Supplier->name?--\n");
         new_Supplier->id=id;
         new_Supplier->phone_number=phone_number;
         new_Supplier->count_transactions=count_transactions;
         new_Supplier->sum_of_total_transactions_price=sum_of_total_transactions_price;
         new_Supplier->is_empty=is_empty;
 
+        printf("---finish supplier fill--\n");
+
         cnode1->supplier=new_Supplier;
         cnode1->next=sup_list->head;
         sup_list->head = cnode1;
         sup_list->size_count+=1;
+
+        free(new_Supplier);
+        free(cnode1);
         return 0; 
 }

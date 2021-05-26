@@ -131,16 +131,17 @@ void run_suppliers_test(){
     Suppliers_List* sl=createSuppliersList();
     add_example_suppliers(sl);
     //addNewClient(&cl->head);
-
-    //deleteAllSuppliers(sl);
-
     print_sup_list(sl->head);
     printf("\n");
 
     printf("------------------------after insert Suppliers data--------------------\n");
-    deleteSupplier(sl,1234567);
-
-    print_sup_list(sl->head);
+    //deleteSupplier(sl,1234567);
+    int sup_id[3];
+    threeGreatestSupplier_REC(sl,sup_id);
+    printf("threeGreatestSupplier_REC: ");
+    for(int i=0;i<2;i++){
+        printf(" %d ,",sup_id[i]);
+    }
     printf("\n");
 }
 
@@ -151,5 +152,14 @@ void add_example_suppliers(Suppliers_List *sl){
 
     char *toyota="toyota";
     addNewSupplier_test(sl,2222222, toyota,1234567891,10,50000,0);
+
+    char *zibi="zibi";
+    addNewSupplier_test(sl,1978465, zibi,1234567891,10,80000,0);
+        
+    char *zibi1="zibi1";
+    addNewSupplier_test(sl,9322654, zibi1,1234567891,10,2,0);
+
+    char *zibi2="zibi2";
+    addNewSupplier_test(sl,7777777, zibi2,1234567891,10,90000,0);
 }
 
