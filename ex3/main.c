@@ -8,7 +8,6 @@
 int main(){
     print_Welcome_prompt();
     {
-            
    /*      run_test_supplier(sup_list,bugest_three_sup);
     */ }
     /*start test car*/
@@ -17,9 +16,9 @@ int main(){
     }
     /*start test sup*/
 
-/*     run_clients_test(clients_list,sup_list);
-    run_clients_and_cars_test(clients_list,list_car,sup_list);
- */ 
+    run_clients_test();
+    //run_clients_and_cars_test(clients_list,list_car,sup_list);
+ 
     return 0;
 }
      
