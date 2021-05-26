@@ -1,6 +1,5 @@
 #include "Linked_List_car.h"
-#include "utils.h"
-#include "car.h"
+
 
 List* CreateCarList(){   
     List *new_list = (List*) malloc(sizeof(List));
@@ -10,8 +9,7 @@ List* CreateCarList(){
         return new_list;
     }
     /* allocetion field exit prog */
-    printf("allocation field\n");
-    exit(1);
+    printError(NULL_);
 }
 
 struct Car* addCarToList(Node** head){
@@ -75,6 +73,7 @@ struct Car* FindCarInListById(Node* head,int id){
 }
 
 void printCarList(Node* head){
+    if(!head){ printf("error list is empty\n"); return;}
     while(head){
        print_car(head->car); 
        head = head->next; 
