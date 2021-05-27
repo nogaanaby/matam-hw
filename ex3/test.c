@@ -137,15 +137,27 @@ void run_suppliers_test(){
     print_sup_list(sl->head);
     printf("\n");
 
-    printf("------------------------after insert Suppliers data--------------------\n");
-    //deleteSupplier(sl,1234567);
-    // int sup_id[3];
-    // threeGreatestSupplier_REC(sl,sup_id);
-    // printf("threeGreatestSupplier_REC: ");
-    // for(int i=0;i<2;i++){
-    //     printf(" %d ,",sup_id[i]);
+    //char *supid="4444444444";
+    //deleteSupplier(sl,supid);
+    //char sup_id[3][11]={"1234567890", "1987465947","1653978465"};
+    char sup_id[3][11];
+    char *supidptr=sup_id[0];
+    // printf("suppliers ids array: ");
+    // for (int i=0;i<3;i++) {
+    //     //add the licens
+    //     printf("supidptr+i =%s, ",(supidptr+i));
     // }
     // printf("\n");
+
+    printf("------------before threeGreatestSupplier_REC---------------\n");
+
+    threeGreatestSupplier_REC(sl,supidptr);
+    printf("threeGreatestSupplier_REC: ");
+    for(int i=0;i<3;i++){
+        printf(" %s ,",(supidptr+i));
+    }
+    printf("\n");
+    //print_sup_list(sl->head);
 }
 
 

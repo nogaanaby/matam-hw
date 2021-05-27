@@ -66,40 +66,71 @@ void print_sup_list(Supplier_Node* head){
 }
 
 
-void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char** licenses_arr){
+void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_arr){
+    //two problems:
+        // 2.not bring the right ids
     if (Suppliers_list->size_count<=3){
+        printf("reached the end of the recrution: final suppliers:  \n");
+        printf("print sup list every rec call: \n");
         int i=0;
         Supplier_Node *current = Suppliers_list->head;
         //go throught all list
         while (current != NULL) {
             //add the licens
-            strcpy(*(licenses_arr+i),current->supplier->id);
-            strcat(*(licenses_arr+i),"\0");
+            strcpy((licenses_arr+i),current->supplier->id);
+            strcat((licenses_arr+i),"\0");
             current = current->next;
-            i=i+10;
+            i++;
         }
     }else{
+        printf("****************print sup list every rec call: before pop ******************************\n");
+        print_sup_list(Suppliers_list->head);
         //go throgh all the list and pull out the supplier with the smallerst transaction
         Suppliers_List *poped_list=createSuppliersList();
-        ShallowCopySuppliersList(poped_list,Suppliers_list);
+        Supplier_Node* poped_list_head = copyList(Suppliers_list->head);
+        poped_list->size_count=Suppliers_list->size_count;
+        poped_list->head=poped_list_head;
         popSmallestTransactionsSupplier(poped_list);
+
+        printf("****************print sup list every rec call: after pop ******************************\n");
+        print_sup_list(poped_list->head);
+
         threeGreatestSupplier_REC(poped_list, licenses_arr);
         free(poped_list);
     }
 }
 
-void ShallowCopySuppliersList(Suppliers_List *to, Suppliers_List *from){
-        Supplier_Node *from_current = from->head;
-        Supplier_Node *to_current = to->head;
-        to->head=from->head;
-        while (from_current->next != NULL) {
-            to_current->next=from_current->next;
-            from_current = from_current->next;
-            to->size_count+=1;
-        } 
+// void ShallowCopySuppliersList(Suppliers_List *to, Suppliers_List *from){
+//         printf("ShallowCopySuppliersList: \n");
+//         Supplier_Node *from_current = from->head;
+//         Supplier_Node *to_current = to->head;
+//         to->head=from->head;
+//         // while (from_current->next != NULL) {
+//         //     printf("ffrom_current->next != NULLv\n");
+//         //     to_current->next=from_current->next;
+//         //     from_current = from_current->next;
+//         //     to->size_count+=1;
+//         // } 
+// }
+
+struct Supplier_Node* copyList(struct Supplier_Node* head)
+{
+    if (head == NULL) {
+        return NULL;
+    }
+    else {
+        struct Supplier_Node* newNode
+            = (struct Supplier_Node*)malloc(
+                sizeof(struct Supplier_Node));
+  
+        newNode->supplier = head->supplier;
+        newNode->next = copyList(head->next);
+        return newNode;
+    }
 }
 
 int popSmallestTransactionsSupplier(Suppliers_List *sl){
+    printf("popSmallestTransactionsSupplier: \n");
     int min=-1;
     char *sup_id;
     Supplier_Node *current = sl->head;
@@ -108,9 +139,14 @@ int popSmallestTransactionsSupplier(Suppliers_List *sl){
         if(current->supplier->sum_of_total_transactions_price <min || min==-1){
             min=current->supplier->sum_of_total_transactions_price;
             sup_id=current->supplier->id;
+            printf("change the min to: %d \n",min);
+            printf("change the sup_id to: %s \n",sup_id);
         }
         current = current->next;
     } 
+
+    printf("final min: %d \n",min);
+    printf("final sup_id: %s \n",sup_id);
     return deleteSupplier(sl,sup_id);
 }
 
@@ -138,12 +174,12 @@ int deleteSupplier(Suppliers_List* Suppliers_list, char *id) {
     }
     /*if its the head of the list*/
     if(strcmp(current->supplier->id,id)==0){
-        free(current->supplier);
         if(current->next!=NULL){
             Suppliers_list->head=current->next;
         }else{
             Suppliers_list->head=NULL;
         }
+        free(current->supplier);
         free(current);
         Suppliers_list->size_count-=1;
         return 0;
@@ -151,8 +187,7 @@ int deleteSupplier(Suppliers_List* Suppliers_list, char *id) {
 
     for (i = 0; i < Suppliers_list->size_count; i++) {
         if(current->next){
-            if(strcmp(current->supplier->id,id)==0){
-                free(current->next->supplier);
+            if(strcmp(current->next->supplier->id,id)==0){
                 Supplier_node_to_delete = current->next;
                 /*if its not the end of the list I want that the prev node will point the next node: prev->Supplier_to_delete->next*/
                 if (current->next->next) {
