@@ -2,45 +2,45 @@
 #ifndef SUPPLIER_H
 #define SUPPLIER_H
 
-
 #define TEN 10
 #define FIVE 5
-#define K 50 
 
- 
-
-struct Supplier {
-  int id;
-  /* alloceted  fields  */
-  char *name;
-  /* alloceted  fields  */
+#include "Utils.h"
+typedef struct Supplier {
+  char id[TEN+1];
+  char name[TEN+1];
   int phone_number;
   int count_transactions;
   int sum_of_total_transactions_price;
   int is_empty;
-};
+}Supplier;
 
-/* create array of Suppliers with stdin input K */
-int createSuppliersList(struct Supplier* sup_list);
-/* add new supplier function */ 
-int addNewSupplier(struct Supplier* sup_list);
-int addSupToArray(struct Supplier *temp_sup,struct Supplier* sup_list);
-int get_input_from_user_sup(struct Supplier *temp_sup);
-/* search function */
-struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list, int supplier_id);
-struct Supplier* searchBy_Supplier_name( struct Supplier* sup_list,char* value);
-void threeGreatestSuppliers(struct Supplier* sup_list, int *ids_arr);
-/*when supplier  is created updatse the three bigest suppliers */
-int add_to_bigest_sup_sum(struct Supplier *s,struct Supplier *push_here);
-/* update supplier sum of transaction */
-int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,char* name);
-/* print function */
-void print_sup_list(struct Supplier* sup_list);
-void print_sup(struct Supplier* sup);
-/* delete function */
-int deleteSupplier(struct Supplier* sup_list,int Supplier_id);
-void deletSingleSupplier(struct Supplier *s); 
-int deleteAllSuppliers(struct Supplier *sup_list);
+typedef struct Supplier_Node {
+	Supplier *supplier;
+	struct Supplier_Node* next;
+} Supplier_Node;
+
+typedef struct {
+	Supplier_Node* head;
+	unsigned int size_count;
+} Suppliers_List;
+
+Suppliers_List* createSuppliersList();
+int addNewSupplier(Suppliers_List* sup_list);
+int get_supplier_input_from_user(Supplier *temp_sup);
+//Supplier* searchBy_Supplier_id( Supplier* sup_list, int supplier_id);
+//Supplier* searchBy_Supplier_name( Supplier* sup_list,char* value);
+void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list,char* licenses_arr);
+//void ShallowCopySuppliersList(Suppliers_List *to, Suppliers_List *from);
+struct Supplier_Node* copyList(struct Supplier_Node* head);
+int popSmallestTransactionsSupplier(Suppliers_List *sl);
+void print_sup_list(Supplier_Node* head);
+void print_sup(Supplier* sup);
+int deleteSupplier(Suppliers_List* sup_list,char* Supplier_id);
+int deleteAllSuppliers(Suppliers_List* sup_list);
+
+int addNewSupplier_test(Suppliers_List* sup_list,char *id,char *name,int phone_number, 
+  int count_transactions, int sum_of_total_transactions_price);
 
 #endif
 

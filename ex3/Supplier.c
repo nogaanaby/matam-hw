@@ -3,43 +3,34 @@
  int size_k = 0 ;
  int count_index = 0 ;
 
-int createSuppliersList(struct Supplier* sup_list){
-    int i = 0 ;
-    get_int_input("please enter size of array",&size_k,TEN);
-    while(size_k < 1 && size_k >  K ){
-        printf("error k suold be grether then 1 or biger  then 50 \n");
-        get_int_input("please enter size of array",&size_k,TEN);
+Suppliers_List* createSuppliersList(){
+    Suppliers_List *new_list = (Suppliers_List*) malloc(sizeof(Suppliers_List));
+    if(new_list == NULL ){
+        printf("error list is empty\n");
+    }else{
+        new_list->head = NULL; 
+        new_list->size_count = 0 ; 
+        return new_list;
     }
-    if( size_k < K && sup_list){
-        for(i = 0 ; i < size_k ; i++){
-            (sup_list+i)->id = 0 ; 
-            (sup_list+i)->sum_of_total_transactions_price = 0 ;
-            (sup_list+i)->count_transactions = 0; 
-            (sup_list+i)->phone_number = 0 ; 
-            strcpy((sup_list+i)->name,""); 
-            (sup_list+i)->is_empty = 1; 
-        }
-        return 0;
-    }
-    printf("Error the size you give is to big or (array = null) \n");
-    return -1;
 }
-
 /* add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
  3. return error if in array */ 
- int addNewSupplier(struct Supplier* sup_list){
-     struct Supplier temp_sup;
-     if(get_input_from_user_sup(&temp_sup))
-     addSupToArray(&temp_sup,sup_list);
-    /*when supplier  is created updatse the three bigest suppliers */
-     //add_to_bigest_sup_sum(&temp_sup,push_here);
-     count_index++;
-     return 0;   
+ int addNewSupplier(Suppliers_List* sup_list){
+    Supplier_Node* new_supplier_node = (Supplier_Node *) malloc(sizeof(Supplier_Node));
+    Supplier* new_supplier = (Supplier *) malloc(sizeof(Supplier));
+
+    get_supplier_input_from_user(new_supplier);
+    new_supplier_node->supplier = new_supplier;
+    new_supplier_node->next = sup_list->head;
+    sup_list->head = new_supplier_node;
+    sup_list->size_count+=1;
+    return 0; 
  }
 
-int get_input_from_user_sup(struct Supplier *temp_sup){
+
+int get_supplier_input_from_user(struct Supplier *temp_sup){
     if(temp_sup){
-        get_int_input("Please enter (10 digit) sup id number:\t",&temp_sup->id,TEN);
+        get_chr_input("Please enter (10 digit) sup id number:\t",temp_sup->id,TEN);
         get_int_input("Please enter (10 digit) supplier sum of transactions:\t",&temp_sup->sum_of_total_transactions_price,TEN);
         get_int_input("Please enter (5 digit) amount of transaction:\t",&temp_sup->count_transactions,FIVE);
         get_int_input("Please enter (10 digit) sup phone number:\t",&temp_sup->phone_number,TEN);
@@ -53,128 +44,155 @@ int get_input_from_user_sup(struct Supplier *temp_sup){
 }
 
 
-int addSupToArray(struct Supplier *temp_sup,struct Supplier* sup_list){
-    if(temp_sup && sup_list && (sup_list+count_index)->is_empty && size_k < K){
-        (sup_list+count_index)->id = temp_sup->id;
-        (sup_list+count_index)->count_transactions = temp_sup->count_transactions;
-        (sup_list+count_index)->sum_of_total_transactions_price = temp_sup->sum_of_total_transactions_price; 
-        strcpy((sup_list+count_index)->name,temp_sup->name);
-        (sup_list+count_index)->phone_number = temp_sup->phone_number;
-        (sup_list+count_index)->is_empty = 0; 
-        return 0; 
-    }
-    return -1; 
-}
-
 void print_sup(struct Supplier* sup){
             if(sup->is_empty){
                 printf("supplier is empty\n");
             }else {
                 printf("Supplier name:\t%s\n",(sup)->name);
                 printf("Supplier phone number:\t%d\n",(sup)->phone_number);
-                printf("Supplier id :\t%d\n",(sup)->id);
+                printf("Supplier id :\t%s\n",(sup)->id);
                 printf("supplier sum of transactions:\t%d\n",(sup)->sum_of_total_transactions_price);
                 printf("number of transactions:\t%d\n\n",(sup)->count_transactions);
             }  
 }
 
-void print_sup_list(struct Supplier* sup_list){
+void print_sup_list(Supplier_Node* head){
+    Supplier_Node *current = head;
+
+    while (current != NULL) {
+        print_sup(current->supplier);
+        current = current->next;
+    }   
+}
+
+
+void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_arr){
+    if (Suppliers_list->size_count<=3){
+        int i=0;
+        Supplier_Node *current = Suppliers_list->head;
+        while (current != NULL) {
+            strcat(licenses_arr,current->supplier->id);
+            strcat(licenses_arr,", ");
+            current = current->next;
+            i++;
+        }
+        strcat(licenses_arr,"\0");
+    }else{
+        Suppliers_List *poped_list=createSuppliersList();
+        Supplier_Node* poped_list_head = copyList(Suppliers_list->head);
+        poped_list->size_count=Suppliers_list->size_count;
+        poped_list->head=poped_list_head;
+        popSmallestTransactionsSupplier(poped_list);
+        threeGreatestSupplier_REC(poped_list, licenses_arr);
+        free(poped_list);
+    }
+}
+
+struct Supplier_Node* copyList(struct Supplier_Node* head)
+{
+    if (head == NULL) {
+        return NULL;
+    }
+    else {
+        struct Supplier_Node* newNode
+            = (struct Supplier_Node*)malloc(
+                sizeof(struct Supplier_Node));
+  
+        newNode->supplier = head->supplier;
+        newNode->next = copyList(head->next);
+        return newNode;
+    }
+}
+
+int popSmallestTransactionsSupplier(Suppliers_List *sl){
+    int min=-1;
+    char *sup_id;
+    Supplier_Node *current = sl->head;
+
+    while (current != NULL) {
+        if(current->supplier->sum_of_total_transactions_price <min || min==-1){
+            min=current->supplier->sum_of_total_transactions_price;
+            sup_id=current->supplier->id;
+        }
+        current = current->next;
+    } 
+
+    return deleteSupplier(sl,sup_id);
+}
+
+/* delete all Supplier */ 
+int deleteAllSuppliers(Suppliers_List *Suppliers_list){
     int i = 0;
-    for(i = 0 ; i < size_k ; i++){
-        printf("index :\t%d\n",i);
-        print_sup(sup_list+i);
-    }     
-}
-
-void threeGreatestSuppliers(struct Supplier* sup_list, int *ids_arr){
-        int i = 0, j=1, smallest_amount,smallest_amount_index;
-        int transactions_sum[3];
-        if(sup_list!=NULL){
-            while((sup_list+i)->is_empty!=0){
-                if(i>2){
-                    smallest_amount=transactions_sum[0];
-                    for(;j<3;j++){
-                        if(transactions_sum[j]< smallest_amount)
-                            smallest_amount=transactions_sum[j];
-                            smallest_amount_index=j;
-                    }
-                    if( (sup_list+i)->sum_of_total_transactions_price> smallest_amount){
-                        ids_arr[j]=(sup_list+i)->id;
-                        transactions_sum[j]=(sup_list+i)->sum_of_total_transactions_price;
-                    }
-                    j=1;
-                }else{
-                    ids_arr[i]=(sup_list+i)->id;
-                    transactions_sum[i]=(sup_list+i)->sum_of_total_transactions_price;
-                }
-                i++;
-            }
-        }
-}
-
-int add_to_supplier_sum_of_transactions(struct Supplier* sup_list,int amount,char* name){
-    struct Supplier *s =  searchBy_Supplier_name(sup_list,name);
-    if(s){
-        (s)->sum_of_total_transactions_price += amount;
-        printf("add %d to sum of  transactions of supplier : %s \n",amount,s->name);
+    if(Suppliers_list == NULL ){
+        printf("list is empty\n");
+        return -1;
     }
-    return -1;
-}
-
-/* sarch for Supplier in data base */ 
- struct Supplier* searchBy_Supplier_id( struct Supplier* sup_list,int Supplier_id){
-     int i = 0 ; 
-     if(sup_list){
-         for(i = 0 ; i < size_k ; i++){
-            if(!(sup_list+i)->is_empty && (sup_list+i)->id == Supplier_id ){
-                return (sup_list+i); 
-            }
-         }
-     }
-     return NULL; 
- }
-
-struct Supplier* searchBy_Supplier_name( struct Supplier* sup_list,char* value){
-    int i = 0 ;
-    if(sup_list){
-        for(i =0 ; i < size_k ; i++){
-            if(!(sup_list+i)->is_empty && strcmp((sup_list+i)->name,value) == 0 ){
-                  return (sup_list+i);
-            } 
-        }
-    }
-    return NULL;  
-}
-
-/* delte Supplier by id number */
-int deleteSupplier(struct Supplier* sup_list,int Supplier_id){
-     struct Supplier* s = searchBy_Supplier_id(sup_list,Supplier_id);
-     if(s){
-         deletSingleSupplier(s);
-         printf("supplier deleted \n");
-         return 0 ; 
-     }
-     return -1; 
-}
-
-void deletSingleSupplier(struct Supplier *s){
-        (s)->id = 0;
-        (s)->sum_of_total_transactions_price = 0 ;
-        (s)->count_transactions = 0; 
-        (s)->phone_number = 0 ; 
-        strcpy((s)->name,""); 
-        (s)->is_empty = 1; 
-}
-
-/* delete all Supplier  */
-int deleteAllSuppliers(struct Supplier *sup_list){
-    int i = 0 ; 
-    if(sup_list){
-        for(i = 0 ; i < count_index ; i++){
-            if(sup_list+i){ deletSingleSupplier(sup_list+i); }
-        }
-    }
-    count_index = 0 ; 
+    while(Suppliers_list->head!= NULL){
+        deleteSupplier(Suppliers_list,Suppliers_list->head->supplier->id);
+    } 
     return 0 ; 
 }
 
+int deleteSupplier(Suppliers_List* Suppliers_list, char *id) {
+    int i = 0;
+    Supplier_Node * current = Suppliers_list->head;
+    Supplier_Node * Supplier_node_to_delete = NULL;
+
+    /*no Suppliers on the list*/
+    if(current==NULL){
+        return -1;
+    }
+    /*if its the head of the list*/
+    if(strcmp(current->supplier->id,id)==0){
+        if(current->next!=NULL){
+            Suppliers_list->head=current->next;
+        }else{
+            Suppliers_list->head=NULL;
+        }
+        free(current->supplier);
+        free(current);
+        Suppliers_list->size_count-=1;
+        return 0;
+    }
+
+    for (i = 0; i < Suppliers_list->size_count; i++) {
+        if(current->next){
+            if(strcmp(current->next->supplier->id,id)==0){
+                Supplier_node_to_delete = current->next;
+                /*if its not the end of the list I want that the prev node will point the next node: prev->Supplier_to_delete->next*/
+                if (current->next->next) {
+                    current->next=current->next->next;
+                }else{/*it is the end of the list*/
+                    current->next=NULL;
+                }
+                free(Supplier_node_to_delete);
+                Suppliers_list->size_count-=1;
+                return 0;
+            }
+        }
+        current = current->next;
+    }
+    /*if the id wasnt in the list*/
+    return -1;
+}
+
+
+int addNewSupplier_test(Suppliers_List* sup_list,char *id,char *name,int phone_number, 
+  int count_transactions, int sum_of_total_transactions_price){
+        Supplier_Node* snode1=(Supplier_Node *) malloc(sizeof(Supplier_Node));
+        Supplier *new_supplier=(Supplier *) malloc(sizeof(Supplier));
+
+        strcpy(new_supplier->id, id);
+        strcpy(new_supplier->name, name);
+        new_supplier->phone_number=phone_number;
+        new_supplier->count_transactions=count_transactions;
+        new_supplier->sum_of_total_transactions_price=sum_of_total_transactions_price;
+        new_supplier->is_empty=0;
+
+        snode1->supplier=new_supplier;
+        snode1->next=sup_list->head;
+        sup_list->head = snode1;
+        sup_list->size_count+=1;
+
+        return 0; 
+}

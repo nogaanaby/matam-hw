@@ -11,8 +11,9 @@ int main(){
     }
     /*start test sup*/
 
-    /* run_clients_test();
-  */   //run_clients_and_cars_test(clients_list,list_car,sup_list);
+    run_clients_test();
+    run_suppliers_test();
+    //run_clients_and_cars_test(clients_list,list_car,sup_list);
  
     return 0;
 }
