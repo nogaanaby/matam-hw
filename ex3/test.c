@@ -42,14 +42,14 @@ void run_test_car(){
     printf("\n");
     /*test for delete single car */
     {
-    removeCarFromList(list_car,1234568);
+    removeCarFromList(list_car,1234569);
     printf("\n");
     printCarList(list_car);
     printf("\n");
     }
     printf("\n");
-    print_prompt(" test : delete all cars  ");
-    destroyCarList(list_car);
+    print_prompt(" test : delete all cars (destroyCarList)  ");
+    destroyCarList(&list_car);
     printCarList(list_car);
     printf("\n");
 }

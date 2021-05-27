@@ -50,13 +50,12 @@ int addCarToLinkedList(struct Node **head,struct Node* car_node);
 void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
 struct Car* FindCarInListById(Node* head,Node* prev,int id);
-void destroyCarList(Node* head);
 /* print car and car list */
 void printCarList(Node* head);
 void print_car(struct Car* car);
 /* delte car by id value */
 int removeCarFromList(Node* head,int id);
-void destroyCarList(Node* head);
+void destroyCarList(Node** head);
 void free_car(Node* tmp);
 /* test */
 void sort_by_year_of_relase(struct Node *head);

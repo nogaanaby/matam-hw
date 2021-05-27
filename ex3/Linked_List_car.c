@@ -153,25 +153,30 @@ int removeCarFromList(Node* head,int id){
 }
 
 void print_car(struct Car* car){
-                printf("color:\t%s\n",(car)->color);
-                printf("price:\t%d\n",(car)->current_price);
-                printf("engine capcity\t%d\n",(car)->engine_capacity);
-                printf("freme number:\t%d\n",(car)->frame_id);
-                printf("license number:\t%d\n",(car)->license_id);
-                printf("manufacturer name:\t%s\n",(car)->manufacturer_name);
-                printf("model name:\t%s\n",(car)->model_name);
-                printf("road rising year :\t%d\n",(car)->road_raising_year);
-                printf("supplier_price:\t%d\n",(car)->supplier_price);
-                printf("year of relase:\t%d\n\n",(car)->year_of_relase);
+                if(car){
+                    printf("color:\t%s\n",(car)->color);
+                    printf("price:\t%d\n",(car)->current_price);
+                    printf("engine capcity\t%d\n",(car)->engine_capacity);
+                    printf("freme number:\t%d\n",(car)->frame_id);
+                    printf("license number:\t%d\n",(car)->license_id);
+                    printf("manufacturer name:\t%s\n",(car)->manufacturer_name);
+                    printf("model name:\t%s\n",(car)->model_name);
+                    printf("road rising year :\t%d\n",(car)->road_raising_year);
+                    printf("supplier_price:\t%d\n",(car)->supplier_price);
+                    printf("year of relase:\t%d\n\n",(car)->year_of_relase);
+                }
+                
 }
 
-void destroyCarList(Node* head){
-    Node *del_node ; 
-    while(head){
-        del_node = head ;
-        head = head->next;  
+void destroyCarList(Node** head){
+    Node *del_node ;
+    Node *temp = *head;  
+    while(temp){
+        del_node = temp ;
+        temp = temp->next;  
         free_car(del_node); 
     }
+    *head = NULL ; 
 }
 
 
