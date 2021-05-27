@@ -124,6 +124,9 @@ void add_example_clients(Clients_List *cl){
     char *bar="bar";
     char *idt="7984615";
     addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);        
 }
 
 
@@ -136,30 +139,32 @@ void run_suppliers_test(){
 
     printf("------------------------after insert Suppliers data--------------------\n");
     //deleteSupplier(sl,1234567);
-    int sup_id[3];
-    threeGreatestSupplier_REC(sl,sup_id);
-    printf("threeGreatestSupplier_REC: ");
-    for(int i=0;i<2;i++){
-        printf(" %d ,",sup_id[i]);
-    }
-    printf("\n");
+    // int sup_id[3];
+    // threeGreatestSupplier_REC(sl,sup_id);
+    // printf("threeGreatestSupplier_REC: ");
+    // for(int i=0;i<2;i++){
+    //     printf(" %d ,",sup_id[i]);
+    // }
+    // printf("\n");
 }
 
 
 void add_example_suppliers(Suppliers_List *sl){
     char *misubitchi="misubitchi";
-    addNewSupplier_test(sl,1234567, misubitchi,1234567891,44,2400,0);
+    char *id1="1234567";
+    addNewSupplier_test(sl,id1,misubitchi,1234567891,44,2400);
 
     char *toyota="toyota";
-    addNewSupplier_test(sl,2222222, toyota,1234567891,10,50000,0);
+    char *id2="2222222";
+    addNewSupplier_test(sl,id2,toyota,1234567891,10,50000);
 
-    char *zibi="zibi";
-    addNewSupplier_test(sl,1978465, zibi,1234567891,10,80000,0);
+    // char *zibi="zibi";
+    // addNewSupplier_test(sl,1978465, zibi,1234567891,10,80000,0);
         
-    char *zibi1="zibi1";
-    addNewSupplier_test(sl,9322654, zibi1,1234567891,10,2,0);
+    // char *zibi1="zibi1";
+    // addNewSupplier_test(sl,9322654, zibi1,1234567891,10,2,0);
 
-    char *zibi2="zibi2";
-    addNewSupplier_test(sl,7777777, zibi2,1234567891,10,90000,0);
+    // char *zibi2="zibi2";
+    // addNewSupplier_test(sl,7777777, zibi2,1234567891,10,90000,0);
 }
 
