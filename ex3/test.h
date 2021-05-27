@@ -4,9 +4,7 @@
 #include "Linked_List_car.h"
 #include "Supplier.h"
 #include "Client.h"
-#include<stdio.h>
 
-void print_Welcome_prompt();
 void print_prompt(char *text);
 void run_test_supplier(struct Supplier* list_sup);
 void run_test_car();

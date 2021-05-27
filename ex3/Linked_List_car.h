@@ -44,20 +44,22 @@ typedef struct {
 List* CreateCarList();
 /* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
  3. return error if in array */ 
-struct Car* addCarToList(Node** head);
+void addCarToList(Node** head);
 /* helper func */
 int addCarToLinkedList(struct Node **head,struct Node* car_node);
 void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
-struct Car* FindCarInListById(Node* head,int id);
-Node* get_prev(Node* head,struct Car* car);
-void destroyCarList(Node** head);
+struct Car* FindCarInListById(Node* head,Node* prev,int id);
+void destroyCarList(Node* head);
 /* print car and car list */
 void printCarList(Node* head);
 void print_car(struct Car* car);
 /* delte car by id value */
-int removeCarFromList(Node** head,int id);
-void destroyCarList(Node** head);
+int removeCarFromList(Node* head,int id);
+void destroyCarList(Node* head);
 void free_car(Node* tmp);
-
+/* test */
+void sort_by_year_of_relase(struct Node *head);
+void repalce( Node *target, Node* source );
+void get_car_test();
 #endif
