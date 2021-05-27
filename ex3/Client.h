@@ -22,9 +22,9 @@ typedef struct Time{
 }Time;
 
 typedef struct Client{
-     char first_name[MAX_LEN_NAME];
-     char last_name[MAX_LEN_NAME];
-     char id[MAX_LEN_SEVEN]; 
+     char first_name[MAX_LEN_NAME+1];
+     char last_name[MAX_LEN_NAME+1];
+     char id[MAX_LEN_SEVEN+1]; 
      int car_license_id;
      int price_per_hour;
      struct Date start_rent_date;

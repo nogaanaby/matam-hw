@@ -115,14 +115,14 @@ void run_clients_test(){
 
 
 void add_example_clients(Clients_List *cl){
-    char *noga="noga";
-    char *anaby="anaby";
-    char *idn="1234567";
+    char *noga="noga\0";
+    char *anaby="anaby\0";
+    char *idn="1234567\0";
     addNewClient_test(cl,noga, anaby, idn, 1326457,44,2004,12,1,15,20);
 
-    char *tamir="tamir";
-    char *bar="bar";
-    char *idt="7984615";
+    char *tamir="tamir\0";
+    char *bar="bar\0";
+    char *idt="7984615\0";
     addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
@@ -150,21 +150,24 @@ void run_suppliers_test(){
 
 
 void add_example_suppliers(Suppliers_List *sl){
-    char *misubitchi="misubitchi";
-    char *id1="1234567";
+    char *misubitchi="misubitchi\0";
+    char *id1="1234567890\0";
     addNewSupplier_test(sl,id1,misubitchi,1234567891,44,2400);
 
-    char *toyota="toyota";
-    char *id2="2222222";
+    char *toyota="toyota\0";
+    char *id2="2222222222\0";
     addNewSupplier_test(sl,id2,toyota,1234567891,10,50000);
 
-    // char *zibi="zibi";
-    // addNewSupplier_test(sl,1978465, zibi,1234567891,10,80000,0);
+    char *zibi="zibi\0";
+    char *id3="3333333333\0";
+    addNewSupplier_test(sl,id3, zibi,1234567891,10,80000);
         
-    // char *zibi1="zibi1";
-    // addNewSupplier_test(sl,9322654, zibi1,1234567891,10,2,0);
+    char *zibi1="zibi1\0";
+    char *id4="4444444444\0";
+    addNewSupplier_test(sl,id4, zibi1,1234567891,10,2);
 
-    // char *zibi2="zibi2";
-    // addNewSupplier_test(sl,7777777, zibi2,1234567891,10,90000,0);
+    char *zibi2="zibi2\0";
+    char *id5="5555555555\0";
+    addNewSupplier_test(sl,id5, zibi2,1234567891,10,90000);
 }
 
