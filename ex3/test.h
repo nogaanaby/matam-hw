@@ -5,6 +5,7 @@
 #include "Linked_List_car.h"
 #include "Supplier.h"
 #include "Client.h"
+#include <string.h>
 #include<stdio.h>  
 // void print_Welcome_prompt();
 // void print_prompt(char *text);
