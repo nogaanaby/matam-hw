@@ -17,14 +17,19 @@ void run_test_car(){
 
 
     /*test carNumberWithGivenCapacity*/
-/*     print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
+    {
+        int count = 0 ; 
+        print_prompt(" test : carNumberWithGivenCapacity (2000)  ");
+        count = carNumberWithGivenCapacity(list_car,2000);
+        printf("\tnumber  of cars with engine value  of 2000 is : %d\n",count);
+    }
+    {
+        int count = 0 ; 
+        print_prompt(" test : carNumberWithGivenCapacity_REC (2000)  ");
+        count = carNumberWithGivenCapacity_REC(list_car,2000);
+        printf("\tnumber  of cars with engine value  of 2000 is : %d\n",count);
+    }
 
- */ 
-  /*   print_prompt(" test : sort linked list ");
-    sort_by_munifucter_year(list_car);
-    print_prompt("after sort");
-    printCarList(list_car);
- */
 
 
     print_prompt(" test : searchBy_license_id (1234568)");
@@ -47,6 +52,16 @@ void run_test_car(){
     printCarList(list_car);
     printf("\n");
     }
+    {
+        print_prompt(" test : invarse list  ");
+        inverseCarList(&list_car);
+        printf("\n");
+        print_prompt("after inverse");
+        printCarList(list_car);
+        printf("\n");
+    }
+
+
     printf("\n");
     print_prompt(" test : delete all cars (destroyCarList)  ");
     destroyCarList(&list_car);

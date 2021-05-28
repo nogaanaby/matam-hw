@@ -27,7 +27,8 @@ List* CreateCarList(){
     car->road_raising_year = 1992+i ; 
     car->supplier_price = 20000000+i; 
     car->current_price =  20000000+i;
-    car->engine_capacity = 2000+i;
+    if(i==1 || i == 3){car->engine_capacity = 2000-(i*10);}
+    else{car->engine_capacity = 2000;} 
     i++;
 }
 /* remove from file only test */
@@ -70,12 +71,29 @@ void sort_by_year_of_relase(struct Node *head){
     }
 }
 
-/* swap between tow cars  */
+/* swap between tow Nods of data   */
 void repalce( Node *target, Node* source ){
     struct Car *temp = target->car; 
     target->car = source->car;
     source->car = temp;
 }
+/*  reverse the list */
+void inverseCarList(Node** head){
+    Node *prev,*next,*current;
+    current = *head;    
+    while (current) {
+        /* Store next */ 
+        next = current->next;
+        /* Reverse current node's pointer */
+        current->next = prev;
+         /* Move pointers one position ahead. */
+        prev = current;
+        current = next;
+    }
+    *head = prev;
+}
+    
+
 
 void get_input_from_user(struct Car* temp_car){
     get_int_input("Please enter (7 digit) license id number:\t",&temp_car->license_id,MAX_LEN_SEVEN);
@@ -101,7 +119,6 @@ struct Car* FindCarInListById(Node* head,Node* prev,int id){
         temp = temp->next;  
     }
     /* car is not found */
-    prev = NULL;
     return NULL;
 }
 
@@ -129,41 +146,61 @@ void free_car(Node* tmp){
         free(tmp);
 }
 
+int carNumberWithGivenCapacity(Node *head,int engine_val){
+    int count = 0;
+    Node *temp = head;
+    while(temp){
+        if(temp->car->engine_capacity == engine_val )
+            count++;
+        temp = temp->next; 
+    }
+    return count ; 
+}
+int carNumberWithGivenCapacity_REC(Node *head,int engine_val){
+    int sum = 0 ; 
+    Node *temp = head;
+    if(temp == NULL){return 0 ; }
+    if(temp->car->engine_capacity == engine_val){sum++;}
+    return sum += carNumberWithGivenCapacity_REC(temp->next,engine_val);
+}
+
+
 int removeCarFromList(Node* head,int id){
-    Node *tmp = NULL ;
-    Node *prev = NULL; 
+    Car *tmp = NULL ;
+    Node *temp_node = head;
+    Node *prev = NULL;
+    tmp = FindCarInListById(head,prev,id);
+    print_car(tmp); 
     if(!head){return -1;}
-    if(FindCarInListById(head,prev,id)){
-        if(tmp){
+        if(temp_node && prev){
             /* on top of the list */
-            if(!tmp->next){
-            free_car(tmp);
+            if(!temp_node->next){
+            free_car(temp_node);
             return 0 ; 
             }
             /* if  gat a prev */
             if(prev){
-                prev->next = tmp->next ; 
-                free_car(tmp); 
+                prev->next = temp_node->next ; 
+                free_car(temp_node); 
                 return 0 ;
             }
         }
-    }
     printf("error item id : %d not found in list !\n",id);
     return -1;
 }
 
 void print_car(struct Car* car){
                 if(car){
-                    printf("color:\t%s\n",(car)->color);
-                    printf("price:\t%d\n",(car)->current_price);
-                    printf("engine capcity\t%d\n",(car)->engine_capacity);
-                    printf("freme number:\t%d\n",(car)->frame_id);
-                    printf("license number:\t%d\n",(car)->license_id);
-                    printf("manufacturer name:\t%s\n",(car)->manufacturer_name);
-                    printf("model name:\t%s\n",(car)->model_name);
-                    printf("road rising year :\t%d\n",(car)->road_raising_year);
-                    printf("supplier_price:\t%d\n",(car)->supplier_price);
-                    printf("year of relase:\t%d\n\n",(car)->year_of_relase);
+                    printf("\tcolor:\t%s\n",(car)->color);
+                    printf("\tprice:\t%d\n",(car)->current_price);
+                    printf("\tengine capcity\t%d\n",(car)->engine_capacity);
+                    printf("\tfreme number:\t%d\n",(car)->frame_id);
+                    printf("\tlicense number:\t%d\n",(car)->license_id);
+                    printf("\tmanufacturer name:\t%s\n",(car)->manufacturer_name);
+                    printf("\tmodel name:\t%s\n",(car)->model_name);
+                    printf("\troad rising year :\t%d\n",(car)->road_raising_year);
+                    printf("\tsupplier_price:\t%d\n",(car)->supplier_price);
+                    printf("\tyear of relase:\t%d\n\n",(car)->year_of_relase);
                 }
                 
 }

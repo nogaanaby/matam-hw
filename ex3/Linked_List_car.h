@@ -53,6 +53,10 @@ struct Car* FindCarInListById(Node* head,Node* prev,int id);
 /* print car and car list */
 void printCarList(Node* head);
 void print_car(struct Car* car);
+/* query */
+void inverseCarList(Node** head);
+int carNumberWithGivenCapacity(Node *head,int engine_val);
+int carNumberWithGivenCapacity_REC(Node *head,int engine_val);
 /* delte car by id value */
 int removeCarFromList(Node* head,int id);
 void destroyCarList(Node** head);
