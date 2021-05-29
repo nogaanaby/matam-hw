@@ -67,6 +67,7 @@ void print_clients_list(Client_Node * head){
     }
 }
 
+#ifdef DAVIS 
 int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list){
     int count=0;
     Client_Node *current_client = clients_list->head;
@@ -84,7 +85,7 @@ int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars
     }
     return count;
 }
-
+#endif
 
 
 /* delete all Client */ 

@@ -55,6 +55,7 @@ void print_sup(struct Supplier* sup){
                 printf("number of transactions:\t%d\n\n",(sup)->count_transactions);
             }  
 }
+
 #ifdef DAVIS 
 void print_sup_list(Supplier_Node* head){
     Supplier_Node *current = head;
