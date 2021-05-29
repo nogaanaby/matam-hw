@@ -4,6 +4,7 @@ Clients_List* createClientsList(){
     Clients_List *new_list = (Clients_List*) malloc(sizeof(Clients_List));
     if(new_list == NULL ){
         printf("error list is empty\n");
+        return NULL;
     }else{
         new_list->head = NULL; 
         new_list->size_count = 0 ; 
@@ -90,7 +91,6 @@ int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars
 
 /* delete all Client */ 
 int deleteAllClients(Clients_List *clients_list){
-    int i = 0;
     if(clients_list == NULL ){
         printf("list is empty\n");
         return -1;

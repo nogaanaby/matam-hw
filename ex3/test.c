@@ -69,30 +69,18 @@ void run_test_car(){
     printf("\n");
 }
 
-  
-// void run_clients_and_cars_test(){
-//     Clients_List* cll=createClientsList();
-//     add_example_clients(cll);
-//     // List* cal=createCarsList();
-//     // add_example_clients(cal);
-//     // int cli= clientNumberWithGivenCarYear(2004, cll,cal);
-//     // printf("there are %d clients who have cars from %d", cli, 2004);
-// }
-
 void run_clients_test(){
     Clients_List* cl=createClientsList();
-    add_example_clients(cl);
-    //addNewClient(&cl->head);
+    char *id="7984615";
+    /*add_example_clients(cl);*/
+    addNewClient(cl);
 
-    //deleteAllClients(clients_list);
-
+    /*deleteAllClients(clients_list);*/
+    printf("------------------------after insert clients data--------------------\n");
     print_clients_list(cl->head);
     printf("\n");
 
-    printf("------------------------after insert clients data--------------------\n");
-    char *id="7984615";
     deleteClient(cl,id);
-
     print_clients_list(cl->head);
     printf("\n");
 }
@@ -102,13 +90,10 @@ void add_example_clients(Clients_List *cl){
     char *noga="noga\0";
     char *anaby="anaby\0";
     char *idn="1234567\0";
-    addNewClient_test(cl,noga, anaby, idn, 1326454,44,2004,12,1,15,20);
-
     char *tamir="tamir\0";
     char *bar="bar\0";
     char *idt="7984615\0";
-    /*Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
-    int price_per_hour, int year, int month, int day, int hour, int minutes)*/
+    addNewClient_test(cl,noga, anaby, idn, 1326454,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, idt, 1234567,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, idt, 5555555,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, idt, 2222222,44,2004,12,1,15,20);
@@ -123,14 +108,13 @@ void print_prompt(char *text){
 }
 
 void run_suppliers_test(){
+    char* sup_ids= malloc(sizeof(sup_ids)); 
     Suppliers_List* sl=createSuppliersList();
-    add_example_suppliers(sl);
-    //addNewClient(&cl->head);
+    /*add_example_suppliers(sl);*/
+    addNewSupplier(sl);
     print_sup_list(sl->head);
     printf("\n");
-    char *sup_ids;
     printf("------------before threeGreatestSupplier_REC---------------\n");
-
     threeGreatestSupplier_REC(sl,sup_ids);
     printf("threeGreatestSupplier_REC: ");
     printf("%s", sup_ids);
@@ -141,39 +125,30 @@ void run_suppliers_test(){
 void add_example_suppliers(Suppliers_List *sl){
     char *misubitchi="misubitchi\0";
     char *id1="1234567890\0";
+    char *toyota="toyota\0";
+    char *id2="2222222222\0";
+    char *zibi="zibi\0";
+    char *id3="3333333333\0";
+    char *zibi1="zibi1\0";
+    char *id4="4444444444\0";    
+    char *zibi2="zibi2\0";
+    char *id5="5555555555\0";    
     /*Suppliers_List* sup_list,char *id,char *name,int phone_number, 
   int count_transactions, int sum_of_total_transactions_price*/
     addNewSupplier_test(sl,id1,misubitchi,1234567891,44,2400);
-
-    char *toyota="toyota\0";
-    char *id2="2222222222\0";
     addNewSupplier_test(sl,id2,toyota,1234567891,10,50000);
-
-    char *zibi="zibi\0";
-    char *id3="3333333333\0";
     addNewSupplier_test(sl,id3, zibi,1234567891,10,80000);
-        
-    char *zibi1="zibi1\0";
-    char *id4="4444444444\0";
     addNewSupplier_test(sl,id4, zibi1,1234567891,10,2);
-
-    char *zibi2="zibi2\0";
-    char *id5="5555555555\0";
     addNewSupplier_test(sl,id5, zibi2,1234567891,10,90000);
 }
 
 void run_clients_and_cars_test(){
     Clients_List* cl=createClientsList();
-    add_example_clients(cl);
-
-    print_clients_list(cl->head);
-
     List* carl=CreateCarList();
+    add_example_clients(cl);
+    print_clients_list(cl->head);
     add_example_cars(carl);
-
     printCarList(carl->head);
-
-
     printf("***********clientNumberWithGivenCarYear 2004 should be 2 *****************\n");
     printf(" %d \n", clientNumberWithGivenCarYear(2015,cl,carl) );
 }
@@ -182,9 +157,6 @@ void add_example_cars(List *cl){
     char *misubitchi="misubitchi\0";
     char *x1model="x1model\0";
     char *white="white\0";
-    /*(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
-    int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
-    int current_price, int engine_capacity*/
     addNewCar_test(cl,misubitchi,x1model,white,1234567,44,2004,2006,66000,70000,500);
     addNewCar_test(cl,misubitchi,x1model,white,5555555,44,2004,2006,66000,70000,500);
     addNewCar_test(cl,misubitchi,x1model,white,2222222,44,2015,2020,66000,70000,500);

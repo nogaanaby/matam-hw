@@ -28,10 +28,7 @@ typedef struct {
 Suppliers_List* createSuppliersList();
 int addNewSupplier(Suppliers_List* sup_list);
 int get_supplier_input_from_user(Supplier *temp_sup);
-//Supplier* searchBy_Supplier_id( Supplier* sup_list, int supplier_id);
-//Supplier* searchBy_Supplier_name( Supplier* sup_list,char* value);
 void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list,char* licenses_arr);
-//void ShallowCopySuppliersList(Suppliers_List *to, Suppliers_List *from);
 struct Supplier_Node* copyList(struct Supplier_Node* head);
 int popSmallestTransactionsSupplier(Suppliers_List *sl);
 void print_sup_list(Supplier_Node* head);

@@ -7,6 +7,7 @@ Suppliers_List* createSuppliersList(){
     Suppliers_List *new_list = (Suppliers_List*) malloc(sizeof(Suppliers_List));
     if(new_list == NULL ){
         printf("error list is empty\n");
+        return NULL;
     }else{
         new_list->head = NULL; 
         new_list->size_count = 0 ; 
@@ -34,7 +35,7 @@ int get_supplier_input_from_user(struct Supplier *temp_sup){
         get_int_input("Please enter (10 digit) supplier sum of transactions:\t",&temp_sup->sum_of_total_transactions_price,TEN);
         get_int_input("Please enter (5 digit) amount of transaction:\t",&temp_sup->count_transactions,FIVE);
         get_int_input("Please enter (10 digit) sup phone number:\t",&temp_sup->phone_number,TEN);
-        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,FIVE);
+        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,TEN);
         temp_sup->is_empty = 0 ; 
         printf("\n");
         printf(" add new supplier \n");
@@ -69,13 +70,11 @@ void print_sup_list(Supplier_Node* head){
 
 void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_arr){
     if (Suppliers_list->size_count<=3){
-        int i=0;
         Supplier_Node *current = Suppliers_list->head;
         while (current != NULL) {
             strcat(licenses_arr,current->supplier->id);
             strcat(licenses_arr,", ");
             current = current->next;
-            i++;
         }
         strcat(licenses_arr,"\0");
     }else{
@@ -123,7 +122,6 @@ int popSmallestTransactionsSupplier(Suppliers_List *sl){
 
 /* delete all Supplier */ 
 int deleteAllSuppliers(Suppliers_List *Suppliers_list){
-    int i = 0;
     if(Suppliers_list == NULL ){
         printf("list is empty\n");
         return -1;
