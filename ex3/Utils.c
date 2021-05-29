@@ -83,19 +83,21 @@ char* my_strdup (char* str)
 }
 /* chenge str_char_input to allocate danmic memory if attr_size == 0 */
 int get_chr_input(char *text,char *attr,int attr_size ){
-    char buff[MAX_STRING_SIZE] = {0};
+    char buff[MAX_STRING_SIZE];
     printf("%s\t\n",text);
     if(attr_size == 0){
-    scanf("%s",buff);
-    /* allocation new momry for char array  */
-    attr = my_strdup(buff);
-    /* if not allocation then print error and exit */
-    if(!attr){printError(NULL_);}
+        scanf("%s",buff);
+        /* allocation new momry for char array  */
+        attr = my_strdup(buff);
+        /* if not allocation then print error and exit */
+        if(!attr){printError(NULL_);}
+        strcat(attr,"\0");
+        return 0 ; 
     }else{
         scanf("%s",attr);
+        strcat(attr,"\0");
     }
     /* close the string */
-    strcat(attr,"\0");
     if(validateInput(attr,attr_size,0) == 0 ){
         return 0;
     }else{

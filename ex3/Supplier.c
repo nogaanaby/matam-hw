@@ -55,7 +55,7 @@ void print_sup(struct Supplier* sup){
                 printf("number of transactions:\t%d\n\n",(sup)->count_transactions);
             }  
 }
-
+#ifdef DAVIS 
 void print_sup_list(Supplier_Node* head){
     Supplier_Node *current = head;
 
@@ -64,7 +64,7 @@ void print_sup_list(Supplier_Node* head){
         current = current->next;
     }   
 }
-
+#endif
 
 void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_arr){
     if (Suppliers_list->size_count<=3){

@@ -7,14 +7,14 @@ int main(){
     */ }
     /*start test car*/
     {
-     //   run_test_car();
+        run_test_car();
     }
     /*start test sup*/
 
   /*   run_clients_test();
     run_suppliers_test();*/
-    run_clients_and_cars_test();
- 
+   /* run_clients_and_cars_test();
+  */ 
     return 0;
 }
      
