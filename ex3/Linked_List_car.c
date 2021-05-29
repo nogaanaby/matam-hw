@@ -217,3 +217,29 @@ void destroyCarList(Node** head){
 }
 
 
+int addNewCar_test(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
+int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
+int current_price, int engine_capacity){
+        Node* cnode=(Node *) malloc(sizeof(Node));
+        Car* new_car=(Car *) malloc(sizeof(Car));
+
+        new_car->manufacturer_name=manufacturer_name;
+        new_car->model_name=model_name;
+        new_car->color=color;
+        
+        new_car->license_id=license_id;
+        new_car->frame_id=frame_id;
+        new_car->year_of_relase=year_of_relase;
+        new_car->road_raising_year=road_raising_year;
+        new_car->supplier_price=supplier_price;
+        new_car->current_price=current_price;
+        new_car->engine_capacity=engine_capacity;
+        new_car->is_empty=0;
+
+        cnode->car=new_car;
+        cnode->next=cars_list->head;
+        cars_list->head = cnode;
+        cars_list->size_count+=1;
+        return 0; 
+}
+

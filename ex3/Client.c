@@ -79,7 +79,7 @@ int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars
             }
             current_car=current_car->next;
         }
-        Node *current_car = cars_list->head;
+        current_car = cars_list->head;
         current_client=current_client->next;
     }
     return count;

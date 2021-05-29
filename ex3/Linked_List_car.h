@@ -65,4 +65,7 @@ void free_car(Node* tmp);
 void sort_by_year_of_relase(struct Node *head);
 void repalce( Node *target, Node* source );
 void get_car_test();
+int addNewCar_test(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
+    int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
+    int current_price, int engine_capacity);
 #endif

@@ -102,15 +102,17 @@ void add_example_clients(Clients_List *cl){
     char *noga="noga\0";
     char *anaby="anaby\0";
     char *idn="1234567\0";
-    addNewClient_test(cl,noga, anaby, idn, 1326457,44,2004,12,1,15,20);
+    addNewClient_test(cl,noga, anaby, idn, 1326454,44,2004,12,1,15,20);
 
     char *tamir="tamir\0";
     char *bar="bar\0";
     char *idt="7984615\0";
-    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, idt, 1326457,44,2004,12,1,15,20);        
+    /*Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
+    int price_per_hour, int year, int month, int day, int hour, int minutes)*/
+    addNewClient_test(cl,tamir, bar, idt, 1234567,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 5555555,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 2222222,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, idt, 9999999,44,2004,12,1,15,20);        
 }
 
 
@@ -139,6 +141,8 @@ void run_suppliers_test(){
 void add_example_suppliers(Suppliers_List *sl){
     char *misubitchi="misubitchi\0";
     char *id1="1234567890\0";
+    /*Suppliers_List* sup_list,char *id,char *name,int phone_number, 
+  int count_transactions, int sum_of_total_transactions_price*/
     addNewSupplier_test(sl,id1,misubitchi,1234567891,44,2400);
 
     char *toyota="toyota\0";
@@ -158,3 +162,32 @@ void add_example_suppliers(Suppliers_List *sl){
     addNewSupplier_test(sl,id5, zibi2,1234567891,10,90000);
 }
 
+void run_clients_and_cars_test(){
+    Clients_List* cl=createClientsList();
+    add_example_clients(cl);
+
+    print_clients_list(cl->head);
+
+    List* carl=CreateCarList();
+    add_example_cars(carl);
+
+    printCarList(carl->head);
+
+
+    printf("***********clientNumberWithGivenCarYear 2004 should be 2 *****************\n");
+    printf(" %d \n", clientNumberWithGivenCarYear(2015,cl,carl) );
+}
+
+void add_example_cars(List *cl){
+    char *misubitchi="misubitchi\0";
+    char *x1model="x1model\0";
+    char *white="white\0";
+    /*(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
+    int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
+    int current_price, int engine_capacity*/
+    addNewCar_test(cl,misubitchi,x1model,white,1234567,44,2004,2006,66000,70000,500);
+    addNewCar_test(cl,misubitchi,x1model,white,5555555,44,2004,2006,66000,70000,500);
+    addNewCar_test(cl,misubitchi,x1model,white,2222222,44,2015,2020,66000,70000,500);
+    addNewCar_test(cl,misubitchi,x1model,white,9999999,44,2017,2020,66000,70000,500);
+
+}
