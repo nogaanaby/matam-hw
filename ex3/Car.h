@@ -41,7 +41,7 @@ typedef struct {
 
 
 /*create linked list  of cars   */ 
-List* CreateCarList();
+List* createCarList();
 /* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
  3. return error if in array */ 
 void addCarToList(Node** head);

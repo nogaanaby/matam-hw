@@ -1,8 +1,7 @@
 #include "Car.h"
 
 
-
-List* CreateCarList(){   
+List* createCarList(){   
     List *new_list = (List*) malloc(sizeof(List));
     if(new_list){
         new_list->head = NULL; 

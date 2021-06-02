@@ -144,7 +144,7 @@ void add_example_suppliers(Suppliers_List *sl){
 
 void run_clients_and_cars_test(){
     Clients_List* cl=createClientsList();
-    List* carl=CreateCarList();
+    List* carl=createCarList();
     add_example_clients(cl);
     print_clients_list(cl->head);
     add_example_cars(carl);
