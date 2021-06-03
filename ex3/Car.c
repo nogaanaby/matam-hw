@@ -5,7 +5,7 @@
 
 
 /* create array of cars fix size N, set the fildes to zero */ 
-int createCarList(struct Car* car){
+int createCarTree(struct Car* car){
         int i=0;
         if(car == NULL ){printf("error list is empty\n");return -1;}
         for( ; i <  N ; i++){
@@ -73,7 +73,7 @@ int  copy_car(struct Car *to,struct Car *from){
 } 
 
 
-int addCarToArray(struct Car *car,struct Car *car_list){
+int addCarToTree(struct Car *car,struct Car *car_list){
     if(car && car_list && (car_list+count_index_array)->is_empty){
         if(copy_car(car_list+count_index_array,car)){
             printf("add new  car to array in index %d \n",count_index_array);
@@ -131,7 +131,7 @@ void print_car(struct Car* car){
             }  
 }
 
-void print_car_list(struct Car* car){
+void print_car_Tree(struct Car* car){
     int i = 0;
     for( ; i <  N ; i++){
         printf("index :\t%d\n",i);
