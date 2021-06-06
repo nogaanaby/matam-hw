@@ -2,12 +2,12 @@
 
 
 /* shis is my  */
-List* createCarList(){   
-    List *new_list = (List*) malloc(sizeof(List));
-    if(new_list){
-        new_list->head = NULL; 
-        new_list->size_count = 0 ; 
-        return new_list;
+BinarySearchTree* createCarList(){   
+    BinarySearchTree *new_tree = (BinarySearchTree*) malloc(sizeof(BinarySearchTree));
+    if(new_tree){
+        new_tree->root = NULL; 
+        new_tree->elementCount = 0 ; 
+        return new_tree;
     }
     /* allocetion field exit prog */
     printError(NULL_);
@@ -34,23 +34,33 @@ List* createCarList(){
 /* remove from file only test */
 
 void addCarToList(Node** head){
-     Node* new_node_car = (Node*) malloc(sizeof(Node));
-     new_node_car->car = ( Car*) malloc(sizeof( Car));
-     if(new_node_car){
-            get_car_test(new_node_car->car);
-/*          get_input_from_user(new_node_car->car); */         
-            addCarToLinkedList(head,new_node_car);
-            sort_by_year_of_relase(*head);
+     Node* new_node_Tree = (Node*) malloc(sizeof(Node));
+     new_node_Tree->car = ( Car*) malloc(sizeof( Car));
+     new_node_Tree->left = NULL ;
+     new_node_Tree->right = NULL ;
+     new_node_Tree->sum_of_sub_tree = 0 ; 
+     if(new_node_Tree){
+         /* init node with perms of car */
+            get_car_test(new_node_Tree->car);
+/*          get_input_from_user(new_node_Tree->car); */         
+            addCarToLinkedList(head,new_node_Tree);
      }
 }
 
 int addCarToLinkedList(struct Node **head,struct Node* car_node){
+            Node *root = *head ; 
             if(car_node){
-                car_node->next = *head;
-                *head  = car_node;
-                return 0 ; 
+                if(root == NULL ){
+                    root = car_node;
+                }
+
+                if(root->left->sum_of_sub_tree > root->right->sum_of_sub_tree){
+                    addCarToLinkedList(root->right,car_node);
+                    root->sum_of_sub_tree++;
+                }
+            
+                addCarToLinkedList(root->left,car_node);
             }
-        return -1;
 }
 /* function will sort the array */
 void sort_by_year_of_relase(struct Node *head){
@@ -232,32 +242,5 @@ void destroyCarList(Node** head){
         free_car(del_node); 
     }
     *head = NULL ; 
-}
-
-
-int addNewCar_test(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
-int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
-int current_price, int engine_capacity){
-        Node* cnode=(Node *) malloc(sizeof(Node));
-        Car* new_car=(Car *) malloc(sizeof(Car));
-
-        new_car->manufacturer_name=manufacturer_name;
-        new_car->model_name=model_name;
-        new_car->color=color;
-        
-        new_car->license_id=license_id;
-        new_car->frame_id=frame_id;
-        new_car->year_of_relase=year_of_relase;
-        new_car->road_raising_year=road_raising_year;
-        new_car->supplier_price=supplier_price;
-        new_car->current_price=current_price;
-        new_car->engine_capacity=engine_capacity;
-        new_car->is_empty=0;
-
-        cnode->car=new_car;
-        cnode->next=cars_list->head;
-        cars_list->head = cnode;
-        cars_list->size_count+=1;
-        return 0; 
 }
 

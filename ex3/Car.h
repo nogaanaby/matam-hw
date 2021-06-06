@@ -26,22 +26,27 @@ typedef struct Car
     int is_empty ; 
 }Car;
 
-
 typedef struct Node {
-	struct Car *car;
-	struct Node* next;
+	Car* car;
+	struct Node* left;
+	struct Node* right;
+    int sum_of_sub_tree; 
 } Node;
 
+/* wrapper for a tree node */
 typedef struct {
-	Node* head;
-	unsigned int size_count;
-} List;
+	Node* root;
+	int elementCount;
+} BinarySearchTree;
+
+/* enum for types of tree traversal */
+typedef enum { INORDER, PREORDER, POSTORDER } Traversal;
 
 
 
 
 /*create linked list  of cars   */ 
-List* createCarList();
+BinarySearchTree* createCarTree();
 /* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
  3. return error if in array */ 
 void addCarToList(Node** head);
@@ -66,7 +71,7 @@ void sort_by_year_of_relase(struct Node *head);
 void repalce( Node *target, Node* source );
 Node* getPrev(Node* head, int id);
 void get_car_test();
-int addNewCar_test(List* cars_list,char *manufacturer_name, char *model_name, char *color, 
+int addNewCar_test(BinarySearchTree* cars_list,char *manufacturer_name, char *model_name, char *color, 
     int license_id, int frame_id, int year_of_relase, int road_raising_year, int supplier_price, 
     int current_price, int engine_capacity);
 #endif
