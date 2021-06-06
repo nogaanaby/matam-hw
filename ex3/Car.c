@@ -1,13 +1,29 @@
 #include "Car.h"
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+/*blaaaaaaaaaaaaaaaaaaaaaa*/
+=======
 /* shis is my  */
+<<<<<<< HEAD
 BinarySearchTree* createCarList(){   
     BinarySearchTree *new_tree = (BinarySearchTree*) malloc(sizeof(BinarySearchTree));
     if(new_tree){
         new_tree->root = NULL; 
         new_tree->elementCount = 0 ; 
         return new_tree;
+=======
+>>>>>>> shahar
+=======
+>>>>>>> b929eb8a65054bf10f4ca61d7c02b020d060f881
+List* createCarList(){   
+    List *new_list = (List*) malloc(sizeof(List));
+    if(new_list){
+        new_list->head = NULL; 
+        new_list->size_count = 0 ; 
+        return new_list;
+>>>>>>> master
     }
     /* allocetion field exit prog */
     printError(NULL_);
