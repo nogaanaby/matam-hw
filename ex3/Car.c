@@ -1,29 +1,13 @@
 #include "Car.h"
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*blaaaaaaaaaaaaaaaaaaaaaa*/
-=======
-/* shis is my  */
-<<<<<<< HEAD
+
 BinarySearchTree* createCarList(){   
     BinarySearchTree *new_tree = (BinarySearchTree*) malloc(sizeof(BinarySearchTree));
     if(new_tree){
         new_tree->root = NULL; 
         new_tree->elementCount = 0 ; 
         return new_tree;
-=======
->>>>>>> shahar
-=======
->>>>>>> b929eb8a65054bf10f4ca61d7c02b020d060f881
-List* createCarList(){   
-    List *new_list = (List*) malloc(sizeof(List));
-    if(new_list){
-        new_list->head = NULL; 
-        new_list->size_count = 0 ; 
-        return new_list;
->>>>>>> master
     }
     /* allocetion field exit prog */
     printError(NULL_);
@@ -54,7 +38,8 @@ void addCarToList(Node** head){
      new_node_Tree->car = ( Car*) malloc(sizeof( Car));
      new_node_Tree->left = NULL ;
      new_node_Tree->right = NULL ;
-     new_node_Tree->sum_of_sub_tree = 0 ; 
+     new_node_Tree->sum_of_sub_tree_left = 0 ;
+     new_node_Tree->sum_of_sub_tree_right = 0 ;  
      if(new_node_Tree){
          /* init node with perms of car */
             get_car_test(new_node_Tree->car);
@@ -62,63 +47,25 @@ void addCarToList(Node** head){
             addCarToLinkedList(head,new_node_Tree);
      }
 }
-
-int addCarToLinkedList(struct Node **head,struct Node* car_node){
+/* if left sub trre is biger  then rihgt  sub tree then go rihgt  else  go left  
+this will keep trre leveld  */
+int addCarToLinkedList(struct Node **head,struct Node* new_node){
             Node *root = *head ; 
-            if(car_node){
+            if(new_node){
                 if(root == NULL ){
-                    root = car_node;
+                    root = new_node;
                 }
-
-                if(root->left->sum_of_sub_tree > root->right->sum_of_sub_tree){
-                    addCarToLinkedList(root->right,car_node);
-                    root->sum_of_sub_tree++;
+                /* go right */
+                if(root->sum_of_sub_tree_left > root->sum_of_sub_tree_right){
+                    addCarToLinkedList(root->right,new_node);
+                    root->sum_of_sub_tree_right++;
                 }
-            
-                addCarToLinkedList(root->left,car_node);
+                /* go left */
+                addCarToLinkedList(root->left,new_node);
+                root->sum_of_sub_tree_left++; 
             }
 }
-/* function will sort the array */
-void sort_by_year_of_relase(struct Node *head){
-    struct Node *temp = head;
-    struct Node *pnode = head; 
-    while(pnode != NULL)
-    {
-        temp=head; 
-        while (temp->next !=NULL)
-        {
-           if(temp->car->year_of_relase > temp->next->car->year_of_relase)
-            {
-              repalce(temp,temp->next);
-            }
-         temp = temp->next;   
-        }
-        pnode = pnode->next;   
-    }
-}
 
-/* swap between tow Nods of data   */
-void repalce( Node *target, Node* source ){
-    struct Car *temp = target->car; 
-    target->car = source->car;
-    source->car = temp;
-}
-/*  reverse the list */
-void inverseCarList(Node** head){
-    Node *prev,*next,*current;
-    current = *head;    
-    while (current) {
-        /* Store next */ 
-        next = current->next;
-        /* Reverse current node's pointer */
-        current->next = prev;
-         /* Move pointers one position ahead. */
-        prev = current;
-        current = next;
-    }
-    *head = prev;
-}
-    
 
 
 void get_input_from_user(struct Car* temp_car){
@@ -134,31 +81,27 @@ void get_input_from_user(struct Car* temp_car){
     get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car-> engine_capacity,MAX_LEN_FOUR);
 }
 
-struct Node* FindCarInListById(Node* head,int id){
-    if(!head){return NULL ; }
-    while(head){
-        if(head->car->license_id == id){
-            return head; 
-        }
-        head = head->next;  
-    }
-    /* car is not found */
-    return NULL;
+struct Node* FindCarInListByid(Node* head,int id){
+    Node *res = NULL;
+    if( head==NULL ){
+        return  ; 
+    } 
+
+    if(head->car->license_id == id ){
+        return head ; 
+    }  
+    /*start with the root  if it`s not me go left and then go right*/
+    res = FindCarInListByCapcity(head->left,id);
+    res = FindCarInListByCapcity(head->right,id);
 }
 
-
-void printCarList(Node* head){
-    struct Node *temp = head;
-    int i = 0 ; 
-    if(!temp){ printf("error list is empty\n"); return;}
-    while(temp){
-        printf("car in index number %d ->\n",i);     
-        print_car(temp->car); 
-        temp = temp->next; 
-        i++;
-        printf("\n");
-    }
-    
+void printCarTree(Node* head){
+     if(head == NULL){
+         return; 
+     }  
+     printCarList(head->left);
+     printCarList(head->right);
+     print_car(head->car);
 }
 
 
@@ -171,66 +114,18 @@ void free_car(Node* tmp){
         free(tmp);
 }
 
-int carNumberWithGivenCapacity(Node *head,int engine_val){
-/* return the number of car with given capacity  */
-    int count = 0;
-    Node *temp = head;
-    while(temp){
-        if(temp->car->engine_capacity == engine_val )
-            count++;
-        temp = temp->next; 
-    }
-    return count ; 
-}
-
 /* return the number of car with given capacity  */
 int carNumberWithGivenCapacity_REC(Node *head,int engine_val){
     int sum = 0 ; 
-    Node *temp = head;
-    if(temp == NULL){return 0 ; }
-    if(temp->car->engine_capacity == engine_val){sum++;}
-    return sum += carNumberWithGivenCapacity_REC(temp->next,engine_val);
+    if(head == NULL){return 0 ; }
+    if(head->car->engine_capacity == engine_val){sum++;}
+    return sum += carNumberWithGivenCapacity_REC(head->left,engine_val);
+    return sum += carNumberWithGivenCapacity_REC(head->right,engine_val);
 }
 
 
 int removeCarFromList(Node** head,int id){
-    Node *tmp = NULL ;
-    Node *temp_node = *head;
-    Node *prev = NULL;
-    tmp = FindCarInListById(temp_node,id);
-    if(tmp){
-        /* end of the list */
-        if(!tmp->next){
-            free_car(tmp);
-            return 0 ; 
-        }
-        /* if head is pointing to Node and node  has next  */
-        else if(temp_node->car->license_id == id){
-            *head = tmp->next;
-            free_car(tmp);
-            return 0 ; 
-        }else {
-        /* if Node is between tow elements  need to get prev */
-            prev = getPrev(temp_node,id);
-            if(prev){
-                prev->next = tmp->next;
-                free_car(tmp);
-                return 0 ; 
-            }
-        }
-    }
-    printf("error item id : %d not found in list !\n",id);
-    return -1;
-}
-
-Node* getPrev(Node* head, int id){
-    while(head){
-        if(head->next->car->license_id == id){
-            return head;
-        }
-        head = head->next;
-    }
-    return NULL;
+    /* to do  */
 }
 
 void print_car(struct Car* car){
@@ -249,14 +144,13 @@ void print_car(struct Car* car){
                 
 }
 
-void destroyCarList(Node** head){
-    Node *del_node ;
-    Node *temp = *head;  
-    while(temp){
-        del_node = temp ;
-        temp = temp->next;  
-        free_car(del_node); 
+void destroyCarTree(Node** head){
+    Node *temp = *head;
+    if (temp == NULL){
+        return ; 
     }
-    *head = NULL ; 
+    destroyCarList(temp->left);
+    destroyCarList(temp->right);
+    free_car(temp);
 }
 

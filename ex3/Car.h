@@ -30,7 +30,8 @@ typedef struct Node {
 	Car* car;
 	struct Node* left;
 	struct Node* right;
-    int sum_of_sub_tree; 
+    int sum_of_sub_tree_left;
+    int sum_of_sub_tree_right; 
 } Node;
 
 /* wrapper for a tree node */
