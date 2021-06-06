@@ -1,7 +1,11 @@
 #include "Car.h"
 
 
+<<<<<<< HEAD
 /*blaaaaaaaaaaaaaaaaaaaaaa*/
+=======
+/* shis is my  */
+>>>>>>> shahar
 List* createCarList(){   
     List *new_list = (List*) malloc(sizeof(List));
     if(new_list){
