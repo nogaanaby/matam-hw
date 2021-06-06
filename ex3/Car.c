@@ -2,10 +2,13 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*blaaaaaaaaaaaaaaaaaaaaaa*/
 =======
 /* shis is my  */
 >>>>>>> shahar
+=======
+>>>>>>> b929eb8a65054bf10f4ca61d7c02b020d060f881
 List* createCarList(){   
     List *new_list = (List*) malloc(sizeof(List));
     if(new_list){
