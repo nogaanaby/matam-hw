@@ -6,13 +6,17 @@ void run_test_car(){
     print_prompt(" test : create car Tree ");
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
-    addCarToTree(tree->root);
-    addCarToTree(tree->root);
-    addCarToTree(tree->root);
-    addCarToTree(tree->root);
-    addCarToTree(tree->root);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
+    addCarToTree(tree);
     /* print list  */
-    printCarTree(tree->root);
+    printCarTree(tree);
+    
     {
         int count = 0 ; 
         print_prompt(" test : carNumberWithGivenCapacity_REC (2000)  ");
@@ -22,30 +26,31 @@ void run_test_car(){
 
 
 
-    print_prompt(" test : searchBy_license_id (1234568)");
+    print_prompt(" test : searchBy_license_id (1234570)");
     printf("\n");
     /*test searchBy_license_id*/
     {
+        int res_count = -1 ; 
         Node *res = NULL ;
-        res = FindCarInTreeByid(tree->root,1234567+1);
+        res = FindCarInTreeByid(tree->root,1234570);
         if(res){
-             print_car(res->car);
+             print_car(res->car,&res_count);
+        }else{
+            print_prompt("car not found");
         }
     }
-/*     print_prompt(" test : delete single car (car id = 1234569)  ");
-    printf("\n"); */
-    /*test for delete single car */
- /*    {
-     removeCarFromTree(&tree->root,1234569);
+    print_prompt(" test : delete single car (car id = 1234570)  ");
+    printf("\n"); 
+    {
+     removeCarFromTree(tree,1234570);
      printf("\n");
-     printCarTree(tree->root);
+     printCarTree(tree);
      printf("\n");
-    }
- */
+    } 
+
     printf("\n");
     print_prompt(" test : delete all cars (destroyCarTree)  ");
     destroyCarTree(tree);
-    printCarTree(tree->root);
     printf("\n");
 }
 

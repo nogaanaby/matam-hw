@@ -50,22 +50,24 @@ typedef enum { INORDER, PREORDER, POSTORDER } Traversal;
 BinarySearchTree* createCarTree();
 /* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
  3. return error if in array */ 
-void addCarToTree(Node* head);
+void addCarToTree(BinarySearchTree *tree);
 /* helper func */
-void insertNodeToTree( Node *head, Node* new_node);
+Node* insertNodeToTree( Node *root, Node* new_node);
 void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
 struct Node* FindCarInTreeByid(Node* head,int id);
 /* print car and car list */
-void printCarTree(Node* head);
-void print_car(struct Car* car);
+void printCarTree(BinarySearchTree *tree);
+void printCarTree_rec(Node *root,int *coun);
+void print_car(struct Car* car,int *coun);
 /* query */
 int carNumberWithGivenCapacity_REC(Node *head,int engine_val);
 /* delete car by id value */
 /* int removeCarFromTree(Node** head,int id);
  */
 void destroyCarTree(BinarySearchTree* tree);
-void destroyTree(Node* temp);
+void destroyTree(BinarySearchTree* tree);
+void destroyTree_REC(Node *head);
 void free_car(Node* tmp);
 /* helperfunc*/
 void get_car_test();
