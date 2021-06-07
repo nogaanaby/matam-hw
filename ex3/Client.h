@@ -54,8 +54,8 @@ void print_clients_list(Client_Node* head);
 
 /* sarch for client in data base */
 /*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
-int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
-/* delte client cy id number*/
+/* int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
+ *//* delte client cy id number*/
 int deleteClient(Clients_List* clients_list, char* id);
 int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
     int price_per_hour, int year, int month, int day, int hour, int minutes);

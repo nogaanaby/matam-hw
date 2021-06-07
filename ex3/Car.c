@@ -2,7 +2,7 @@
 
 
 
-BinarySearchTree* createCarList(){   
+BinarySearchTree* createCarTree(){   
     BinarySearchTree *new_tree = (BinarySearchTree*) malloc(sizeof(BinarySearchTree));
     if(new_tree){
         new_tree->root = NULL; 
@@ -33,7 +33,7 @@ BinarySearchTree* createCarList(){
 }
 /* remove from file only test */
 
-void addCarToList(Node** head){
+void addCarToTree(Node* head){
      Node* new_node_Tree = (Node*) malloc(sizeof(Node));
      new_node_Tree->car = ( Car*) malloc(sizeof( Car));
      new_node_Tree->left = NULL ;
@@ -43,25 +43,27 @@ void addCarToList(Node** head){
      if(new_node_Tree){
          /* init node with perms of car */
             get_car_test(new_node_Tree->car);
-/*          get_input_from_user(new_node_Tree->car); */         
-            addCarToLinkedList(head,new_node_Tree);
+            /*get_input_from_user(new_node_Tree->car); */         
+            insertNodeToTree(head,new_node_Tree);
      }
 }
+
+
 /* if left sub trre is biger  then rihgt  sub tree then go rihgt  else  go left  
 this will keep trre leveld  */
-int addCarToLinkedList(struct Node **head,struct Node* new_node){
-            Node *root = *head ; 
+void insertNodeToTree( Node *root, Node* new_node){
             if(new_node){
                 if(root == NULL ){
                     root = new_node;
+                    return;
                 }
                 /* go right */
                 if(root->sum_of_sub_tree_left > root->sum_of_sub_tree_right){
-                    addCarToLinkedList(root->right,new_node);
+                    insertNodeToTree(root->right,new_node);
                     root->sum_of_sub_tree_right++;
                 }
                 /* go left */
-                addCarToLinkedList(root->left,new_node);
+                insertNodeToTree(root->left,new_node);
                 root->sum_of_sub_tree_left++; 
             }
 }
@@ -81,26 +83,28 @@ void get_input_from_user(struct Car* temp_car){
     get_int_input("Please enter (4 digit) engine_capacity:\t",&temp_car-> engine_capacity,MAX_LEN_FOUR);
 }
 
-struct Node* FindCarInListByid(Node* head,int id){
+struct Node* FindCarInTreeByid(Node* head,int id){
     Node *res = NULL;
     if( head==NULL ){
-        return  ; 
+        return NULL  ; 
     } 
 
     if(head->car->license_id == id ){
-        return head ; 
-    }  
+        res =  head ;
+    } 
+
     /*start with the root  if it`s not me go left and then go right*/
-    res = FindCarInListByCapcity(head->left,id);
-    res = FindCarInListByCapcity(head->right,id);
+    res = FindCarInTreeByid(head->left,id);
+    res = FindCarInTreeByid(head->right,id);
+    return res ; 
 }
 
 void printCarTree(Node* head){
      if(head == NULL){
          return; 
      }  
-     printCarList(head->left);
-     printCarList(head->right);
+     printCarTree(head->left);
+     printCarTree(head->right);
      print_car(head->car);
 }
 
@@ -119,14 +123,16 @@ int carNumberWithGivenCapacity_REC(Node *head,int engine_val){
     int sum = 0 ; 
     if(head == NULL){return 0 ; }
     if(head->car->engine_capacity == engine_val){sum++;}
-    return sum += carNumberWithGivenCapacity_REC(head->left,engine_val);
-    return sum += carNumberWithGivenCapacity_REC(head->right,engine_val);
+    sum += carNumberWithGivenCapacity_REC(head->left,engine_val);
+    sum += carNumberWithGivenCapacity_REC(head->right,engine_val);
+    return sum ; 
 }
 
-
+/* 
 int removeCarFromList(Node** head,int id){
-    /* to do  */
+    to do 
 }
+ */
 
 void print_car(struct Car* car){
                 if(car){
@@ -144,13 +150,17 @@ void print_car(struct Car* car){
                 
 }
 
-void destroyCarTree(Node** head){
-    Node *temp = *head;
-    if (temp == NULL){
-        return ; 
-    }
-    destroyCarList(temp->left);
-    destroyCarList(temp->right);
-    free_car(temp);
+void destroyCarTree(BinarySearchTree* tree){
+    destroyTree(tree->root);
+    /* delete the tee struct  */
+    free(tree);
 }
 
+void destroyTree(Node* temp){
+     if (temp == NULL){
+        return ; 
+    }
+    destroyTree(temp->left);
+    destroyTree(temp->right);
+    free_car(temp);
+}
