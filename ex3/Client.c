@@ -1,20 +1,20 @@
 #include "Client.h"
 /* create array of client with stdin input M , set the fildes to zero */ 
-Clients_List* createClientsList(){
-    Clients_List *new_list = (Clients_List*) malloc(sizeof(Clients_List));
-    if(new_list == NULL ){
-        printf("error list is empty\n");
+Clients_Tree* createClientsTree(){
+    Clients_Tree *new_tree = (Clients_Tree*) malloc(sizeof(Clients_Tree));
+    if(new_tree == NULL ){
+        printf("error tree is empty\n");
         return NULL;
     }else{
-        new_list->head = NULL; 
-        new_list->size_count = 0 ; 
-        return new_list;
+        new_tree->root = NULL; 
+        new_tree->elementCount = 0 ; 
+        return new_tree;
     }
 }
 
 /* add a new Client to array of Client = > 1.check for this Client in data 2.find the pleace in array 
  3. return Utils if in array */ 
- int addNewClient(Clients_List* clients_list){
+ int addNewClient(Clients_Tree* clients_tree){
     Client_Node* new_client_node;
     Client* new_client;
     new_client_node = (Client_Node *) malloc(sizeof(Client_Node));
@@ -22,19 +22,39 @@ Clients_List* createClientsList(){
 
     get_client_input_from_user(new_client);
     new_client_node->client = new_client;
-    new_client_node->next = clients_list->head;
-    clients_list->head = new_client_node;
-    clients_list->size_count+=1;
+
+    Client_Node* current=clients_tree->root;
+
+    if(current==NULL){
+        clients_tree->root=new_client_node;
+    }else{
+        while(current != NULL){
+                if(current->client->id > new_client->id){
+                    if(current->left ==NULL){
+                        current->left=new_client_node;
+                    }else{
+                        current = current->left;
+                    }
+                }else{
+                    if(current->right ==NULL){
+                        current->right=new_client_node;
+                    }else{
+                        current = current->right;
+                    }
+                }
+        }
+    }
+    clients_tree->elementCount+=1;
     return 0; 
  }
 
 int get_client_input_from_user(struct Client *temp_client){
     get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
     get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
-    get_chr_input("Please enter (7 digit) client id:\t",temp_client->id,MAX_LEN_SEVEN);
-    while(*temp_client->id=='0'){
+    get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
+    while(temp_client->id==0){
         printf("ID can not be 0 \n");
-        get_chr_input("Please enter (7 digit) client id:\t",temp_client->id,MAX_LEN_SEVEN);
+        get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
     }
     
     get_int_input("Please enter (7 digit) car_license_id:\t",&temp_client->car_license_id,MAX_LEN_SEVEN);
@@ -59,100 +79,203 @@ void print_client(struct Client* client){
     printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
 }
 
-void print_clients_list(Client_Node * head){
-    Client_Node *current = head;
-
-    while (current != NULL) {
-        print_client(current->client);
-        current = current->next;
+void printtabs(int numtabs){
+    for (int i=0;i<numtabs;i++){
+        printf("\t");
     }
 }
 
-#ifdef DAVIS 
-int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list){
+void printtree_rec(Client_Node *current, int level){
+    if(current==NULL){
+        printtabs(level);
+        printf("---<empty>---\n");
+        return;
+    }
+    printtabs(level);
+    print_client(current->client);
+    printtabs(level);
+    printf("left\n");
+
+    printtree_rec(current->left,level+1);
+    printtabs(level);
+    printf("right\n");
+
+    printtree_rec(current->right,level+1);
+
+    printtabs(level);
+}
+
+void print_clients_tree(Client_Node * root){
+    printtree_rec(root,0);
+}
+
+void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int id, Date *date){
+    if(id!=NULL){
+        Client *this= findClientById(clients_tree,id);
+        head->client=this;
+    }else{
+        Client_Node *current = clients_tree->root;
+        findClientsByDate(current,head,date);
+    }
+}
+
+Client* findClientById(Clients_Tree *clients_tree, int id){
+    Client_Node *current = clients_tree->root;
+    while(current != NULL){
+        if( current->client->id == id){
+            return current;
+        } else if(current->client->id > id){
+            current = current->left;
+        }else{
+            current = current->right;
+        }
+    }
+    printf("client does not found");
+    return -1;
+}
+
+void findClientsByDate(Client_Node *current, Clients_List_Node *head, Date *date){
+    if(current != NULL){
+        if( current->client->start_rent_date.year == date->year &&
+            current->client->start_rent_date.month == date->month &&
+            current->client->start_rent_date.day == date->day ){
+            pushClientToList(head,current->client);
+        }
+        findClientsByDate(current->left,head->next,date);
+        findClientsByDate(current->right,head->next,date);
+    }
+}
+
+void pushClientToList(Clients_List_Node *current, Client *cli){
+    if(current==NULL){
+        current->client=cli;
+    }
+    else if (current->client->id < cli->id)
+        pushClientToList(current->next,cli);
+    else{
+        Client *temp=current->client;
+        current->client=cli;
+        pushClientToList(current->next,temp);
+    }
+}
+
+int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Cars_Tree *cars_tree){
     int count=0;
-    Client_Node *current_client = clients_list->head;
-    Node *current_car = cars_list->head;
+    Client_Node *current_client = clients_tree->root;
+    Car_Node *current_car = cars_tree->root;
     while(current_client != NULL){
         while(current_car != NULL){
             if(current_car->car->license_id==current_client->client->car_license_id
                 && current_car->car->year_of_relase==year){
                     count++;
             }
-            current_car=current_car->next;
+            current_car=current_car->left;
         }
-        current_car = cars_list->head;
-        current_client=current_client->next;
+        current_car = cars_tree->root;
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->right;
+        }
+        current_client=current_client->left;
+    }
+    current_client= clients_tree->root->right;
+    while(current_client != NULL){
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->left;
+        }
+        current_car = cars_tree->root;
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->right;
+        }
+        current_client=current_client->right;
     }
     return count;
 }
-#endif
 
 
 /* delete all Client */ 
-int deleteAllClients(Clients_List *clients_list){
-    if(clients_list == NULL ){
-        printf("list is empty\n");
+int deleteAllClients(Clients_Tree *clients_tree){
+    if(clients_tree == NULL ){
+        printf("tree is empty\n");
         return -1;
     }
-    while(clients_list->head!= NULL){
-        deleteClient(clients_list,clients_list->head->client->id );
+    while(clients_tree->root!= NULL){
+        deleteClient(clients_tree->root,clients_tree->root->client->id);
     } 
     return 0 ; 
 }
 
-int deleteClient(Clients_List* clients_list, char* id) {
-    int i = 0;
-    Client_Node * current = clients_list->head;
-    Client_Node * client_node_to_delete = NULL;
 
-    /*no clients on the list*/
-    if(current==NULL){
-        return -1;
-    }
-    /*if its the head of the list*/
-    if(strcmp(current->client->id,id)==0){
-        free(current->client);
-        if(current->next!=NULL){
-            clients_list->head=current->next;
-        }else{
-            clients_list->head=NULL;
-        }
-        free(current);
-        clients_list->size_count-=1;
-        return 0;
-    }
-
-    for (i = 0; i < clients_list->size_count; i++) {
-        if(current->next){
-            if(strcmp(current->next->client->id,id)==0 ){
-                free(current->next->client);
-                client_node_to_delete = current->next;
-                /*if its not the end of the list I want that the prev node will point the next node: prev->client_to_delete->next*/
-                if (current->next->next) {
-                    current->next=current->next->next;
-                }else{/*it is the end of the list*/
-                    current->next=NULL;
-                }
-                free(client_node_to_delete);
-                clients_list->size_count-=1;
-                return 0;
-            }
-        }
-        current = current->next;
-    }
-    /*if the id wasnt in the list*/
-    return -1;
+ Client_Node* minValueNode(Client_Node* node)
+{
+    Client_Node* current = node;
+    /* loop down to find the leftmost leaf */
+    while (current->left != NULL)
+        current = current->left;
+    return current;
 }
 
-int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_name, char *id, int car_license_id, 
+
+/* Function to delete the given node */
+Client_Node* deleteClient(Client_Node* root, int id)
+    {
+    if (root == NULL)
+        return root;
+    // If the key to be deleted is smaller than the root's key,
+    if (id < root->client->id)
+        root->left = deleteClient(root->left, id);
+    // If the key to be deleted is greater than the root's key,
+    else if (id > root->client->id)
+        root->right = deleteClient(root->right, id);
+    else
+    {
+        // node with only one child or no child
+        if (root->left == NULL)
+        {
+            Client_Node *temp = root->right;
+            free(root->client);
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            Client_Node *temp = root->left;
+            free(root->client);
+            free(root);
+            return temp;
+        }
+        // node with two children:
+        Client_Node* temp = minValueNode(root->right);
+        // Copy the inorder successor's content to this node
+        root->client->id = temp->client->id;
+        // Delete the inorder successor
+        root->right = deleteClient(root->right, temp->client->id);
+    }
+    return root;
+}
+
+
+
+
+int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
     int price_per_hour, int year, int month, int day, int hour, int minutes){
         Client_Node* cnode1=(Client_Node *) malloc(sizeof(Client_Node));
         Client* new_client=(Client *) malloc(sizeof(Client));
 
         strcpy(new_client->first_name, first_name);
         strcpy(new_client->last_name, last_name);
-        strcpy(new_client->id, id);
+        new_client->id= id;
         
         new_client->car_license_id=car_license_id;
         new_client->price_per_hour=price_per_hour;
@@ -163,8 +286,27 @@ int addNewClient_test(Clients_List* clients_list,char *first_name, char *last_na
         new_client->start_rent_time.minutes=minutes;
 
         cnode1->client=new_client;
-        cnode1->next=clients_list->head;
-        clients_list->head = cnode1;
-        clients_list->size_count+=1;
-        return 0; 
+        Client_Node* current=clients_tree->root;
+
+        if(current==NULL){
+            clients_tree->root=cnode1;
+        }else{
+            while(current != NULL){
+                    if(current->client->id > new_client->id){
+                        if(current->left ==NULL){
+                            current->left=cnode1;
+                        }else{
+                            current = current->left;
+                        }
+                    }else{
+                        if(current->right ==NULL){
+                            current->right=cnode1;
+                        }else{
+                            current = current->right;
+                        }
+                    }
+            }
+        }
+        clients_tree->elementCount+=1;
+        return 0;
 }
