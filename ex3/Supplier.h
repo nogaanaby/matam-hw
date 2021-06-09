@@ -8,7 +8,7 @@
 #include "Utils.h"
 typedef struct Supplier {
   char id[TEN+1];
-  char name[TEN+1];
+  char *name;
   int phone_number;
   int count_transactions;
   int sum_of_total_transactions_price;
@@ -17,27 +17,29 @@ typedef struct Supplier {
 
 typedef struct Supplier_Node {
 	Supplier *supplier;
-	struct Supplier_Node* next;
+		struct Supplier_Node* left;
+	  struct Supplier_Node* right;
+    int sum_of_sub_tree_left;
+    int sum_of_sub_tree_right; 
 } Supplier_Node;
 
 typedef struct {
-	Supplier_Node* head;
-	unsigned int size_count;
-} Suppliers_List;
+	Supplier_Node* root;
+	int elementCount;
+} Suppliers_Tree;
 
-Suppliers_List* createSuppliersList();
-int addNewSupplier(Suppliers_List* sup_list);
+Suppliers_Tree* createSuppliersList();
+int addNewSupplier(Suppliers_Tree* sup_list);
+Supplier_Node* insertsupToTree(Supplier_Node * root , Supplier_Node *new_node);
 int get_supplier_input_from_user(Supplier *temp_sup);
-void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list,char* licenses_arr);
-struct Supplier_Node* copyList(struct Supplier_Node* head);
-int popSmallestTransactionsSupplier(Suppliers_List *sl);
-void print_sup_list(Supplier_Node* head);
+void threeGreatestSupplier_REC(Suppliers_Tree *Suppliers_Tree,char* licenses_arr);
+int popSmallestTransactionsSupplier(Suppliers_Tree *sl);
+void print_sup_Tree(Supplier_Node* head);
 void print_sup(Supplier* sup);
-int deleteSupplier(Suppliers_List* sup_list,char* Supplier_id);
-int deleteAllSuppliers(Suppliers_List* sup_list);
-
-int addNewSupplier_test(Suppliers_List* sup_list,char *id,char *name,int phone_number, 
-  int count_transactions, int sum_of_total_transactions_price);
-
+/*  int deleteSupplier(Suppliers_Tree* sup_list,char* Supplier_id);*/
+int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree);
+void  deleteAllSuppliers_REC(Supplier_Node *head);
+void free_Suppliers(Supplier_Node * sup);
+Supplier_Node* FindSupInTreeByid(Supplier_Node * sup,char * sup_id);
 #endif
 
