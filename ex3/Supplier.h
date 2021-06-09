@@ -8,7 +8,7 @@
 #include "Utils.h"
 typedef struct Supplier {
   char id[TEN+1];
-  char name[TEN+1];
+  char *name;
   int phone_number;
   int count_transactions;
   int sum_of_total_transactions_price;
@@ -30,14 +30,16 @@ typedef struct {
 
 Suppliers_Tree* createSuppliersList();
 int addNewSupplier(Suppliers_Tree* sup_list);
-Supplier_Node* insertNodeToTree(Supplier_Node * root , Supplier_Node *new_node);
+Supplier_Node* insertsupToTree(Supplier_Node * root , Supplier_Node *new_node);
 int get_supplier_input_from_user(Supplier *temp_sup);
 void threeGreatestSupplier_REC(Suppliers_Tree *Suppliers_Tree,char* licenses_arr);
 int popSmallestTransactionsSupplier(Suppliers_Tree *sl);
-void print_sup_list(Supplier_Node* head);
+void print_sup_Tree(Supplier_Node* head);
 void print_sup(Supplier* sup);
 /*  int deleteSupplier(Suppliers_Tree* sup_list,char* Supplier_id);*/
-int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree,char* id);
-
+int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree);
+void  deleteAllSuppliers_REC(Supplier_Node *head);
+void free_Suppliers(Supplier_Node * sup);
+Supplier_Node* FindSupInTreeByid(Supplier_Node * sup,char * sup_id);
 #endif
 

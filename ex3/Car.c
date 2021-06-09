@@ -170,7 +170,9 @@ int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val)
     {
         sum++;
     }
+    /* sum of sub left tree */
     sum += carNumberWithGivenCapacity_REC(head->left, engine_val);
+    /* sum of sub right tree */
     sum += carNumberWithGivenCapacity_REC(head->right, engine_val);
     return sum;
 }

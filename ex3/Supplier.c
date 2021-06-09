@@ -14,26 +14,41 @@ Suppliers_Tree * createSuppliersList(){
         return new_Tree;
     }
 }
+/* remove from file only test */
+void get_Supplier__test( Supplier *Supplier_)
+{
+    static int i = 1;
+    sprintf(Supplier_->id,"%d",12345+i);
+    Supplier_->phone_number= 0526002453+i; 
+    if (i == 1 || i == 3)
+    {
+        Supplier_->name = my_strdup("jeep");
+    }else{
+        Supplier_->name = my_strdup("nisan");
+    } 
+    i++;
+}
 /* add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
  3. return error if in array */ 
  int addNewSupplier(Suppliers_Tree * sup_Tree){
     Supplier_Node* new_supplier_node = (Supplier_Node *) malloc(sizeof(Supplier_Node));
     Supplier* new_supplier = (Supplier *) malloc(sizeof(Supplier));
     if(new_supplier && new_supplier_node && sup_Tree){
-        get_supplier_input_from_user(new_supplier);
+        /* change !!!! line 37 to gat input from user  */
+        get_Supplier__test(new_supplier);
         new_supplier_node->supplier = new_supplier;
         new_supplier_node->left = NULL;
         new_supplier_node->right = NULL;
         new_supplier_node->sum_of_sub_tree_left = 0 ; 
         new_supplier_node->sum_of_sub_tree_right = 0 ; 
-        sup_Tree->root = insertNodeToTree(sup_Tree->root,new_supplier_node);
+        sup_Tree->root = insertsupToTree(sup_Tree->root,new_supplier_node);
         return 0; 
     }
-    
+    return -1;
  }
 
 
-Supplier_Node* insertNodeToTree(Supplier_Node * root , Supplier_Node *new_node){
+Supplier_Node* insertsupToTree(Supplier_Node * root , Supplier_Node *new_node){
     if (root == NULL)
     {
         return new_node;
@@ -41,13 +56,13 @@ Supplier_Node* insertNodeToTree(Supplier_Node * root , Supplier_Node *new_node){
     /* go right */
     if (root->sum_of_sub_tree_left > root->sum_of_sub_tree_right)
     {
-        root->right = insertNodeToTree(root->right, new_node);
+        root->right = insertsupToTree(root->right, new_node);
         root->sum_of_sub_tree_right++;
     }
     else
     {
         /* go left */
-        root->left = insertNodeToTree(root->left, new_node);
+        root->left = insertsupToTree(root->left, new_node);
         root->sum_of_sub_tree_left++;
     }
     return root;
@@ -60,7 +75,8 @@ int get_supplier_input_from_user(struct Supplier *temp_sup){
         get_int_input("Please enter (10 digit) supplier sum of transactions:\t",&temp_sup->sum_of_total_transactions_price,TEN);
         get_int_input("Please enter (5 digit) amount of transaction:\t",&temp_sup->count_transactions,FIVE);
         get_int_input("Please enter (10 digit) sup phone number:\t",&temp_sup->phone_number,TEN);
-        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,TEN);
+        /* alloc name memory  */
+        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,ALLOC);
         temp_sup->is_empty = 0 ; 
         printf("\n");
         printf(" add new supplier \n");
@@ -71,15 +87,11 @@ int get_supplier_input_from_user(struct Supplier *temp_sup){
 
 
 void print_sup(struct Supplier* sup){
-            if(sup->is_empty){
-                printf("supplier is empty\n");
-            }else {
                 printf("Supplier name:\t%s\n",(sup)->name);
                 printf("Supplier phone number:\t%d\n",(sup)->phone_number);
                 printf("Supplier id :\t%s\n",(sup)->id);
                 printf("supplier sum of transactions:\t%d\n",(sup)->sum_of_total_transactions_price);
                 printf("number of transactions:\t%d\n\n",(sup)->count_transactions);
-            }  
 }
 
 void print_sup_Tree(Supplier_Node* head){
@@ -87,9 +99,29 @@ void print_sup_Tree(Supplier_Node* head){
         return ; 
     }
     print_sup(head->supplier);
-    print_sup_list(head->left);
-    print_sup_list(head->right);
+    print_sup_Tree(head->left);
+    print_sup_Tree(head->right);
 }
+
+Supplier_Node* FindSupInTreeByid(Supplier_Node * head,char * sup_id){
+      Supplier_Node *res = NULL;
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    res = FindSupInTreeByid(head->left,sup_id);
+    res = FindSupInTreeByid(head->right,sup_id);
+
+    if (strcmp(head->supplier->id,sup_id) == 0)
+    {
+        res = head;
+        return res;
+    }
+    return res;
+}
+
+
 
 /* void threeGreatestSupplier_REC(Suppliers_Tree  *Suppliers_Tree , char* licenses_arr){
     if (Suppliers_Tree ->size_count<=3){
@@ -129,7 +161,7 @@ int popSmallestTransactionsSupplier(Suppliers_Tree  *sl){
 } */
 
 /* delete all Supplier */ 
-int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree,char* id){
+int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree){
     if(Suppliers_Tree  == NULL ){
         printf("list is empty\n");
         return -1;
@@ -146,14 +178,16 @@ void  deleteAllSuppliers_REC(Supplier_Node *head){
     {
         return;
     }
-    destroyTree_REC(head->left);
-    destroyTree_REC(head->right);
+    deleteAllSuppliers_REC(head->left);
+    deleteAllSuppliers_REC(head->right);
     free_Suppliers(head);
 }
 
 void free_Suppliers(Supplier_Node * sup){
-
+    free(sup->supplier->name); 
+    free(sup); 
 }
+
 /* 
 int deleteSupplier(Suppliers_Tree * Suppliers_Tree , char *id) {
 
