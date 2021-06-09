@@ -178,12 +178,11 @@ int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val)
 }
  
 int removeCarFromTree(Car_Tree *tree,int id){
-    Car_Node *father = tree->root;
     Car_Node *res  = FindCarInTreeByid(tree->root,id);
     /* if found  remove  from tree */
     if(res){
         tree->elementCount--;
-        removeCarFromTree_REC(res,tree->root,father);
+        removeCarFromTree_REC(res,tree->root,tree->root);
         return 0 ; 
     }
 
@@ -193,26 +192,54 @@ int removeCarFromTree(Car_Tree *tree,int id){
 
 /* find the deepast  rhigt  node  in tree replace  key  with the  lociton of remove_node  
 then remove  from tree */
-void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root,Car_Node *father){
-    if(!root->right && !root->left){
-        Car *temp = root->car ; 
-        remove_node->car = root->car; 
-        root->car = temp ; 
-        free_car(root);
+void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root){
+    Car_Node *temp_root = root;
+    Car_Node *father = NULL;
+    if(!temp_root->right && !temp_root->left){
+        Car *temp = temp_root->car ; 
+        /* switch car with remove node */
+        remove_node->car = temp_root->car; 
+        temp_root->car = temp ;
+        /* detach father from sun */
+        father = get_father(root,remove_node,root);
+        if(father->right && father->right->car->license_id == remove_node->car->license_id ){
+            father->right == NULL ; 
+        }else{
+            father->left == NULL ; 
+        }
+        free_car(temp_root);
         return ; 
     }
     /* go find a node that have no sun's   */
-    root->sum_of_sub_tree_right--;
-    if(root->left && !root->right)
-        removeCarFromTree_REC(remove_node,root->left,root);
-    else {
-        removeCarFromTree_REC(remove_node,root->right,root);
+    
+    if(temp_root->left && !temp_root->right){
+        temp_root->sum_of_sub_tree_left--;
+        removeCarFromTree_REC(remove_node,temp_root->left);
+    }else {
+        temp_root->sum_of_sub_tree_right--;
+        removeCarFromTree_REC(remove_node,temp_root->right);
     }
 }
 
+Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove,Car_Node* father){
+    Car_Node* left = NULL ;
+    Car_Node* right = NULL;
+    
+    if(!root){
+        return NULL ; 
+    }
 
-void print_car(Car *car,int *count)
-{   
+    if(root->car->license_id == node_to_remove->car->license_id){
+        return father;
+    }else{
+        left =  get_father(root->left,node_to_remove,root);
+        right = get_father(root->right,node_to_remove,root);
+    }
+
+    return left ? left : right;
+}
+
+void print_car(Car *car,int *count){  
     if (*count != -1){
         printf("index : %d \n -->", *(count));
         *count = *count + 1;

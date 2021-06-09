@@ -56,7 +56,8 @@ Car_Node* insertNodeToTree( Car_Node *root, Car_Node* new_node);
 void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
 int removeCarFromTree(Car_Tree *tree,int id);
-void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root,Car_Node *father);
+void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root);
+Car_Node *get_father(Car_Node* root );
 Car_Node* FindCarInTreeByid(Car_Node* head,int id);
 /* print car and car list */
 void printCarTree(Car_Tree *tree);
