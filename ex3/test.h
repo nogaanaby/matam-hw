@@ -10,6 +10,7 @@
 
 void run_clients_test1();
 void run_clients_test2();
+void run_clients_test3();
 void print_prompt(char *text);
 void add_example_clients(Clients_Tree *cl);
 void run_clients_and_cars_test();

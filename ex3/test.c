@@ -102,16 +102,26 @@ void run_clients_test1(){
     Clients_Tree* cTree=createClientsTree();
     addNewClient(cTree);
     print_clients(cTree);
-    printf(" 104 test ");
     addNewClient(cTree);
-    printf(" 106 test ");
     print_clients(cTree);
     free(cTree);
 }
 
 void run_clients_test2(){
     Clients_Tree* cTree=createClientsTree();
-    add_example_clients(cTree);
+    //add_example_clients(cTree);
+    //print_clients(cTree);
+
+    int id=1234567;
+    int *idptr=&id;
+    print_client(findClientById(cTree, idptr),0);
+
+    free(cTree);
+}
+
+void run_clients_test3(){
+    Clients_Tree* cTree=createClientsTree();
+    addNewClient(cTree);
     print_clients(cTree);
     free(cTree);
 }

@@ -1,4 +1,5 @@
 #include "Client.h"
+
 /* create array of client with stdin input M , set the fildes to zero */ 
 Clients_Tree* createClientsTree(){
     Clients_Tree *new_tree = (Clients_Tree*) malloc(sizeof(Clients_Tree));
@@ -21,6 +22,7 @@ Clients_Tree* createClientsTree(){
     new_client = (Client *) malloc(sizeof(Client));
 
     get_client_input_from_user(new_client);
+    printf("clients %d \n",__LINE__);
     new_client_node->client = new_client;
     new_client_node->left=NULL;
     new_client_node->right=NULL;
@@ -58,15 +60,18 @@ int get_client_input_from_user(Client *temp_client){
     //     printf("ID can not be 0 \n");
     //     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
     // }
-    printf(" 61 ");
     get_int_input("Please enter (7 digit) car_license_id:\t",&temp_client->car_license_id,MAX_LEN_SEVEN);
     get_int_input("Please enter price_per_hour:\t",&temp_client->price_per_hour,4);
     get_int_input("Please enter start rent year (4 digits):\t",&temp_client->start_rent_date.year,4);
+    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent month (2 digits):\t",&temp_client->start_rent_date.month,2);
+    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent day (2 digits):\t",&temp_client->start_rent_date.day,2);
+    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent hour (2 digits between 0-23):\t",&temp_client->start_rent_time.hour,2);
+    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent minutes (2 digits between 0-59):\t",&temp_client->start_rent_time.minutes,2);
-    printf(" 69 ");
+    printf("clients %d \n",__LINE__);
     return 0; 
 }
 
@@ -89,7 +94,6 @@ void print_client(struct Client* client,int tubsNum){
 }
 
 void print_clients(Clients_Tree *tree){
-    printf(" 92 ");
     printtree_rec(tree->root,0);
 }
 
@@ -100,22 +104,21 @@ void printtabs(int numtabs){
 }
 
 void printtree_rec(Client_Node *current, int level){
+    printf("clients %d \n",__LINE__);
     if(current==NULL){
         printtabs(level);
         printf("---<empty>---\n");
         return;
     }else{
+        printf("clients %d \n",__LINE__);
         printtabs(level);
-        printf(" 109 ");
         print_client(current->client,level);
         printtabs(level);
         printf("left\n");
-        printf(" 113 \n");
 
         printtree_rec(current->left,level+1);
         printtabs(level);
         printf("right\n");
-        printf(" 118 \n");
 
         printtree_rec(current->right,level+1);
 
@@ -304,14 +307,13 @@ int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_na
         cnode1->right=NULL;
         Client_Node* current=clients_tree->root;
         
-        printf(" 249 \n");
         if(current==NULL){
-            printf(" 269 \n");
+            printf("clients %d \n",__LINE__);
             clients_tree->root=cnode1;
 
         }else{
             while(current != NULL){
-                printf(" 301 \n");
+                printf("clients %d \n",__LINE__);
                 if(current->client->id > new_client->id){
                     if(current->left ==NULL){
                         current->left=cnode1;
@@ -329,9 +331,8 @@ int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_na
                 }
             }
         }
-        printf(" 319 \n");
+        printf("clients %d \n",__LINE__);
         clients_tree->elementCount+=1;
-        free(new_client);
-        free(cnode1);
+  
         return 0;
 }
