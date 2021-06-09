@@ -45,7 +45,7 @@ int validateInputInt(int data, int size){
             return -1;
         }
     }
-    return 0 ; 
+    return 0;
 }
 
 
