@@ -152,7 +152,7 @@ void  deleteAllSuppliers_REC(Supplier_Node *head){
 }
 
 void free_Suppliers(Supplier_Node * sup){
-    
+
 }
 /* 
 int deleteSupplier(Suppliers_Tree * Suppliers_Tree , char *id) {
