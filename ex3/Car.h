@@ -57,8 +57,11 @@ void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
 int removeCarFromTree(Car_Tree *tree,int id);
 void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root);
-Car_Node *get_father(Car_Node* root );
+int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val);
+Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove, Car_Node* father);
 Car_Node* FindCarInTreeByid(Car_Node* head,int id);
+void destroyCarTree(Car_Tree *tree);
+void destroyTree_REC(Car_Node *head);
 /* print car and car list */
 void printCarTree(Car_Tree *tree);
 void printCarTree_rec(Car_Node *root,int *coun);

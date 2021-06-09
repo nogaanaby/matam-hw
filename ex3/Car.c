@@ -14,37 +14,6 @@ Car_Tree *createCarsTree()
     return NULL;
 }
 
-/* remove from file only test */
-void get_car_test(struct Car *car)
-{
-    static int i = 1;
-    car->frame_id = (12345 + i);
-    car->license_id = (1234567 + i);
-    if (i == 1 || i == 3)
-    {
-        car->year_of_relase = 2012 - (i * 10);
-    }
-    else
-    {
-        car->year_of_relase = 2012 + i;
-    }
-    car->manufacturer_name = my_strdup("nisan");
-    car->model_name = my_strdup("micra");
-    car->color = my_strdup("red");
-    car->road_raising_year = 1992 + i;
-    car->supplier_price = 20000000 + i;
-    car->current_price = 20000000 + i;
-    if (i == 1 || i == 3)
-    {
-        car->engine_capacity = 2000 - (i * 10);
-    }
-    else
-    {
-        car->engine_capacity = 2000;
-    }
-    i++;
-}
-/* remove from file only test */
 
 void addCarToTree(Car_Tree *tree)
 {
@@ -57,7 +26,7 @@ void addCarToTree(Car_Tree *tree)
     if (new_node_Tree && tree)
     {
         /* init node with perms of car */
-        get_car_test(new_node_Tree->car);
+        get_input_from_user(new_node_Tree->car);
         /*get_input_from_user(new_node_Tree->car); */
         tree->root = insertNodeToTree(tree->root, new_node_Tree);
         tree->elementCount++;
@@ -99,6 +68,7 @@ void get_input_from_user(struct Car *temp_car)
     get_int_input("Please enter (7 digit) supplier price:\t", &temp_car->supplier_price, MAX_LEN_SEVEN);
     get_int_input("Please enter (7 digit) current price:\t", &temp_car->current_price, MAX_LEN_SEVEN);
     get_int_input("Please enter (4 digit) engine_capacity:\t", &temp_car->engine_capacity, MAX_LEN_FOUR);
+    printf("\n");
 }
 
 struct Car_Node *FindCarInTreeByid(Car_Node *head, int id)
@@ -123,6 +93,7 @@ struct Car_Node *FindCarInTreeByid(Car_Node *head, int id)
 
 void printCarTree(Car_Tree *tree)
 {
+    Car_Node *head =NULL;
     int count = 0;
     if (tree == NULL)
     {
@@ -131,7 +102,7 @@ void printCarTree(Car_Tree *tree)
     }
     printf("sum of left sub tree : %d \nsum of left sub tree : %d \n", tree->root->sum_of_sub_tree_left,
            tree->root->sum_of_sub_tree_right);
-    Car_Node *head = tree->root;
+    head = tree->root;
     printCarTree_rec(head, &count);
 }
 
@@ -181,8 +152,8 @@ int removeCarFromTree(Car_Tree *tree,int id){
     Car_Node *res  = FindCarInTreeByid(tree->root,id);
     /* if found  remove  from tree */
     if(res){
+        removeCarFromTree_REC(res,tree->root);
         tree->elementCount--;
-        removeCarFromTree_REC(res,tree->root,tree->root);
         return 0 ; 
     }
 
@@ -203,9 +174,9 @@ void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root){
         /* detach father from sun */
         father = get_father(root,remove_node,root);
         if(father->right && father->right->car->license_id == remove_node->car->license_id ){
-            father->right == NULL ; 
+            father->right = NULL ; 
         }else{
-            father->left == NULL ; 
+            father->left = NULL ; 
         }
         free_car(temp_root);
         return ; 
@@ -221,10 +192,9 @@ void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root){
     }
 }
 
-Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove,Car_Node* father){
+Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove, Car_Node* father){
     Car_Node* left = NULL ;
     Car_Node* right = NULL;
-    
     if(!root){
         return NULL ; 
     }
@@ -232,8 +202,10 @@ Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove,Car_Node* father){
     if(root->car->license_id == node_to_remove->car->license_id){
         return father;
     }else{
-        left =  get_father(root->left,node_to_remove,root);
-        right = get_father(root->right,node_to_remove,root);
+        left  = get_father(root->left,node_to_remove,father);
+        father = root->left ;
+        right = get_father(root->right,node_to_remove,father);
+        father = root->right ;
     }
 
     return left ? left : right;
