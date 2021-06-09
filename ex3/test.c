@@ -2,7 +2,7 @@
 
 void run_test_car(){
     /* test for createCarTree */
-    BinarySearchTree *tree = createCarTree(); 
+    Car_Tree *tree = createCarsTree(); 
     print_prompt(" test : create car Tree ");
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
@@ -31,7 +31,7 @@ void run_test_car(){
     /*test searchBy_license_id*/
     {
         int res_count = -1 ; 
-        Node *res = NULL ;
+        Car_Node *res = NULL ;
         res = FindCarInTreeByid(tree->root,1234570);
         if(res){
              print_car(res->car,&res_count);
@@ -39,6 +39,7 @@ void run_test_car(){
             print_prompt("car not found");
         }
     }
+   /*  
     print_prompt(" test : delete single car (car id = 1234570)  ");
     printf("\n"); 
     {
@@ -47,7 +48,7 @@ void run_test_car(){
      printCarTree(tree);
      printf("\n");
     } 
-
+ */
     printf("\n");
     print_prompt(" test : delete all cars (destroyCarTree)  ");
     destroyCarTree(tree);

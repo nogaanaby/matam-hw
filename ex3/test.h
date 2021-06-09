@@ -15,5 +15,5 @@ void run_test_supplier(struct Supplier* list_sup);
 void run_test_car();
 void run_suppliers_test();
 void add_example_suppliers(Suppliers_List *sl);
-void add_example_cars(BinarySearchTree *cl);
+void add_example_cars(Car_Tree *cl);
 #endif
