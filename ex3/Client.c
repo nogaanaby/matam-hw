@@ -22,7 +22,6 @@ Clients_Tree* createClientsTree(){
     new_client = (Client *) malloc(sizeof(Client));
 
     get_client_input_from_user(new_client);
-    printf("clients %d \n",__LINE__);
     new_client_node->client = new_client;
     new_client_node->left=NULL;
     new_client_node->right=NULL;
@@ -36,12 +35,14 @@ Clients_Tree* createClientsTree(){
                 if(current->client->id > new_client->id){
                     if(current->left ==NULL){
                         current->left=new_client_node;
+                        break;
                     }else{
                         current = current->left;
                     }
                 }else{
                     if(current->right ==NULL){
                         current->right=new_client_node;
+                        break;
                     }else{
                         current = current->right;
                     }
@@ -56,22 +57,17 @@ int get_client_input_from_user(Client *temp_client){
     get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
     get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
-    // while(temp_client->id==0){
-    //     printf("ID can not be 0 \n");
-    //     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
-    // }
+    while(temp_client->id==0){
+        printf("ID can not be 0 \n");
+        get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
+    }
     get_int_input("Please enter (7 digit) car_license_id:\t",&temp_client->car_license_id,MAX_LEN_SEVEN);
     get_int_input("Please enter price_per_hour:\t",&temp_client->price_per_hour,4);
     get_int_input("Please enter start rent year (4 digits):\t",&temp_client->start_rent_date.year,4);
-    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent month (2 digits):\t",&temp_client->start_rent_date.month,2);
-    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent day (2 digits):\t",&temp_client->start_rent_date.day,2);
-    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent hour (2 digits between 0-23):\t",&temp_client->start_rent_time.hour,2);
-    printf("clients %d \n",__LINE__);
     get_int_input("Please enter start rent minutes (2 digits between 0-59):\t",&temp_client->start_rent_time.minutes,2);
-    printf("clients %d \n",__LINE__);
     return 0; 
 }
 
@@ -104,13 +100,11 @@ void printtabs(int numtabs){
 }
 
 void printtree_rec(Client_Node *current, int level){
-    printf("clients %d \n",__LINE__);
     if(current==NULL){
         printtabs(level);
         printf("---<empty>---\n");
         return;
     }else{
-        printf("clients %d \n",__LINE__);
         printtabs(level);
         print_client(current->client,level);
         printtabs(level);
@@ -308,12 +302,10 @@ int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_na
         Client_Node* current=clients_tree->root;
         
         if(current==NULL){
-            printf("clients %d \n",__LINE__);
             clients_tree->root=cnode1;
 
         }else{
             while(current != NULL){
-                printf("clients %d \n",__LINE__);
                 if(current->client->id > new_client->id){
                     if(current->left ==NULL){
                         current->left=cnode1;
@@ -331,7 +323,6 @@ int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_na
                 }
             }
         }
-        printf("clients %d \n",__LINE__);
         clients_tree->elementCount+=1;
   
         return 0;

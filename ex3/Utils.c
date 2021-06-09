@@ -2,7 +2,6 @@
 #include "Utils.h"
 
 int validateInput(char* data, int size,int fixedSize){
-    printf("utils %d \n",__LINE__);
     int i;
     if(fixedSize==1 && strlen(data) != size ){
         /*check size error*/
@@ -14,7 +13,6 @@ int validateInput(char* data, int size,int fixedSize){
         printError(size_);
         return -1;
     }
-    printf("utils %d \n",__LINE__);
     for(i = 0 ; i < strlen(data); i++){
         /*check type error*/
         if(!isalpha(((int)*(data+i))) && !isdigit(((int)*(data+i))) && !isspace(((int)*(data+i))) ){
@@ -114,18 +112,15 @@ int get_chr_input(char *text,char *attr,int attr_size ){
 }
 
 int get_int_input(char text[],int *attr,int attr_size ){
-    printf("utils %d \n",__LINE__);
     printf("%s\t\n",text);
     scanf("%d",attr);
     if(validateInputInt(*attr,attr_size) == 0 ){
         return 0;
     }
     else{
-        printf("utils %d \n",__LINE__);
         while(validateInputInt(*attr,attr_size) != 0 ){
             printf("%s\t\n",text);
             scanf("%d",attr); 
-            printf("utils %d \n",__LINE__);
         }
         return 0 ; 
     }
