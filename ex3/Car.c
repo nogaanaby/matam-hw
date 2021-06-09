@@ -176,11 +176,41 @@ int carNumberWithGivenCapacity_REC(Node *head, int engine_val)
     return sum;
 }
  
-int removeCarFromList(BinarySearchTree *tree,int id){
-    
+int removeCarFromTree(BinarySearchTree *tree,int id){
+    Node *father = tree->root;
+    Node *res  = FindCarInTreeByid(tree->root,id);
+    /* if found  remove  from tree */
+    if(res){
+        tree->elementCount--;
+        removeCarFromTree_REC(res,tree->root,father);
+        return 0 ; 
+    }
+
+    printf("error item is not in the tree, canot  remove from tree ! \n");
+    return -1; 
 }
 
-void print_car(struct Car *car,int *count)
+/* find the deepast  rhigt  node  in tree replace  key  with the  lociton of remove_node  
+then remove  from tree */
+void removeCarFromTree_REC(Node * remove_node,Node *root,Node *father){
+    if(!root->right && !root->left){
+        Car *temp = root->car ; 
+        remove_node->car = root->car; 
+        root->car = temp ; 
+        free_car(root);
+        return ; 
+    }
+    /* go find a node that have no sun's   */
+    root->sum_of_sub_tree_right--;
+    if(root->left && !root->right)
+        removeCarFromTree_REC(remove_node,root->left,root);
+    else {
+        removeCarFromTree_REC(remove_node,root->right,root);
+    }
+}
+
+
+void print_car(Car *car,int *count)
 {   
     if (*count != -1){
         printf("index : %d \n -->", *(count));
@@ -211,7 +241,6 @@ void destroyCarTree(BinarySearchTree *tree)
 void destroyTree(BinarySearchTree *tree)
 {
     destroyTree_REC(tree->root);
-    tree->root == NULL ;
 }
 
 void destroyTree_REC(Node *head){

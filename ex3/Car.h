@@ -62,9 +62,9 @@ void printCarTree_rec(Node *root,int *coun);
 void print_car(struct Car* car,int *coun);
 /* query */
 int carNumberWithGivenCapacity_REC(Node *head,int engine_val);
+void removeCarFromTree_REC(Node * remove_node,Node *root , Node *father); 
 /* delete car by id value */
-/* int removeCarFromTree(Node** head,int id);
- */
+int removeCarFromTree(BinarySearchTree *tree,int id);
 void destroyCarTree(BinarySearchTree* tree);
 void destroyTree(BinarySearchTree* tree);
 void destroyTree_REC(Node *head);
