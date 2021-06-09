@@ -25,6 +25,7 @@ int validateInput(char* data, int size,int fixedSize){
 }
 
 int validateInputInt(int data, int size){
+    //problem
     if(data < 0 ){
         printError(negitive_);
         return -1;  
@@ -45,7 +46,7 @@ int validateInputInt(int data, int size){
             return -1;
         }
     }
-    return 0 ; 
+    return 0;
 }
 
 

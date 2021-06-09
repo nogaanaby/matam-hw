@@ -44,7 +44,7 @@ typedef struct {
 
 typedef struct Clients_List_Node {
 	Client *client;
-	struct Client_List_Node* next;
+	struct Clients_List_Node* next;
 } Clients_List_Node;
 
 /* create array of clients with stdin input M , set the fildes to zero */
@@ -56,15 +56,24 @@ int addNewClient(Clients_Tree* clients_tree);
 
 int get_client_input_from_user(struct Client *temp_client);
 
-void print_client(struct Client* cli);
-void print_clients_list(Client_Node* root);
+void print_client(struct Client* cli,int tubsNum);
+
+void printtabs(int numtabs);
+void printtree_rec(Client_Node *current, int level);
+
+void print_clients(Clients_Tree* tree);
+void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
+Client* findClientById(Clients_Tree *clients_tree, int *id);
+void findClientsByDate(Client_Node *current, Clients_List_Node *head, Date *date);
+void pushClientToList(Clients_List_Node *current, Client *cli);
 
 /* sarch for client in data base */
 /*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
 /* int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
  *//* delte client cy id number*/
+Client_Node* minValueNode(Client_Node* node);
 Client_Node* deleteClient(Client_Node* root, int id);
-int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_name, char *id, int car_license_id, 
+int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
     int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 /* delete all client */ 

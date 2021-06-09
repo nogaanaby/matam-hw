@@ -22,6 +22,8 @@ Clients_Tree* createClientsTree(){
 
     get_client_input_from_user(new_client);
     new_client_node->client = new_client;
+    new_client_node->left=NULL;
+    new_client_node->right=NULL;
 
     Client_Node* current=clients_tree->root;
 
@@ -48,15 +50,15 @@ Clients_Tree* createClientsTree(){
     return 0; 
  }
 
-int get_client_input_from_user(struct Client *temp_client){
+int get_client_input_from_user(Client *temp_client){
     get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
     get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
-    while(temp_client->id==0){
-        printf("ID can not be 0 \n");
-        get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
-    }
-    
+    // while(temp_client->id==0){
+    //     printf("ID can not be 0 \n");
+    //     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
+    // }
+    printf(" 61 ");
     get_int_input("Please enter (7 digit) car_license_id:\t",&temp_client->car_license_id,MAX_LEN_SEVEN);
     get_int_input("Please enter price_per_hour:\t",&temp_client->price_per_hour,4);
     get_int_input("Please enter start rent year (4 digits):\t",&temp_client->start_rent_date.year,4);
@@ -64,19 +66,31 @@ int get_client_input_from_user(struct Client *temp_client){
     get_int_input("Please enter start rent day (2 digits):\t",&temp_client->start_rent_date.day,2);
     get_int_input("Please enter start rent hour (2 digits between 0-23):\t",&temp_client->start_rent_time.hour,2);
     get_int_input("Please enter start rent minutes (2 digits between 0-59):\t",&temp_client->start_rent_time.minutes,2);
-
+    printf(" 69 ");
     return 0; 
 }
 
 
-void print_client(struct Client* client){
+void print_client(struct Client* client,int tubsNum){
+    printtabs(tubsNum);
     printf("first_name:\t%s\n",(client)->first_name);
+    printtabs(tubsNum);
     printf("last_name:\t%s\n",(client)->last_name);
-    printf("id \t%s\n",(client)->id);
+    printtabs(tubsNum);
+    printf("id \t%d\n",(client)->id);
+    printtabs(tubsNum);
     printf("car_license_id :\t%d\n",(client)->car_license_id);
+    printtabs(tubsNum);
     printf("price_per_hour :\t%d\n",(client)->price_per_hour);
+    printtabs(tubsNum);
     printf("start_rent_date :\t%d.%d.%d\n",(client)->start_rent_date.day,(client)->start_rent_date.month,(client)->start_rent_date.year);
+    printtabs(tubsNum);
     printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
+}
+
+void print_clients(Clients_Tree *tree){
+    printf(" 92 ");
+    printtree_rec(tree->root,0);
 }
 
 void printtabs(int numtabs){
@@ -90,26 +104,27 @@ void printtree_rec(Client_Node *current, int level){
         printtabs(level);
         printf("---<empty>---\n");
         return;
+    }else{
+        printtabs(level);
+        printf(" 109 ");
+        print_client(current->client,level);
+        printtabs(level);
+        printf("left\n");
+        printf(" 113 \n");
+
+        printtree_rec(current->left,level+1);
+        printtabs(level);
+        printf("right\n");
+        printf(" 118 \n");
+
+        printtree_rec(current->right,level+1);
+
+        printtabs(level);
     }
-    printtabs(level);
-    print_client(current->client);
-    printtabs(level);
-    printf("left\n");
 
-    printtree_rec(current->left,level+1);
-    printtabs(level);
-    printf("right\n");
-
-    printtree_rec(current->right,level+1);
-
-    printtabs(level);
 }
 
-void print_clients_tree(Client_Node * root){
-    printtree_rec(root,0);
-}
-
-void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int id, Date *date){
+void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date){
     if(id!=NULL){
         Client *this= findClientById(clients_tree,id);
         head->client=this;
@@ -119,19 +134,18 @@ void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int id, Date
     }
 }
 
-Client* findClientById(Clients_Tree *clients_tree, int id){
+Client* findClientById(Clients_Tree *clients_tree, int *id){
     Client_Node *current = clients_tree->root;
     while(current != NULL){
-        if( current->client->id == id){
-            return current;
-        } else if(current->client->id > id){
+        if( current->client->id == *id){
+            return current->client;
+        } else if(current->client->id > *id){
             current = current->left;
         }else{
             current = current->right;
         }
     }
     printf("client does not found");
-    return -1;
 }
 
 void findClientsByDate(Client_Node *current, Clients_List_Node *head, Date *date){
@@ -159,7 +173,7 @@ void pushClientToList(Clients_List_Node *current, Client *cli){
     }
 }
 
-int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Cars_Tree *cars_tree){
+int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Car_Tree *cars_tree){
     int count=0;
     Client_Node *current_client = clients_tree->root;
     Car_Node *current_car = cars_tree->root;
@@ -286,27 +300,38 @@ int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_na
         new_client->start_rent_time.minutes=minutes;
 
         cnode1->client=new_client;
+        cnode1->left=NULL;
+        cnode1->right=NULL;
         Client_Node* current=clients_tree->root;
-
+        
+        printf(" 249 \n");
         if(current==NULL){
+            printf(" 269 \n");
             clients_tree->root=cnode1;
+
         }else{
             while(current != NULL){
-                    if(current->client->id > new_client->id){
-                        if(current->left ==NULL){
-                            current->left=cnode1;
-                        }else{
-                            current = current->left;
-                        }
+                printf(" 301 \n");
+                if(current->client->id > new_client->id){
+                    if(current->left ==NULL){
+                        current->left=cnode1;
+                        break;
                     }else{
-                        if(current->right ==NULL){
-                            current->right=cnode1;
-                        }else{
-                            current = current->right;
-                        }
+                        current = current->left;
                     }
+                }else{
+                    if(current->right ==NULL){
+                        current->right=cnode1;
+                        break;
+                    }else{
+                        current = current->right;
+                    }
+                }
             }
         }
+        printf(" 319 \n");
         clients_tree->elementCount+=1;
+        free(new_client);
+        free(cnode1);
         return 0;
 }
