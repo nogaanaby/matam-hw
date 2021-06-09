@@ -26,19 +26,19 @@ typedef struct Car
     int is_empty ; 
 }Car;
 
-typedef struct Node {
+typedef struct Car_Node {
 	Car* car;
-	struct Node* left;
-	struct Node* right;
+	struct Car_Node* left;
+	struct Car_Node* right;
     int sum_of_sub_tree_left;
     int sum_of_sub_tree_right; 
-} Node;
+} Car_Node;
 
 /* wrapper for a tree node */
 typedef struct {
-	Node* root;
+	Car_Node* root;
 	int elementCount;
-} BinarySearchTree;
+} Car_Tree;
 
 /* enum for types of tree traversal */
 typedef enum { INORDER, PREORDER, POSTORDER } Traversal;
@@ -47,28 +47,21 @@ typedef enum { INORDER, PREORDER, POSTORDER } Traversal;
 
 
 /*create linked list  of cars   */ 
-BinarySearchTree* createCarTree();
+Car_Tree* createCarsTree();
 /* add a new car to array of cars = > 1.check for this car in data 2.find the pleace in array 
  3. return error if in array */ 
-void addCarToTree(BinarySearchTree *tree);
+void addCarToTree(Car_Tree *tree);
 /* helper func */
-Node* insertNodeToTree( Node *root, Node* new_node);
+Car_Node* insertNodeToTree( Car_Node *root, Car_Node* new_node);
 void get_input_from_user(struct Car* temp_car);
 /* find car in linked  list by id val  */
-struct Node* FindCarInTreeByid(Node* head,int id);
+int removeCarFromTree(Car_Tree *tree,int id);
+void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root,Car_Node *father);
+Car_Node* FindCarInTreeByid(Car_Node* head,int id);
 /* print car and car list */
-void printCarTree(BinarySearchTree *tree);
-void printCarTree_rec(Node *root,int *coun);
+void printCarTree(Car_Tree *tree);
+void printCarTree_rec(Car_Node *root,int *coun);
 void print_car(struct Car* car,int *coun);
 /* query */
-int carNumberWithGivenCapacity_REC(Node *head,int engine_val);
-void removeCarFromTree_REC(Node * remove_node,Node *root , Node *father); 
-/* delete car by id value */
-int removeCarFromTree(BinarySearchTree *tree,int id);
-void destroyCarTree(BinarySearchTree* tree);
-void destroyTree(BinarySearchTree* tree);
-void destroyTree_REC(Node *head);
-void free_car(Node* tmp);
-/* helperfunc*/
-void get_car_test();
+
 #endif

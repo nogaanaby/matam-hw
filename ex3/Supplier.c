@@ -3,29 +3,69 @@
  int size_k = 0 ;
  int count_index = 0 ;
 
-Suppliers_List* createSuppliersList(){
-    Suppliers_List *new_list = (Suppliers_List*) malloc(sizeof(Suppliers_List));
-    if(new_list == NULL ){
-        printf("error list is empty\n");
+Suppliers_Tree * createSuppliersList(){
+    Suppliers_Tree  *new_Tree = (Suppliers_Tree *) malloc(sizeof(Suppliers_Tree ));
+    if(new_Tree == NULL ){
+        printf("error tree is empty\n");
         return NULL;
     }else{
-        new_list->head = NULL; 
-        new_list->size_count = 0 ; 
-        return new_list;
+        new_Tree->root = NULL; 
+        new_Tree->elementCount = 0 ; 
+        return new_Tree;
     }
+}
+/* remove from file only test */
+void get_Supplier__test( Supplier *Supplier_)
+{
+    static int i = 1;
+    sprintf(Supplier_->id,"%d",12345+i);
+    Supplier_->phone_number= 0526002453+i; 
+    if (i == 1 || i == 3)
+    {
+        Supplier_->name = my_strdup("jeep");
+    }else{
+        Supplier_->name = my_strdup("nisan");
+    } 
+    i++;
 }
 /* add a new Supplier to array of Supplier = > 1.check for this Supplier in data 2.find the pleace in array 
  3. return error if in array */ 
- int addNewSupplier(Suppliers_List* sup_list){
+ int addNewSupplier(Suppliers_Tree * sup_Tree){
     Supplier_Node* new_supplier_node = (Supplier_Node *) malloc(sizeof(Supplier_Node));
     Supplier* new_supplier = (Supplier *) malloc(sizeof(Supplier));
+    if(new_supplier && new_supplier_node && sup_Tree){
+        /* change !!!! line 37 to gat input from user  */
+        get_Supplier__test(new_supplier);
+        new_supplier_node->supplier = new_supplier;
+        new_supplier_node->left = NULL;
+        new_supplier_node->right = NULL;
+        new_supplier_node->sum_of_sub_tree_left = 0 ; 
+        new_supplier_node->sum_of_sub_tree_right = 0 ; 
+        sup_Tree->root = insertsupToTree(sup_Tree->root,new_supplier_node);
+        return 0; 
+    }
+    return -1;
+ }
 
-    get_supplier_input_from_user(new_supplier);
-    new_supplier_node->supplier = new_supplier;
-    new_supplier_node->next = sup_list->head;
-    sup_list->head = new_supplier_node;
-    sup_list->size_count+=1;
-    return 0; 
+
+Supplier_Node* insertsupToTree(Supplier_Node * root , Supplier_Node *new_node){
+    if (root == NULL)
+    {
+        return new_node;
+    }
+    /* go right */
+    if (root->sum_of_sub_tree_left > root->sum_of_sub_tree_right)
+    {
+        root->right = insertsupToTree(root->right, new_node);
+        root->sum_of_sub_tree_right++;
+    }
+    else
+    {
+        /* go left */
+        root->left = insertsupToTree(root->left, new_node);
+        root->sum_of_sub_tree_left++;
+    }
+    return root;
  }
 
 
@@ -35,7 +75,8 @@ int get_supplier_input_from_user(struct Supplier *temp_sup){
         get_int_input("Please enter (10 digit) supplier sum of transactions:\t",&temp_sup->sum_of_total_transactions_price,TEN);
         get_int_input("Please enter (5 digit) amount of transaction:\t",&temp_sup->count_transactions,FIVE);
         get_int_input("Please enter (10 digit) sup phone number:\t",&temp_sup->phone_number,TEN);
-        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,TEN);
+        /* alloc name memory  */
+        get_chr_input("Please enter (10 digit) sup name:\t",temp_sup->name,ALLOC);
         temp_sup->is_empty = 0 ; 
         printf("\n");
         printf(" add new supplier \n");
@@ -46,31 +87,45 @@ int get_supplier_input_from_user(struct Supplier *temp_sup){
 
 
 void print_sup(struct Supplier* sup){
-            if(sup->is_empty){
-                printf("supplier is empty\n");
-            }else {
                 printf("Supplier name:\t%s\n",(sup)->name);
                 printf("Supplier phone number:\t%d\n",(sup)->phone_number);
                 printf("Supplier id :\t%s\n",(sup)->id);
                 printf("supplier sum of transactions:\t%d\n",(sup)->sum_of_total_transactions_price);
                 printf("number of transactions:\t%d\n\n",(sup)->count_transactions);
-            }  
 }
 
-#ifdef DAVIS 
-void print_sup_list(Supplier_Node* head){
-    Supplier_Node *current = head;
-
-    while (current != NULL) {
-        print_sup(current->supplier);
-        current = current->next;
-    }   
+void print_sup_Tree(Supplier_Node* head){
+    if(head == NULL){
+        return ; 
+    }
+    print_sup(head->supplier);
+    print_sup_Tree(head->left);
+    print_sup_Tree(head->right);
 }
-#endif
 
-void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_arr){
-    if (Suppliers_list->size_count<=3){
-        Supplier_Node *current = Suppliers_list->head;
+Supplier_Node* FindSupInTreeByid(Supplier_Node * head,char * sup_id){
+      Supplier_Node *res = NULL;
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    res = FindSupInTreeByid(head->left,sup_id);
+    res = FindSupInTreeByid(head->right,sup_id);
+
+    if (strcmp(head->supplier->id,sup_id) == 0)
+    {
+        res = head;
+        return res;
+    }
+    return res;
+}
+
+
+
+/* void threeGreatestSupplier_REC(Suppliers_Tree  *Suppliers_Tree , char* licenses_arr){
+    if (Suppliers_Tree ->size_count<=3){
+        Supplier_Node *current = Suppliers_Tree ->head;
         while (current != NULL) {
             strcat(licenses_arr,current->supplier->id);
             strcat(licenses_arr,", ");
@@ -78,9 +133,9 @@ void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_ar
         }
         strcat(licenses_arr,"\0");
     }else{
-        Suppliers_List *poped_list=createSuppliersList();
-        Supplier_Node* poped_list_head = copyList(Suppliers_list->head);
-        poped_list->size_count=Suppliers_list->size_count;
+        Suppliers_Tree  *poped_list=createSuppliersList();
+        Supplier_Node* poped_list_head = copyList(Suppliers_Tree ->head);
+        poped_list->size_count=Suppliers_Tree ->size_count;
         poped_list->head=poped_list_head;
         popSmallestTransactionsSupplier(poped_list);
         threeGreatestSupplier_REC(poped_list, licenses_arr);
@@ -88,23 +143,8 @@ void threeGreatestSupplier_REC(Suppliers_List *Suppliers_list, char* licenses_ar
     }
 }
 
-struct Supplier_Node* copyList(struct Supplier_Node* head)
-{
-    if (head == NULL) {
-        return NULL;
-    }
-    else {
-        struct Supplier_Node* newNode
-            = (struct Supplier_Node*)malloc(
-                sizeof(struct Supplier_Node));
-  
-        newNode->supplier = head->supplier;
-        newNode->next = copyList(head->next);
-        return newNode;
-    }
-}
 
-int popSmallestTransactionsSupplier(Suppliers_List *sl){
+int popSmallestTransactionsSupplier(Suppliers_Tree  *sl){
     int min=-1;
     char *sup_id;
     Supplier_Node *current = sl->head;
@@ -118,80 +158,38 @@ int popSmallestTransactionsSupplier(Suppliers_List *sl){
     } 
 
     return deleteSupplier(sl,sup_id);
-}
+} */
 
 /* delete all Supplier */ 
-int deleteAllSuppliers(Suppliers_List *Suppliers_list){
-    if(Suppliers_list == NULL ){
+int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree){
+    if(Suppliers_Tree  == NULL ){
         printf("list is empty\n");
         return -1;
     }
-    while(Suppliers_list->head!= NULL){
-        deleteSupplier(Suppliers_list,Suppliers_list->head->supplier->id);
+    if(Suppliers_Tree->root != NULL ){
+        deleteAllSuppliers_REC(Suppliers_Tree->root);
+        free(Suppliers_Tree);
     } 
     return 0 ; 
 }
 
-int deleteSupplier(Suppliers_List* Suppliers_list, char *id) {
-    int i = 0;
-    Supplier_Node * current = Suppliers_list->head;
-    Supplier_Node * Supplier_node_to_delete = NULL;
-
-    /*no Suppliers on the list*/
-    if(current==NULL){
-        return -1;
+void  deleteAllSuppliers_REC(Supplier_Node *head){
+    if (head == NULL)
+    {
+        return;
     }
-    /*if its the head of the list*/
-    if(strcmp(current->supplier->id,id)==0){
-        if(current->next!=NULL){
-            Suppliers_list->head=current->next;
-        }else{
-            Suppliers_list->head=NULL;
-        }
-        free(current->supplier);
-        free(current);
-        Suppliers_list->size_count-=1;
-        return 0;
-    }
-
-    for (i = 0; i < Suppliers_list->size_count; i++) {
-        if(current->next){
-            if(strcmp(current->next->supplier->id,id)==0){
-                Supplier_node_to_delete = current->next;
-                /*if its not the end of the list I want that the prev node will point the next node: prev->Supplier_to_delete->next*/
-                if (current->next->next) {
-                    current->next=current->next->next;
-                }else{/*it is the end of the list*/
-                    current->next=NULL;
-                }
-                free(Supplier_node_to_delete);
-                Suppliers_list->size_count-=1;
-                return 0;
-            }
-        }
-        current = current->next;
-    }
-    /*if the id wasnt in the list*/
-    return -1;
+    deleteAllSuppliers_REC(head->left);
+    deleteAllSuppliers_REC(head->right);
+    free_Suppliers(head);
 }
 
-
-int addNewSupplier_test(Suppliers_List* sup_list,char *id,char *name,int phone_number, 
-  int count_transactions, int sum_of_total_transactions_price){
-        Supplier_Node* snode1=(Supplier_Node *) malloc(sizeof(Supplier_Node));
-        Supplier *new_supplier=(Supplier *) malloc(sizeof(Supplier));
-
-        strcpy(new_supplier->id, id);
-        strcpy(new_supplier->name, name);
-        new_supplier->phone_number=phone_number;
-        new_supplier->count_transactions=count_transactions;
-        new_supplier->sum_of_total_transactions_price=sum_of_total_transactions_price;
-        new_supplier->is_empty=0;
-
-        snode1->supplier=new_supplier;
-        snode1->next=sup_list->head;
-        sup_list->head = snode1;
-        sup_list->size_count+=1;
-
-        return 0; 
+void free_Suppliers(Supplier_Node * sup){
+    free(sup->supplier->name); 
+    free(sup); 
 }
+
+/* 
+int deleteSupplier(Suppliers_Tree * Suppliers_Tree , char *id) {
+
+}
+ */

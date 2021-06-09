@@ -1,8 +1,8 @@
 #include "Car.h"
 
-BinarySearchTree *createCarTree()
+Car_Tree *createCarsTree()
 {
-    BinarySearchTree *new_tree = (BinarySearchTree *)malloc(sizeof(BinarySearchTree));
+    Car_Tree *new_tree = (Car_Tree *)malloc(sizeof(Car_Tree));
     if (new_tree)
     {
         new_tree->root = NULL;
@@ -46,9 +46,9 @@ void get_car_test(struct Car *car)
 }
 /* remove from file only test */
 
-void addCarToTree(BinarySearchTree *tree)
+void addCarToTree(Car_Tree *tree)
 {
-    Node *new_node_Tree = (Node *)malloc(sizeof(Node));
+    Car_Node *new_node_Tree = (Car_Node *)malloc(sizeof(Car_Node));
     new_node_Tree->car = (Car *)malloc(sizeof(Car));
     new_node_Tree->left = NULL;
     new_node_Tree->right = NULL;
@@ -66,7 +66,7 @@ void addCarToTree(BinarySearchTree *tree)
 
 /* if left sub trre is biger  then rihgt  sub tree then go rihgt  else  go left  
 this will keep trre leveld  */
-Node *insertNodeToTree(Node *root, Node *new_node)
+Car_Node *insertNodeToTree(Car_Node *root, Car_Node *new_node)
 {
     if (root == NULL)
     {
@@ -101,57 +101,56 @@ void get_input_from_user(struct Car *temp_car)
     get_int_input("Please enter (4 digit) engine_capacity:\t", &temp_car->engine_capacity, MAX_LEN_FOUR);
 }
 
-struct Node *FindCarInTreeByid(Node *head, int id)
+struct Car_Node *FindCarInTreeByid(Car_Node *head, int id)
 {
-    Node *res = NULL;
+    Car_Node *res = NULL;
     if (head == NULL)
     {
-        return NULL ;
+        return NULL;
     }
-    
+
     res = FindCarInTreeByid(head->left, id);
     res = FindCarInTreeByid(head->right, id);
-    
+
     if (head->car->license_id == id)
     {
-        res = head; 
-        return res ; 
+        res = head;
+        return res;
     }
-    return res ; 
+    return res;
     /*start with the root  if it`s not me go left and then go right*/
-    
 }
 
-void printCarTree(BinarySearchTree *tree)
+void printCarTree(Car_Tree *tree)
 {
-    int count = 0 ;
+    int count = 0;
     if (tree == NULL)
     {
         printf("Tree is empty please create a tree \n");
-        return ; 
+        return;
     }
     printf("sum of left sub tree : %d \nsum of left sub tree : %d \n", tree->root->sum_of_sub_tree_left,
            tree->root->sum_of_sub_tree_right);
-    Node *head = tree->root;
-    printCarTree_rec(head,&count);
+    Car_Node *head = tree->root;
+    printCarTree_rec(head, &count);
 }
 
-void printCarTree_rec(Node *head,int *count)
+void printCarTree_rec(Car_Node *head, int *count)
 {
     if (head == NULL)
     {
         return;
     }
     printf("print root\n");
-    print_car(head->car,count);
+    print_car(head->car, count);
     printf("go left sub tree of root\n");
-    printCarTree_rec(head->left,count);
+    printCarTree_rec(head->left, count);
     printf("go rihgt sub tree of root\n");
-    printCarTree_rec(head->right,count);
+    printCarTree_rec(head->right, count);
 }
 
 /* free all alloceted field */
-void free_car(Node *tmp)
+void free_car(Car_Node *tmp)
 {
     free(tmp->car->manufacturer_name);
     free(tmp->car->model_name);
@@ -160,7 +159,7 @@ void free_car(Node *tmp)
 }
 
 /* return the number of car with given capacity  */
-int carNumberWithGivenCapacity_REC(Node *head, int engine_val)
+int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val)
 {
     int sum = 0;
     if (head == NULL)
@@ -171,14 +170,16 @@ int carNumberWithGivenCapacity_REC(Node *head, int engine_val)
     {
         sum++;
     }
+    /* sum of sub left tree */
     sum += carNumberWithGivenCapacity_REC(head->left, engine_val);
+    /* sum of sub right tree */
     sum += carNumberWithGivenCapacity_REC(head->right, engine_val);
     return sum;
 }
  
-int removeCarFromTree(BinarySearchTree *tree,int id){
-    Node *father = tree->root;
-    Node *res  = FindCarInTreeByid(tree->root,id);
+int removeCarFromTree(Car_Tree *tree,int id){
+    Car_Node *father = tree->root;
+    Car_Node *res  = FindCarInTreeByid(tree->root,id);
     /* if found  remove  from tree */
     if(res){
         tree->elementCount--;
@@ -192,7 +193,7 @@ int removeCarFromTree(BinarySearchTree *tree,int id){
 
 /* find the deepast  rhigt  node  in tree replace  key  with the  lociton of remove_node  
 then remove  from tree */
-void removeCarFromTree_REC(Node * remove_node,Node *root,Node *father){
+void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root,Car_Node *father){
     if(!root->right && !root->left){
         Car *temp = root->car ; 
         remove_node->car = root->car; 
@@ -214,8 +215,10 @@ void print_car(Car *car,int *count)
 {   
     if (*count != -1){
         printf("index : %d \n -->", *(count));
-        *count = *count+1;
-    }if (car){
+        *count = *count + 1;
+    }
+    if (car)
+    {
         printf("\tcolor:\t%s\n", (car)->color);
         printf("\tprice:\t%d\n", (car)->current_price);
         printf("\tengine capcity\t%d\n", (car)->engine_capacity);
@@ -229,24 +232,21 @@ void print_car(Car *car,int *count)
     }
 }
 
-void destroyCarTree(BinarySearchTree *tree)
+void destroyCarTree(Car_Tree *tree)
 {
-    if(tree){
-        destroyTree(tree);
+    if (tree)
+    {
+        destroyTree_REC(tree->root);
         free(tree);
     }
 }
 
 
-void destroyTree(BinarySearchTree *tree)
+void destroyTree_REC(Car_Node *head)
 {
-    destroyTree_REC(tree->root);
-}
-
-void destroyTree_REC(Node *head){
     if (head == NULL)
     {
-        return ;
+        return;
     }
     destroyTree_REC(head->left);
     destroyTree_REC(head->right);
