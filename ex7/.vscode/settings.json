@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "client.h": "c",
+        "stdbool.h": "c",
+        "car.h": "c",
+        "utils.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "utility": "c",
+        "supplier.h": "c",
+        "linked_list_car.h": "c"
+    }
+}
