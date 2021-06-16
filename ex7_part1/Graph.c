@@ -1,7 +1,7 @@
 #include "Graph.h"
 
 int isMainGroup(int **Graph,int graph_N, int *Group, int group_M){
-    int i,j,count_number_of_match_vertex = 0 ; 
+    int i,j,count_number_of_match_vertex = 0 , isEdge = 0 ; 
     if(graph_N <= 0 && group_M >= 0 ){
         printf("error size of matrix or group is zero or nagitive \n");
         return 0 ; 
@@ -12,9 +12,19 @@ int isMainGroup(int **Graph,int graph_N, int *Group, int group_M){
         for(i=0 ; i < graph_N ; i++){
             /* if i is in grop continue */
             if(isInGroup(i,Group,group_M)){continue;}
-            for(j=0; j < graph_N ; j++){
-                
+            for(j=0; j < graph_N && !isEdge ; j++){
+                /* if j is  */
+                if(isInGroup(j,*Group,group_M)){
+                    if(Graph[i][j] == 1){
+                        isEdge == 1; 
+                    } 
+                }
             }
+            /* if you check all row and did not found a edge to the group return false */
+            if(!isEdge){
+                return 0 ; 
+            } 
+            isEdge = 0 ;           
         }
 
 
