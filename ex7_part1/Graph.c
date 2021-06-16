@@ -13,7 +13,7 @@ int isMainGroup(int **Graph,int graph_N, int *Group, int group_M){
             /* if i is in grop continue */
             if(isInGroup(i,Group,group_M)){continue;}
             for(j=0; j < graph_N ; j++){
-
+                
             }
         }
 
@@ -22,7 +22,7 @@ int isMainGroup(int **Graph,int graph_N, int *Group, int group_M){
     return 1; 
 }
 
-
+/* check if i is in group  */
 int isInGroup(int number_to_find,int *Group,int size_group){
     int i ; 
     for(i = 0 ; i < size_group; i++){
