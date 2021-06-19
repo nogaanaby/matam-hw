@@ -39,7 +39,7 @@ int insertNodeByOrder(Node* current,Node* toInsert,bool (*toInsert_IsLarger)(Nod
 }
 int addNewNode(Tree* tree,void (*create_obj)(Node*),bool (*orderBy)(Node*,Node*)){
     Node* new_node= (Node*) malloc(sizeof(Node));
-    Node* current=tree->root;
+    //Node* current=tree->root;
     create_obj(new_node);
     new_node->left=NULL;
     new_node->right=NULL;
@@ -50,7 +50,7 @@ int addNewNode(Tree* tree,void (*create_obj)(Node*),bool (*orderBy)(Node*,Node*)
         insertNodeByOrder(tree->root,new_node,orderBy);
     }
     tree->elementCount+=1;
-    return 0;   
+    return 0;
 
 }
 void printtabs(int numtabs){
