@@ -5,6 +5,8 @@
 int main(){
     Tree *clients=createClientsTree();
     addNewClient(clients);
+    addNewClient(clients);
+    addNewClient(clients);
     print_clients(clients);
 
     // {

@@ -11,48 +11,65 @@ Tree *createTree(){
 
 
 
-int insertNodeNoOrder(Node* current,Node* toInsert){
-    if(current==NULL){
-        current=toInsert;
-        return 0;
-    }else if(current->left==NULL){
+int insertNodeNoOrder(Tree* tree,Node* toInsert){
+    Node* current=tree->root;
+    if(current->left==NULL){
         current->left=toInsert;
         return 0;
     }else if(current->right==NULL){
         current->right=toInsert;
         return 0;
     } else{
-        insertNodeNoOrder(current->left,toInsert);
+        current=current->left;
     }
 
 }
 
-int insertNodeByOrder(Node* current,Node* toInsert,bool (*toInsert_IsLarger)(Node*,Node*)){
-    if(current==NULL){
-        current=toInsert;
-        return 0;
-    }else if(toInsert_IsLarger(current,toInsert)){
-        insertNodeByOrder(current->left,toInsert,toInsert_IsLarger);
-    }else{
-        insertNodeByOrder(current->right,toInsert,toInsert_IsLarger);
+int insertNodeByOrder(Tree* tree,Node* toInsert,bool (*toInsert_IsLarger)(Node*,Node*)){
+    Node* current=tree->root;
+    while(current != NULL){
+        if(toInsert_IsLarger(current,toInsert)){
+            if(current->left ==NULL){
+                current->left=toInsert;
+                break;
+            }else{
+                current = current->left;
+            }
+        }else{
+            if(current->right ==NULL){
+                current->right=toInsert;
+                break;
+            }else{
+                current = current->right;
+            }
+        }
     }
+    return 0;
 }
+
 int addNewNode(Tree* tree,void (*create_obj)(Node*),bool (*orderBy)(Node*,Node*)){
     Node* new_node= (Node*) malloc(sizeof(Node));
-    //Node* current=tree->root;
     create_obj(new_node);
     new_node->left=NULL;
     new_node->right=NULL;
-    //put this new node in the correct place in the tree
-    if(orderBy==NULL){
-        insertNodeNoOrder(tree->root,new_node);
+    
+    if(tree->root==NULL){
+        tree->root=(Node*) malloc(sizeof(Node));
+        tree->root=new_node;
+        return 0;
     }else{
-        insertNodeByOrder(tree->root,new_node,orderBy);
+        //put this new node in the correct place in the tree
+        if(orderBy==NULL){
+            insertNodeNoOrder(tree,new_node);
+        }else{
+            insertNodeByOrder(tree,new_node,orderBy);
+        }
+        tree->elementCount+=1;
+        return 0;
     }
-    tree->elementCount+=1;
-    return 0;
-
 }
+
+
 void printtabs(int numtabs){
     for (int i=0;i<numtabs;i++){
         printf("\t");
