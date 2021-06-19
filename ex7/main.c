@@ -6,6 +6,7 @@ int main(){
     Tree *clients=createClientsTree();
     addNewClient(clients);
     print_clients(clients);
+
     // {
     //     run_test_car();
     // }

@@ -3,8 +3,7 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 #include "utils.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 /*this tree has just two nodes:
 //               node
@@ -37,7 +36,9 @@ typedef struct Tree {
 
 
 Tree* createTree();
-int addNewNode(Tree* tree,void (*create_obj)(Node*));
+int addNewNode(Tree* tree,void (*create_obj)(Node*),bool (*orderBy)(Node*,Node*));
+void printtree_rec(Node *root, int level,void (*print_obj)(Node*,int));
+void printtabs(int numtabs);
 
 
 #endif

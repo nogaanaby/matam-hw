@@ -14,8 +14,14 @@ void createClient(Node *node){
     node->value=new_client;
 }
 
+bool toInsert_IsLarger_ByClientId(Node *current,Node *toInsert){
+    Client* cli1=toInsert->value;
+    Client* cli2=current->value;
+    return (cli1->id > cli2->id);
+}
+
  int addNewClient(Tree* clients_tree){
-    return addNewNode(clients_tree,createClient);
+    return addNewNode(clients_tree,createClient,toInsert_IsLarger_ByClientId);
  }
 
 int get_client_input_from_user(Client *temp_client){
@@ -37,7 +43,8 @@ int get_client_input_from_user(Client *temp_client){
 }
 
 
-void print_client(struct Client* client,int tubsNum){
+void print_client(Node* node,int tubsNum){
+    Client *client=node->value;
     printtabs(tubsNum);
     printf("first_name:\t%s\n",(client)->first_name);
     printtabs(tubsNum);
@@ -55,36 +62,7 @@ void print_client(struct Client* client,int tubsNum){
 }
 
 void print_clients(Tree *tree){
-    printtree_rec(tree->root,0);
-}
-
-void printtabs(int numtabs){
-    int i;
-    for (i=0;i<numtabs;i++){
-        printf("\t");
-    }
-}
-
-void printtree_rec(Node *current, int level){
-    if(current==NULL){
-        printtabs(level);
-        printf("---<empty>---\n");
-        return;
-    }else{
-        printtabs(level);
-        print_client(current->value,level);
-        printtabs(level);
-        printf("left\n");
-
-        printtree_rec(current->left,level+1);
-        printtabs(level);
-        printf("right\n");
-
-        printtree_rec(current->right,level+1);
-
-        printtabs(level);
-    }
-
+    printtree_rec(tree->root,0,print_client);
 }
 
 // void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date){

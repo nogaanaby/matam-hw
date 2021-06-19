@@ -48,10 +48,7 @@ int addNewClient(Tree* clients_tree);
 
 int get_client_input_from_user(struct Client *temp_client);
 
-void print_client(struct Client* cli,int tubsNum);
-
-void printtabs(int numtabs);
-void printtree_rec(Node *current, int level);
+void print_client(Node* node,int tubsNum);
 
 void print_clients(Tree* tree);
 // void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
