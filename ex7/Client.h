@@ -31,10 +31,6 @@ typedef struct Client{
      struct Time start_rent_time;
 }Client;
 
-typedef struct Clients_List_Node {
-	Client *client;
-	struct Clients_List_Node* next;
-} Clients_List_Node;
 
 Tree* createClientsTree();
 void createClient(Node *node);
@@ -45,8 +41,8 @@ int get_client_input_from_user(struct Client *temp_client);
 void print_client(Node* node,int tubsNum);
 
 void print_clients(Tree* tree);
-void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
-int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree);
+void findClient(Tree *clients_tree,List_Node *head, int *id, Date *date);
+//int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree);
 void printClientCarsForGivenRentDate(Node *current,Date *date);
 int deleteClient(Tree* tree, int *id);
 

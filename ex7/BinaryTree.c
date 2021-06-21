@@ -152,15 +152,16 @@ int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(
 
 }
 
-void freeTree(Node* node) 
+void freeTree(Node* node,void (*freeObjAttr)(Node*)) 
 {
     if (node == NULL) return;
   
     /* first delete both subtrees */
-    freeTree(node->left);
-    freeTree(node->right);
+    freeTree(node->left,freeObjAttr);
+    freeTree(node->right,freeObjAttr);
     
     /* then delete the node */
+    freeObjAttr(node);
     free(node->value);
     free(node);
 } 
