@@ -186,7 +186,7 @@ void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date)
 
 
 int deleteAllClients(Tree *tree){
-    deleteTree(tree->root);
+    freeTree(tree->root);
     tree->root=NULL;
     return 0;
 }
