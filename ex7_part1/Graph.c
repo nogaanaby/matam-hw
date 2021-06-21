@@ -1,17 +1,15 @@
 #include "Graph.h"
-
+#define N 7 
 
 int main()
 {
-    N = 7;
     int Group[3] = {5,4,3};
+    int Adj[N + 1][N + 1];
     /*build up of the graph by the edges of the graph */
-    int arr[][2]
-            = {{1,2},{1,7},{2,6},{3,7},{2,4},{3,4},{4,5},{5,6},{6,7},{5,7},{2,3}};
+    int arr[][2] = {{1,2},{1,7},{2,6},{3,7},{2,4},{3,4},{4,5},{5,6},{6,7},{5,7},{2,3}};
     /*number  of edges  */
     M = sizeof(arr) / sizeof(arr[0]);
-    int Adj[N + 1][N + 1];
-    createAdjMatrix(Adj, arr);
+    createAdjMatrix(Adj,arr);
     printAdjMatrix(Adj);
     if(isMainGroup(Adj,7,Group,3))
         printf("True\n");
