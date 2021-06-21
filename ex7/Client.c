@@ -134,6 +134,7 @@ void findClientsByDate(Node *current, List_Node *head, Date *date){
 }
 
 void findClient(Tree *clients_tree,List_Node *head, int *id, Date *date){
+    
     Node *current = clients_tree->root;
     Node *this;
     if(id!=NULL){
@@ -211,7 +212,6 @@ void freeClientAttr(Node *node){
 }
 
 int deleteAllClients(Tree *tree){
-    //delete each client
     freeTree(tree->root,freeClientAttr);
     tree->root=NULL;
     return 0;

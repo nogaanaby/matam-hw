@@ -165,3 +165,7 @@ void freeTree(Node* node,void (*freeObjAttr)(Node*))
     free(node->value);
     free(node);
 } 
+
+void findNode(Tree* tree,List_Node* head){
+
+}
