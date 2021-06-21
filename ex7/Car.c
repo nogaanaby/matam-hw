@@ -108,8 +108,7 @@ void printCarTree(Tree *tree)
 
 
 void print_car(Node *node,int count){
-    printf("enter print\n");
-    Car *car ;    
+    Car *car;
     if(node->value)
     {
         car = node->value;

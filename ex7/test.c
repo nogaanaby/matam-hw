@@ -87,15 +87,16 @@ void run_suppliers_test(){
 }
 
 void run_clients_test(){
-    Tree *clients=createClientsTree();
-    // addNewClient(clients);
-    // addNewClient(clients);
-    // addNewClient(clients);
-    add_example_clients(clients);
-    print_clients(clients);
-
     int id=1234567;
     int *idptr=&id;
+    Tree *clients=createClientsTree();
+    addNewClient(clients);
+    addNewClient(clients);
+    addNewClient(clients);
+    /*add_example_clients(clients);*/
+    print_clients(clients);
+
+
     deleteClient(clients,idptr);
 
     printf("******************* after delete client 1234567 ***************** \n");

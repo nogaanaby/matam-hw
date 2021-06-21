@@ -1,22 +1,19 @@
-
-
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
-#include "utils.h"
-#include "client.h"
-
-
-/*this tree has just two nodes:
-//               node
-//              /   \
+#include <stdlib.h>
+#include <stdio.h>
+/*
+this tree has just two nodes:
+               node
+              /   \
                v     v
             *left    *right
             /   \     /   \
            v    v     v    v
        *left *right  *left *right
 
-//               n1(11)
-//              /   \
+               n1(11)
+              /   \
                v     v
             n2(12)   n3(13)
             /   \     
@@ -52,5 +49,5 @@ void printtree_rec(Node *root, int level,void (*print_obj)(Node*,int));
 void printtabs(int numtabs);
 int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(Node*,Node*));
 void freeTree(Node* node,void (*freeObjAttr)(Node*));
-//void findNode(Tree* tree, List_Node *head,void (*findObj)(Tree*,List_Node*, int*, Date*));
+/*void findNode(Tree* tree, List_Node *head,void (*findObj)(Tree*,List_Node*, int*, Date*));*/
 #endif

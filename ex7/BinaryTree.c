@@ -58,7 +58,6 @@ int addNewNode(Tree* tree,void (*create_obj)(Node*),unsigned int (*compare)(Node
         tree->root=new_node;
         return 0;
     }else{
-        //put this new node in the correct place in the tree
         if(compare==NULL){
             insertNodeNoOrder(tree,new_node);
         }else{
@@ -71,7 +70,8 @@ int addNewNode(Tree* tree,void (*create_obj)(Node*),unsigned int (*compare)(Node
 
 
 void printtabs(int numtabs){
-    for (int i=0;i<numtabs;i++){
+    int i;
+    for (i=0;i<numtabs;i++){
         printf("\t");
     }
 }
@@ -118,7 +118,6 @@ int insertTree(Tree *main, Node *toInsert,unsigned int (*compare)(Node*,Node*)){
 }
 
 int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(Node*,Node*)){
-    //go left or right by the client id until you find the node
     if(parent==NULL || toRemove==NULL){
         return -1;
     }else if(compare(parent,toRemove)==0){
@@ -143,7 +142,7 @@ int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(
         insertTree(tree,smallTreeRoot,compare);
         return 0;
     }
-    else if(compare(parent->right,toRemove)==1){//toRemove>parent->right
+    else if(compare(parent->right,toRemove)==1){
         removeNode(tree,parent->right,toRemove,compare);
     }else{
         removeNode(tree,parent->left,toRemove,compare);        

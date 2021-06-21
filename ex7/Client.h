@@ -32,22 +32,22 @@ typedef struct Client{
 }Client;
 
 
-Tree* createClientsTree();
-void createClient(Node *node);
-int addNewClient(Tree* clients_tree);
+struct Tree* createClientsTree();
+void createClient(struct Node *node);
+int addNewClient(struct Tree* clients_tree);
 
 int get_client_input_from_user(struct Client *temp_client);
 
-void print_client(Node* node,int tubsNum);
+void print_client(struct Node* node,int tubsNum);
 
-void print_clients(Tree* tree);
-void findClient(Tree *clients_tree,List_Node *head, int *id, Date *date);
-//int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree);
-void printClientCarsForGivenRentDate(Node *current,Date *date);
-int deleteClient(Tree* tree, int *id);
+void print_clients(struct Tree* tree);
+void findClient(struct Tree *clients_tree,struct List_Node *head, int *id, Date *date);
+/*int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree);*/
+void printClientCarsForGivenRentDate(struct Node *current,Date *date);
+int deleteClient(struct Tree* tree, int *id);
 
-int deleteAllClients(Tree* tree);
-int addNewClient_test(Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
+int deleteAllClients(struct Tree* tree);
+int addNewClient_test(struct Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
     int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 #endif

@@ -143,74 +143,76 @@ void findClient(Tree *clients_tree,List_Node *head, int *id, Date *date){
         findClientsByDate(current,head,date);
     }
 }
-// int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree){
-//     int count=0;
-//     Node *current_client_node = clients_tree->root;
-//     Node *current_car_node = cars_tree->root;
-//     Client *current_client = current_client_node->value;
-//     Car *current_car = current_car_node->value;
+/*
+int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree){
+    int count=0;
+    Node *current_client_node = clients_tree->root;
+    Node *current_car_node = cars_tree->root;
+    Client *current_client = current_client_node->value;
+    Car *current_car = current_car_node->value;
 
-//     while(current_client_node != NULL){
-//         while(current_car_node != NULL){
-//             if(current_car->license_id==current_client->car_license_id
-//                 && current_car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car_node=current_car_node->left;
-//         }
-    //     current_car_node = cars_tree->root;
-    //     while(current_car_node != NULL){
-    //         if(current_car->license_id==current_client->car_license_id
-    //             && current_car->year_of_relase==year){
-    //                 count++;
-    //         }
-    //         current_car_node=current_car_node->right;
-    //     }
-    //     current_client_node=current_client_node->left;
-    // }
-//     current_client_node= clients_tree->root->right;
-//     while(current_client_node!= NULL){
-//         while(current_car != NULL){
-//             if(current_car->license_id==current_client->car_license_id
-//                 && current_car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car_node=current_car_node->left;
-//         }
-//         current_car_node = cars_tree->root;
-//         while(current_car_node != NULL){
-//             if(current_car->license_id==current_client->car_license_id
-//                 && current_car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car_node=current_car_node->right;
-//         }
-//         current_client_node=current_client_node->right;
-//     }
-//     return count;
-// }
-// void printClientCarsForGivenRentDate(Node *current,Date *date){
-//     Client *cli;
-//     if(current!=NULL){
-//         cli=current->value;
-//         if(cli->start_rent_date.year==date->year&&
-//             cli->start_rent_date.month==date->month&&
-//             cli->start_rent_date.day==date->day
-//         ){
-//             print_client(current,0);
-//         }
-//         printClientCarsForGivenRentDate(current->left,date);
-//         printClientCarsForGivenRentDate(current->right,date);
-//     }
-// }
+    while(current_client_node != NULL){
+        while(current_car_node != NULL){
+            if(current_car->license_id==current_client->car_license_id
+                && current_car->year_of_relase==year){
+                    count++;
+            }
+            current_car_node=current_car_node->left;
+        }
+        current_car_node = cars_tree->root;
+        while(current_car_node != NULL){
+            if(current_car->license_id==current_client->car_license_id
+                && current_car->year_of_relase==year){
+                    count++;
+            }
+            current_car_node=current_car_node->right;
+        }
+        current_client_node=current_client_node->left;
+    }
+    current_client_node= clients_tree->root->right;
+    while(current_client_node!= NULL){
+        while(current_car != NULL){
+            if(current_car->license_id==current_client->car_license_id
+                && current_car->year_of_relase==year){
+                    count++;
+            }
+            current_car_node=current_car_node->left;
+        }
+        current_car_node = cars_tree->root;
+        while(current_car_node != NULL){
+            if(current_car->license_id==current_client->car_license_id
+                && current_car->year_of_relase==year){
+                    count++;
+            }
+            current_car_node=current_car_node->right;
+        }
+        current_client_node=current_client_node->right;
+    }
+    return count;
+}*/
+void printClientCarsForGivenRentDate(Node *current,Date *date){
+    Client *cli;
+    if(current!=NULL){
+        cli=current->value;
+        if(cli->start_rent_date.year==date->year&&
+            cli->start_rent_date.month==date->month&&
+            cli->start_rent_date.day==date->day
+        ){
+            print_client(current,0);
+        }
+        printClientCarsForGivenRentDate(current->left,date);
+        printClientCarsForGivenRentDate(current->right,date);
+    }
+}
 
-void freeClientAttr(Node *node){
+
+void freeClientAttr(struct Node *node){
     Client *toRemove=node->value;
     free(toRemove->first_name);
     free(toRemove->last_name);
 }
 
-int deleteAllClients(Tree *tree){
+int deleteAllClients(struct Tree *tree){
     freeTree(tree->root,freeClientAttr);
     tree->root=NULL;
     return 0;
@@ -218,7 +220,7 @@ int deleteAllClients(Tree *tree){
 
 
 /* Function to delete the given node */
-int deleteClient(Tree* tree, int* id){
+int deleteClient(struct Tree* tree, int* id){
     Node *cnode=findClientById(tree,id);
     freeClientAttr(cnode);
     if(cnode!=NULL){
@@ -235,7 +237,7 @@ int deleteClient(Tree* tree, int* id){
 
 int addNewClient_test(Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
     int price_per_hour, int year, int month, int day, int hour, int minutes){
-        Node* cnode1=(Node *) malloc(sizeof(Node));
+        Node* cnode1=(struct Node *) malloc(sizeof(struct Node));
         Client* new_client=(Client *) malloc(sizeof(Client));
         Node* current;
         Client *cli;
