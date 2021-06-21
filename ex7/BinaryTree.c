@@ -22,7 +22,7 @@ int insertNodeNoOrder(Tree* tree,Node* toInsert){
     } else{
         current=current->left;
     }
-
+    return -1 ; 
 }
 
 int insertNodeByOrder(Tree* tree,Node* toInsert,unsigned int (*toInsert_IsLarger)(Node*,Node*)){

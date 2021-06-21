@@ -1,59 +1,46 @@
 #include "Car.h"
 
-Car_Tree *createCarsTree()
+
+Tree *createCarsTree()
 {
-    Car_Tree *new_tree = (Car_Tree *)malloc(sizeof(Car_Tree));
-    if (new_tree)
-    {
-        new_tree->root = NULL;
-        new_tree->elementCount = 0;
-        return new_tree;
-    }
-    /* allocetion field exit prog */
-    printError(NULL_);
-    return NULL;
+    return createTree();    
 }
 
 
-void addCarToTree(Car_Tree *tree)
+int addCarToTree(Tree *tree)
 {
-    Car_Node *new_node_Tree = (Car_Node *)malloc(sizeof(Car_Node));
-    new_node_Tree->car = (Car *)malloc(sizeof(Car));
-    new_node_Tree->left = NULL;
-    new_node_Tree->right = NULL;
-    new_node_Tree->sum_of_sub_tree_left = 0;
-    new_node_Tree->sum_of_sub_tree_right = 0;
-    if (new_node_Tree && tree)
-    {
-        /* init node with perms of car */
-        get_input_from_user(new_node_Tree->car);
-        /*get_input_from_user(new_node_Tree->car); */
-        tree->root = insertNodeToTree(tree->root, new_node_Tree);
-        tree->elementCount++;
-    }
+    return addNewNode(tree,createCar,compere_tow_cars);
 }
+
+/* compere tow cars  if nodes  are  null print error  massge  and  return 
+if not  compere tow nodes return 0 if equal */
+unsigned int compere_tow_cars(Node* car1,Node* car2){
+    /* create  temp car for comparision  */
+    Car *temp1 = car1->value ,*temp2 = car2->value;
+    if(car1 && car2){
+        return -2; 
+    }else {  
+        if(temp1->license_id < temp2->license_id){
+            return 1 ; 
+        }else if(temp1->license_id > temp2->license_id){
+            return -1;
+        }else{
+            return 0 ; 
+        } 
+    }
+
+}
+
 
 /* if left sub trre is biger  then rihgt  sub tree then go rihgt  else  go left  
 this will keep trre leveld  */
-Car_Node *insertNodeToTree(Car_Node *root, Car_Node *new_node)
+void createCar(Node *new_node)
 {
-    if (root == NULL)
-    {
-        return new_node;
+    Car  *new_car = (Car*) malloc(sizeof(Car));
+    if(new_car){
+        get_input_from_user(new_car);
+        new_node->value = new_car;
     }
-    /* go right */
-    if (root->sum_of_sub_tree_left > root->sum_of_sub_tree_right)
-    {
-        root->right = insertNodeToTree(root->right, new_node);
-        root->sum_of_sub_tree_right++;
-    }
-    else
-    {
-        /* go left */
-        root->left = insertNodeToTree(root->left, new_node);
-        root->sum_of_sub_tree_left++;
-    }
-    return root;
 }
 
 void get_input_from_user(struct Car *temp_car)
@@ -71,73 +58,37 @@ void get_input_from_user(struct Car *temp_car)
     printf("\n");
 }
 
-struct Car_Node *FindCarInTreeByid(Car_Node *head, int id)
-{
-    Car_Node *res = NULL;
-    if (head == NULL)
+Node* FindCarInTreeByid(Tree *tree, int id)
+{   
+    Node *cuurent  =  tree->root; 
+    Car *car  = cuurent->value;    
+    while(cuurent == NULL)
     {
-        return NULL;
+       car = cuurent->value; 
+       if(car->license_id == id){
+           return cuurent ; 
+       }else if(car->license_id > id){
+           cuurent = cuurent->left ; 
+       }else{
+           cuurent = cuurent->right; 
+       }
     }
-
-    res = FindCarInTreeByid(head->left, id);
-    res = FindCarInTreeByid(head->right, id);
-
-    if (head->car->license_id == id)
-    {
-        res = head;
-        return res;
-    }
-    return res;
-    /*start with the root  if it`s not me go left and then go right*/
+    printf("car is not found\n");
+    return NULL ; 
 }
 
-void printCarTree(Car_Tree *tree)
-{
-    Car_Node *head =NULL;
-    int count = 0;
-    if (tree == NULL)
-    {
-        printf("Tree is empty please create a tree \n");
-        return;
-    }
-    printf("sum of left sub tree : %d \nsum of left sub tree : %d \n", tree->root->sum_of_sub_tree_left,
-           tree->root->sum_of_sub_tree_right);
-    head = tree->root;
-    printCarTree_rec(head, &count);
-}
-
-void printCarTree_rec(Car_Node *head, int *count)
-{
-    if (head == NULL)
-    {
-        return;
-    }
-    printf("print root\n");
-    print_car(head->car, count);
-    printf("go left sub tree of root\n");
-    printCarTree_rec(head->left, count);
-    printf("go rihgt sub tree of root\n");
-    printCarTree_rec(head->right, count);
-}
-
-/* free all alloceted field */
-void free_car(Car_Node *tmp)
-{
-    free(tmp->car->manufacturer_name);
-    free(tmp->car->model_name);
-    free(tmp->car->color);
-    free(tmp);
-}
 
 /* return the number of car with given capacity  */
-int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val)
+int carNumberWithGivenCapacity_REC(Node *head, int engine_val)
 {
+    Car *temp_car; 
     int sum = 0;
     if (head == NULL)
     {
         return 0;
     }
-    if (head->car->engine_capacity == engine_val)
+    temp_car = head->value ; 
+    if (temp_car->engine_capacity == engine_val)
     {
         sum++;
     }
@@ -147,77 +98,20 @@ int carNumberWithGivenCapacity_REC(Car_Node *head, int engine_val)
     sum += carNumberWithGivenCapacity_REC(head->right, engine_val);
     return sum;
 }
- 
-int removeCarFromTree(Car_Tree *tree,int id){
-    Car_Node *res  = FindCarInTreeByid(tree->root,id);
-    /* if found  remove  from tree */
-    if(res){
-        removeCarFromTree_REC(res,tree->root);
-        tree->elementCount--;
-        return 0 ; 
-    }
 
-    printf("error item is not in the tree, canot  remove from tree ! \n");
-    return -1; 
+/* print car list */
+
+void printCarTree(Tree *tree)
+{
+    printtree_rec(tree->root,0,print_car);
 }
 
-/* find the deepast  rhigt  node  in tree replace  key  with the  lociton of remove_node  
-then remove  from tree */
-void removeCarFromTree_REC(Car_Node * remove_node,Car_Node *root){
-    Car_Node *temp_root = root;
-    Car_Node *father = NULL;
-    if(!temp_root->right && !temp_root->left){
-        Car *temp = temp_root->car ; 
-        /* switch car with remove node */
-        remove_node->car = temp_root->car; 
-        temp_root->car = temp ;
-        /* detach father from sun */
-        father = get_father(root,remove_node,root);
-        if(father->right && father->right->car->license_id == remove_node->car->license_id ){
-            father->right = NULL ; 
-        }else{
-            father->left = NULL ; 
-        }
-        free_car(temp_root);
-        return ; 
-    }
-    /* go find a node that have no sun's   */
-    
-    if(temp_root->left && !temp_root->right){
-        temp_root->sum_of_sub_tree_left--;
-        removeCarFromTree_REC(remove_node,temp_root->left);
-    }else {
-        temp_root->sum_of_sub_tree_right--;
-        removeCarFromTree_REC(remove_node,temp_root->right);
-    }
-}
 
-Car_Node *get_father(Car_Node* root,Car_Node *node_to_remove, Car_Node* father){
-    Car_Node* left = NULL ;
-    Car_Node* right = NULL;
-    if(!root){
-        return NULL ; 
-    }
-
-    if(root->car->license_id == node_to_remove->car->license_id){
-        return father;
-    }else{
-        left  = get_father(root->left,node_to_remove,father);
-        father = root->left ;
-        right = get_father(root->right,node_to_remove,father);
-        father = root->right ;
-    }
-
-    return left ? left : right;
-}
-
-void print_car(Car *car,int *count){  
-    if (*count != -1){
-        printf("index : %d \n -->", *(count));
-        *count = *count + 1;
-    }
-    if (car)
+void print_car(Node *node,int count){
+    Car *car ;    
+    if(node)
     {
+        car = node->value;
         printf("\tcolor:\t%s\n", (car)->color);
         printf("\tprice:\t%d\n", (car)->current_price);
         printf("\tengine capcity\t%d\n", (car)->engine_capacity);
@@ -230,24 +124,44 @@ void print_car(Car *car,int *count){
         printf("\tyear of relase:\t%d\n\n", (car)->year_of_relase);
     }
 }
-
-void destroyCarTree(Car_Tree *tree)
-{
-    if (tree)
-    {
-        destroyTree_REC(tree->root);
-        free(tree);
+/* remove  a  single  car from tree 
+on succsees return 0  else  retrun -1   */ 
+int removeCarFromTree(Tree *tree,int id){
+    Node *res  = FindCarInTreeByid(tree,id);
+    Car* temp ; 
+    int remove = 0 ; 
+    /* if found  remove  from tree */
+    if(res){
+        temp = res->value ; 
+        free(temp->color);
+        free(temp->manufacturer_name);
+        free(temp->model_name);
+        remove = removeNode(tree,tree->root,res,compere_tow_cars);
+        if(!remove){return 0;  } 
     }
+    printf("Error item is not in the tree, canot  remove from tree ! \n");
+    return -1; 
 }
 
 
-void destroyTree_REC(Car_Node *head)
+/* free all alloceted field */
+/* void free_car(Node *tmp)
 {
-    if (head == NULL)
+    free(tmp->car->manufacturer_name);
+    free(tmp->car->model_name);
+    free(tmp->car->color);
+    free(tmp);
+}
+
+ */
+
+
+/* destroy car list   */
+void destroyCarTree(Tree *tree)
+{
+    if (tree)
     {
-        return;
+        freeTree(tree->root);
+        tree->root = NULL ;
     }
-    destroyTree_REC(head->left);
-    destroyTree_REC(head->right);
-    free_car(head);
 }

@@ -17,6 +17,4 @@ void add_example_clients(Tree *cl);
 void run_clients_and_cars_test();
 void run_test_car();
 void run_suppliers_test();
-void add_example_suppliers(Suppliers_Tree *sl);
-void add_example_cars(Car_Tree *cl);
 #endif

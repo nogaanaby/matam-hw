@@ -4,8 +4,9 @@
 
 #define TEN 10
 #define FIVE 5
-
+#include "BinaryTree.h"
 #include "Utils.h"
+
 typedef struct Supplier {
   char id[TEN+1];
   char *name;
@@ -15,34 +16,21 @@ typedef struct Supplier {
   int is_empty;
 }Supplier;
 
-typedef struct Supplier_Node {
-	Supplier *supplier;
-		struct Supplier_Node* left;
-	  struct Supplier_Node* right;
-    int sum_of_sub_tree_left;
-    int sum_of_sub_tree_right; 
-} Supplier_Node;
-
-typedef struct {
-	Supplier_Node* root;
-	int elementCount;
-} Suppliers_Tree;
-
-Suppliers_Tree* createSuppliersTree();
-int addNewSupplier(Suppliers_Tree* sup_list);
-Supplier_Node* insertsupToTree(Supplier_Node * root , Supplier_Node *new_node);
+Tree* createSuppliersTree();
+int addNewSupplier(Tree* sup_list);
+unsigned int compereSupplier(Node *node1,Node *node2);
+void createSupplier(Node *new_node);
 int get_supplier_input_from_user(Supplier *temp_sup);
-int averageOfSupplierMoney(Suppliers_Tree *tree);
-int averageOfSupplierMoney_REC(Supplier_Node *head); 
-int popSmallestTransactionsSupplier(Suppliers_Tree *sl);
-void print_sup_Tree(Supplier_Node* head);
-void print_sup(Supplier* sup);
-Supplier_Node *clone_node(Supplier_Node *node);
-Supplier_Node* rec_clone(Supplier_Node* head);
-Suppliers_Tree* tree_clone(Suppliers_Tree* tree);
-int deleteAllSuppliers(Suppliers_Tree  *Suppliers_Tree);
-void  deleteAllSuppliers_REC(Supplier_Node *head);
-void free_Suppliers(Supplier_Node * sup);
-Supplier_Node* FindSupInTreeByid(Supplier_Node * sup,char * sup_id);
+void print_sup_Tree(Tree* tree);
+void print_sup(Node *node,int count);
+void DeleteAllSuppliers(Tree *tree);
+void free_Suppliers(Node * sup);
+Node* FindSupInTreeByid(Node * sup,char * sup_id);
+
+/* int averageOfSupplierMoney(Tree *tree);
+int averageOfSupplierMoneyier_Node(Node *head); 
+int popSmallestTransactionsSupplier(Tree *sl);
+ */
+
 #endif
 

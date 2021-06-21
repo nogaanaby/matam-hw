@@ -2,13 +2,10 @@
 
 void run_test_car(){
     /* test for createCarTree */
-    Car_Tree *tree = createCarsTree(); 
+    Tree *tree = createCarsTree(); 
     print_prompt(" test : create car Tree ");
     /* test for  addNewCar*/
     print_prompt(" test : add new car ");
-    addCarToTree(tree);
-    addCarToTree(tree);
-    addCarToTree(tree);
     addCarToTree(tree);
     /* print list  */
     printCarTree(tree);
@@ -20,23 +17,21 @@ void run_test_car(){
         printf("\tnumber  of cars with engine value  of 2000 is : %d\n",count);
     }
 
-
-
     print_prompt(" test : searchBy_license_id (1234574)");
     printf("\n");
     /*test searchBy_license_id*/
     {
         int res_count = -1 ; 
-        Car_Node *res = NULL ;
-        res = FindCarInTreeByid(tree->root,1234574);
+        Node *res = NULL ;
+        res = FindCarInTreeByid(tree,1234574);
         if(res){
-             print_car(res->car,&res_count);
+             print_car(res,res_count);
         }else{
             print_prompt("car not found");
         }
     }
   
- /*    print_prompt(" test : delete single car (car id = 1234570)  ");
+    print_prompt(" test : delete single car (car id = 1234570)  ");
     printf("\n"); 
     {
      removeCarFromTree(tree,1234570);
@@ -44,24 +39,16 @@ void run_test_car(){
      printCarTree(tree);
      printf("\n");
     } 
- */
+
     printf("\n");
     print_prompt(" test : delete all cars (destroyCarTree)  ");
     destroyCarTree(tree);
     printf("\n");
 }
 
-void print_prompt(char *text){
-    printf("\n");
-    printf("\t----%s----\t",text);
-    printf("\n");
-}
-
-
-
 void run_suppliers_test(){
     /* test for createCarTree */
-    Suppliers_Tree *tree = createSuppliersTree(); 
+    Tree *tree = createSuppliersTree(); 
     print_prompt(" test : create suppliers Tree ");
     /* test for  addNewCar*/
     print_prompt(" test : add new supplier ");
@@ -69,35 +56,32 @@ void run_suppliers_test(){
     addNewSupplier(tree);
     addNewSupplier(tree);
     /* print list  */
-    print_sup_Tree(tree->root);
-    printf("sub left tree size : %d , sub right tree size : %d --- \n",tree->root->sum_of_sub_tree_left,tree->root->sum_of_sub_tree_right);
-    printf("number of element in tree : %d\n",tree->elementCount);
-
+    print_sup_Tree(tree);
     print_prompt(" test : searchBy suppliers id (12350)");
     printf("\n");
     /*test searchBy_license_id*/
     {
-        Supplier_Node *res = NULL ;
+        Node *res = NULL ;
         res = FindSupInTreeByid(tree->root,"12350");
         if(res){
-             print_sup(res->supplier);
+            print_sup(res,0);
         }else{
             print_prompt("car not found");
         }
     }
     
-    print_prompt(" test : average Of Supplier Money ");
+  /*   print_prompt(" test : average Of Supplier Money ");
     {   
         int res = averageOfSupplierMoney(tree);
         if(res != -1){
             printf("sum of avrege transaction is : %d\n" ,res);
         }
     }
-
+ */
 
     printf("\n");
     print_prompt(" test : delete all suppliers (destroyCarTree)  ");
-    deleteAllSuppliers(tree);
+    DeleteAllSuppliers(tree);
     printf("\n");
 
 }
@@ -134,4 +118,13 @@ void add_example_clients(Tree *cl){
     addNewClient_test(cl,tamir, bar, 4987264, 5555555,44,2005,12,1,15,20);
     addNewClient_test(cl,tamir, bar, 7789245, 2222222,44,2004,12,1,15,20);
     addNewClient_test(cl,tamir, bar, 2222222, 9999999,44,2004,12,1,15,20);        
+}
+
+
+/* helpar  function to priont prompt  */
+
+void print_prompt(char *text){
+    printf("\n");
+    printf("\t----%s----\t",text);
+    printf("\n");
 }

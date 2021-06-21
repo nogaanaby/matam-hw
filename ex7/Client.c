@@ -138,51 +138,52 @@ void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date)
         findClientsByDate(current,head,date);
     }
 }
-// int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Car_Tree *cars_tree){
-//     int count=0;
-//     Client_Node *current_client = clients_tree->root;
-//     Car_Node *current_car = cars_tree->root;
-//     while(current_client != NULL){
-//         while(current_car != NULL){
-//             if(current_car->car->license_id==current_client->client->car_license_id
-//                 && current_car->car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car=current_car->left;
-//         }
-//         current_car = cars_tree->root;
-//         while(current_car != NULL){
-//             if(current_car->car->license_id==current_client->client->car_license_id
-//                 && current_car->car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car=current_car->right;
-//         }
-//         current_client=current_client->left;
-//     }
-//     current_client= clients_tree->root->right;
-//     while(current_client != NULL){
-//         while(current_car != NULL){
-//             if(current_car->car->license_id==current_client->client->car_license_id
-//                 && current_car->car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car=current_car->left;
-//         }
-//         current_car = cars_tree->root;
-//         while(current_car != NULL){
-//             if(current_car->car->license_id==current_client->client->car_license_id
-//                 && current_car->car->year_of_relase==year){
-//                     count++;
-//             }
-//             current_car=current_car->right;
-//         }
-//         current_client=current_client->right;
-//     }
-//     return count;
-// }
 
+/* int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Car_Tree *cars_tree){
+    int count=0;
+    Client_Node *current_client = clients_tree->root;
+    Car_Node *current_car = cars_tree->root;
+    while(current_client != NULL){
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->left;
+        }
+        current_car = cars_tree->root;
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->right;
+        }
+        current_client=current_client->left;
+    }
+    current_client= clients_tree->root->right;
+    while(current_client != NULL){
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->left;
+        }
+        current_car = cars_tree->root;
+        while(current_car != NULL){
+            if(current_car->car->license_id==current_client->client->car_license_id
+                && current_car->car->year_of_relase==year){
+                    count++;
+            }
+            current_car=current_car->right;
+        }
+        current_client=current_client->right;
+    }
+    return count;
+}
 
+ */
 
 
 int deleteAllClients(Tree *tree){

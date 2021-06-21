@@ -11,6 +11,7 @@
         "ranges": "c",
         "utility": "c",
         "supplier.h": "c",
-        "linked_list_car.h": "c"
+        "linked_list_car.h": "c",
+        "binarytree.h": "c"
     }
 }
