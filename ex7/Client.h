@@ -39,11 +39,8 @@ typedef struct Clients_List_Node {
 	struct Clients_List_Node* next;
 } Clients_List_Node;
 
-/* create array of clients with stdin input M , set the fildes to zero */
 Tree* createClientsTree();
 void createClient(Node *node);
-/* add a new client to array of client = > 1.check for this client in data 2.find the pleace in array 
- 3. return error if in array*/ 
 int addNewClient(Tree* clients_tree);
 
 int get_client_input_from_user(struct Client *temp_client);
@@ -55,10 +52,9 @@ void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date)
 // struct Client* searchBy( struct Client* cli, char attr[], char* value); 
 //  int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
 int deleteClient(Tree* tree, int *id);
-// int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
-//     int price_per_hour, int year, int month, int day, int hour, int minutes);
 
-// /* delete all client */ 
- int deleteAllClients(Node* current);
+int deleteAllClients(Tree* tree);
+int addNewClient_test(Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
+    int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 #endif

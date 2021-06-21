@@ -13,7 +13,7 @@ void run_clients_test();
 void run_clients_test2();
 void run_clients_test3();
 void print_prompt(char *text);
-//void add_example_clients(Clients_Tree *cl);
+void add_example_clients(Tree *cl);
 void run_clients_and_cars_test();
 void run_test_car();
 void run_suppliers_test();

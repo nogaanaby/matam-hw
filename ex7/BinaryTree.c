@@ -152,3 +152,15 @@ int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(
 
 }
 
+void deleteTree(Node* node) 
+{
+    if (node == NULL) return;
+  
+    /* first delete both subtrees */
+    deleteTree(node->left);
+    deleteTree(node->right);
+    
+    /* then delete the node */
+    free(node->value);
+    free(node);
+} 

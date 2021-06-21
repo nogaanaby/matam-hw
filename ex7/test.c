@@ -104,9 +104,10 @@ void run_suppliers_test(){
 
 void run_clients_test(){
     Tree *clients=createClientsTree();
-    addNewClient(clients);
-    addNewClient(clients);
-    //addNewClient(clients);
+    // addNewClient(clients);
+    // addNewClient(clients);
+    // addNewClient(clients);
+    add_example_clients(clients);
     print_clients(clients);
 
     int id=1234567;
@@ -116,21 +117,21 @@ void run_clients_test(){
     printf("******************* after delete client 1234567 ***************** \n");
     print_clients(clients);
 
-    // deleteAllClients(clients->root);
-    // printf("******************* after delete all clients ***************** \n");
-    // print_clients(clients);
+    deleteAllClients(clients);
+    printf("******************* after delete all clients ***************** \n");
+    print_clients(clients);
 
 }
 
 
-// void add_example_clients(Tree *cl){
-//     char *noga="noga\0";
-//     char *anaby="anaby\0";
-//     char *tamir="tamir\0";
-//     char *bar="bar\0";
-//     addNewClient_test(cl,noga, anaby, 1234567, 1326454,44,2004,12,1,15,20);
-//     addNewClient_test(cl,tamir, bar, 7984615, 1234567,44,2004,12,1,15,20);
-//     addNewClient_test(cl,tamir, bar, 4987264, 5555555,44,2005,12,1,15,20);
-//     addNewClient_test(cl,tamir, bar, 7789245, 2222222,44,2004,12,1,15,20);
-//     addNewClient_test(cl,tamir, bar, 2222222, 9999999,44,2004,12,1,15,20);        
-// }
+void add_example_clients(Tree *cl){
+    char *noga="noga\0";
+    char *anaby="anaby\0";
+    char *tamir="tamir\0";
+    char *bar="bar\0";
+    addNewClient_test(cl,noga, anaby, 1234567, 1326454,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, 7984615, 1234567,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, 4987264, 5555555,44,2005,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, 7789245, 2222222,44,2004,12,1,15,20);
+    addNewClient_test(cl,tamir, bar, 2222222, 9999999,44,2004,12,1,15,20);        
+}

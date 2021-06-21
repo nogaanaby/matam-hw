@@ -50,5 +50,6 @@ int addNewNode(Tree* tree,void (*create_obj)(Node*),unsigned int (*compare)(Node
 void printtree_rec(Node *root, int level,void (*print_obj)(Node*,int));
 void printtabs(int numtabs);
 int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(Node*,Node*));
+void deleteTree(Node* node);
 //Linked_List* findNode(Tree* tree, int* id);
 #endif
