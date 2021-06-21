@@ -131,7 +131,7 @@ void DeleteAllSuppliers(Tree *tree)
 {
     if (tree == NULL)
     {
-        freeTree(tree->root);
+        freeTree(tree->root,free_Suppliers);
         tree->root = NULL;       
     }
 }

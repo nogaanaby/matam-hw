@@ -147,15 +147,15 @@ int removeCarFromTree(Tree *tree,int id){
 
 
 /* free all alloceted field */
-/* void free_car(Node *tmp)
+ void free_car(Node *tmp)
 {
-    free(tmp->car->manufacturer_name);
-    free(tmp->car->model_name);
-    free(tmp->car->color);
-    free(tmp);
+    Car* car = tmp->value; 
+    free(car->manufacturer_name);
+    free(car->model_name);
+    free(car->color);
 }
 
- */
+
 
 
 /* destroy car list   */
@@ -163,7 +163,7 @@ void destroyCarTree(Tree *tree)
 {
     if (tree)
     {
-        freeTree(tree->root);
+        freeTree(tree->root,free_car);
         tree->root = NULL ;
     }
 }
