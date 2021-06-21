@@ -22,17 +22,14 @@ typedef struct Time{
 }Time;
 
 typedef struct Client{
-     char first_name[MAX_LEN_NAME+1];
-     char last_name[MAX_LEN_NAME+1];
+     char *first_name;
+     char *last_name;
      int id; 
      int car_license_id;
      int price_per_hour;
      struct Date start_rent_date;
      struct Time start_rent_time;
 }Client;
-
-
-
 
 typedef struct Clients_List_Node {
 	Client *client;
@@ -49,8 +46,8 @@ void print_client(Node* node,int tubsNum);
 
 void print_clients(Tree* tree);
 void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
-// struct Client* searchBy( struct Client* cli, char attr[], char* value); 
-//  int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
+int clientNumberWithGivenCarYear(int year, Tree *clients_tree,Tree *cars_tree);
+void printClientCarsForGivenRentDate(Node *current,Date *date);
 int deleteClient(Tree* tree, int *id);
 
 int deleteAllClients(Tree* tree);

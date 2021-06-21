@@ -15,11 +15,13 @@ void createClient(Node *node){
 }
 
 unsigned int theSecond_IsLarger_ByClientId(Node *node1,Node *node2){
+    Client* cli2;
+    Client* cli1;
     if(node1==NULL || node2==NULL){
         return -2;
     }else{
-        Client* cli2=node2->value;
-        Client* cli1=node1->value;
+        cli2=node2->value;
+        cli1=node1->value;
         if(cli1->id < cli2->id){
             return 1;
         }else if(cli1->id > cli2->id){
@@ -35,8 +37,8 @@ unsigned int theSecond_IsLarger_ByClientId(Node *node1,Node *node2){
  }
 
 int get_client_input_from_user(Client *temp_client){
-    get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,MAX_LEN_NAME);
-    get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,MAX_LEN_NAME);
+    get_chr_input("Please enter (20 digit) client first name:\t",temp_client->first_name,ALLOC);
+    get_chr_input("Please enter (20 digit) client last name:\t",temp_client->last_name,ALLOC);
     get_int_input("Please enter (7 digit) client id:\t",&temp_client->id,MAX_LEN_SEVEN);
     while(temp_client->id==0){
         printf("ID can not be 0 \n");
@@ -54,8 +56,9 @@ int get_client_input_from_user(Client *temp_client){
 
 
 void print_client(Node* node,int tubsNum){
+    Client *client;
     if(node!=NULL){
-        Client *client=node->value;
+        client=node->value;
         printtabs(tubsNum);
         printf("first_name:\t%s\n",(client)->first_name);
         printtabs(tubsNum);
@@ -116,8 +119,9 @@ void pushClientToList(Clients_List_Node *current, Client *cli){
 }
 
 void findClientsByDate(Node *current, Clients_List_Node *head, Date *date){
+    Client *c;
     if(current != NULL){
-        Client *c=current->value;
+        c=current->value;
         if( c->start_rent_date.year == date->year &&
             c->start_rent_date.month == date->month &&
             c->start_rent_date.day == date->day ){
@@ -192,7 +196,7 @@ void printClientCarsForGivenRentDate(Node *current,Date *date){
             cli->start_rent_date.month==date->month&&
             cli->start_rent_date.day==date->day
         ){
-            print_client(cli,0);
+            print_client(current,0);
         }
         printClientCarsForGivenRentDate(current->left,date);
         printClientCarsForGivenRentDate(current->right,date);
@@ -209,6 +213,9 @@ int deleteAllClients(Tree *tree){
 /* Function to delete the given node */
 int deleteClient(Tree* tree, int* id){
     Node *cnode=findClientById(tree,id);
+    Client *toRemove=cnode->value;
+    free(toRemove->first_name);
+    free(toRemove->last_name);
     if(cnode!=NULL){
         int removed=removeNode(tree,tree->root,cnode,theSecond_IsLarger_ByClientId);
         if(removed==0){
