@@ -36,10 +36,10 @@ unsigned int compere_tow_cars(Node* car1,Node* car2){
 this will keep trre leveld  */
 void createCar(Node *new_node)
 {
-    Car  *new_car = (Car*) malloc(sizeof(Car));
-    if(new_car){
+    Car *new_car = (Car*) malloc(sizeof(Car));
+    if(new_car && new_node){
         get_input_from_user(new_car);
-        new_node->value = new_car;
+        new_node->value = (Car*) new_car;
     }
 }
 
@@ -108,21 +108,23 @@ void printCarTree(Tree *tree)
 
 
 void print_car(Node *node,int count){
+    printf("enter print\n");
     Car *car ;    
-    if(node)
+    if(node->value)
     {
         car = node->value;
-        printf("\tcolor:\t%s\n", (car)->color);
-        printf("\tprice:\t%d\n", (car)->current_price);
-        printf("\tengine capcity\t%d\n", (car)->engine_capacity);
-        printf("\tfreme number:\t%d\n", (car)->frame_id);
-        printf("\tlicense number:\t%d\n", (car)->license_id);
-        printf("\tmanufacturer name:\t%s\n", (car)->manufacturer_name);
-        printf("\tmodel name:\t%s\n", (car)->model_name);
-        printf("\troad rising year :\t%d\n", (car)->road_raising_year);
-        printf("\tsupplier_price:\t%d\n", (car)->supplier_price);
-        printf("\tyear of relase:\t%d\n\n", (car)->year_of_relase);
+        printf("\tcolor:\t%s\n",car->color);
+        printf("\tprice:\t%d\n",car->current_price);
+        printf("\tengine capcity\t%d\n",car->engine_capacity);
+        printf("\tfreme number:\t%d\n",car->frame_id);
+        printf("\tlicense number:\t%d\n",car->license_id);
+        printf("\tmanufacturer name:\t%s\n",car->manufacturer_name);
+        printf("\tmodel name:\t%s\n",car->model_name);
+        printf("\troad rising year :\t%d\n",car->road_raising_year);
+        printf("\tsupplier_price:\t%d\n",car->supplier_price);
+        printf("\tyear of relase:\t%d\n\n",car->year_of_relase);
     }
+    printf("fail to print\n");
 }
 /* remove  a  single  car from tree 
 on succsees return 0  else  retrun -1   */ 
