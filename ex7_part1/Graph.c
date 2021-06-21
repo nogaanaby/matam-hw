@@ -3,8 +3,8 @@
 
 int main()
 {
-    int Group[3] = {5,4,3};
-    int Adj[N + 1][N + 1];
+    int Group[3] = {3,4,5};
+    int Adj[N+1][N+1];
     /*build up of the graph by the edges of the graph */
     int arr[][2] = {{1,2},{1,7},{2,6},{3,7},{2,4},{3,4},{4,5},{5,6},{6,7},{5,7},{2,3}};
     /*number  of edges  */
@@ -19,8 +19,8 @@ int main()
 }
 
 
-int isMainGroup(int Adj[][N + 1],int graph_N,int *Group, int group_M){
-    int i,j,count_number_of_match_vertex = 0 , isEdge = 0 ;
+int isMainGroup(int *Adj[N+1],int graph_N,int *Group, int group_M){
+    int i,j,isEdge = 0 ;
     if(graph_N <= 0 && group_M >= 0 ){
         printf("error size of matrix or group is zero or nagitive \n");
         return 0 ;
@@ -62,14 +62,15 @@ int isInGroup(int number_to_find,int *Group,int size_group){
     return 0 ;
 }
 
-
-void createAdjMatrix(int Adj[][N + 1],int arr[][2]){
-    for (int i = 0; i < N + 1; i++) {
-        for (int j = 0; j < N + 1; j++) {
+/*  */
+void createAdjMatrix(int *Adj[N+1],int arr[][2]){
+    int i,j ;
+    for ( i = 0; i < N + 1; i++) {
+        for ( j = 0; j < N + 1; j++) {
             Adj[i][j] = 0;
         }
     }
-    for (int i = 0; i < M; i++) {
+    for ( i = 0; i < M; i++) {
 
         int x = arr[i][0];
         int y = arr[i][1];
@@ -81,14 +82,13 @@ void createAdjMatrix(int Adj[][N + 1],int arr[][2]){
 
 
 
-void printAdjMatrix(int Adj[][N + 1])
+void printAdjMatrix(int *Adj[N+1])
 {
-
-    // Traverse the Adj[][]
-    for (int i = 1; i < N + 1; i++) {
-        for (int j = 1; j < N + 1; j++) {
-
-            // Print the value at Adj[i][j]
+    int i,j ;
+    /*  Traverse the Adj[][] */  
+    for ( i = 1; i < N + 1; i++) {
+        for ( j = 1; j < N + 1; j++) {
+            /*  Print the value at Adj[i][j] */
             printf("%d ", Adj[i][j]);
         }
         printf("\n");
