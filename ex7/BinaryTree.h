@@ -3,6 +3,7 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 #include "utils.h"
+#include "client.h"
 
 
 /*this tree has just two nodes:
@@ -50,6 +51,6 @@ int addNewNode(Tree* tree,void (*create_obj)(Node*),unsigned int (*compare)(Node
 void printtree_rec(Node *root, int level,void (*print_obj)(Node*,int));
 void printtabs(int numtabs);
 int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(Node*,Node*));
-void freeTree(Node* node);
-//Linked_List* findNode(Tree* tree, int* id);
+void freeTree(Node* node,void (*freeObjAttr)(Node*));
+//void findNode(Tree* tree, List_Node *head,void (*findObj)(Tree*,List_Node*, int*, Date*));
 #endif
