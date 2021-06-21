@@ -102,42 +102,35 @@ void run_suppliers_test(){
 
 }
 
-void run_clients_test1(){
-    Clients_Tree* cTree=createClientsTree();
-    addNewClient(cTree);
-    print_clients(cTree);
-    addNewClient(cTree);
-    print_clients(cTree);
-    free(cTree);
-}
-
-void run_clients_test2(){
-    Clients_Tree* cTree=createClientsTree();
-    /*add_example_clients(cTree);
-    print_clients(cTree);*/
+void run_clients_test(){
+    Tree *clients=createClientsTree();
+    addNewClient(clients);
+    addNewClient(clients);
+    //addNewClient(clients);
+    print_clients(clients);
 
     int id=1234567;
     int *idptr=&id;
-    print_client(findClientById(cTree, idptr),0);
+    deleteClient(clients,idptr);
 
-    free(cTree);
+    printf("******************* after delete client 1234567 ***************** \n");
+    print_clients(clients);
+
+    // deleteAllClients(clients->root);
+    // printf("******************* after delete all clients ***************** \n");
+    // print_clients(clients);
+
 }
 
-void run_clients_test3(){
-    Clients_Tree* cTree=createClientsTree();
-    addNewClient(cTree);
-    print_clients(cTree);
-    free(cTree);
-}
 
-void add_example_clients(Clients_Tree *cl){
-    char *noga="noga\0";
-    char *anaby="anaby\0";
-    char *tamir="tamir\0";
-    char *bar="bar\0";
-    addNewClient_test(cl,noga, anaby, 1234567, 1326454,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, 7984615, 1234567,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, 4987264, 5555555,44,2005,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, 7789245, 2222222,44,2004,12,1,15,20);
-    addNewClient_test(cl,tamir, bar, 2222222, 9999999,44,2004,12,1,15,20);        
-}
+// void add_example_clients(Tree *cl){
+//     char *noga="noga\0";
+//     char *anaby="anaby\0";
+//     char *tamir="tamir\0";
+//     char *bar="bar\0";
+//     addNewClient_test(cl,noga, anaby, 1234567, 1326454,44,2004,12,1,15,20);
+//     addNewClient_test(cl,tamir, bar, 7984615, 1234567,44,2004,12,1,15,20);
+//     addNewClient_test(cl,tamir, bar, 4987264, 5555555,44,2005,12,1,15,20);
+//     addNewClient_test(cl,tamir, bar, 7789245, 2222222,44,2004,12,1,15,20);
+//     addNewClient_test(cl,tamir, bar, 2222222, 9999999,44,2004,12,1,15,20);        
+// }

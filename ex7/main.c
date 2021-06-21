@@ -1,21 +1,14 @@
-//#include "test.h"
-#include "Client.h"
+#include "test.h"
 
 
 int main(){
-    Tree *clients=createClientsTree();
-    addNewClient(clients);
-    addNewClient(clients);
-    addNewClient(clients);
-    print_clients(clients);
-
+    run_clients_test();
     // {
     //     run_test_car();
     // }
     // {
     //     run_suppliers_test();
     // }
-    // run_clients_test1();
     /* run_suppliers_test();
      run_clients_and_cars_test();*/
 

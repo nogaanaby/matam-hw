@@ -14,14 +14,24 @@ void createClient(Node *node){
     node->value=new_client;
 }
 
-bool toInsert_IsLarger_ByClientId(Node *current,Node *toInsert){
-    Client* cli1=toInsert->value;
-    Client* cli2=current->value;
-    return (cli1->id > cli2->id);
+unsigned int theSecond_IsLarger_ByClientId(Node *node1,Node *node2){
+    if(node1==NULL || node2==NULL){
+        return -2;
+    }else{
+        Client* cli2=node2->value;
+        Client* cli1=node1->value;
+        if(cli1->id < cli2->id){
+            return 1;
+        }else if(cli1->id > cli2->id){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
 }
 
  int addNewClient(Tree* clients_tree){
-    return addNewNode(clients_tree,createClient,toInsert_IsLarger_ByClientId);
+    return addNewNode(clients_tree,createClient,theSecond_IsLarger_ByClientId);
  }
 
 int get_client_input_from_user(Client *temp_client){
@@ -44,79 +54,93 @@ int get_client_input_from_user(Client *temp_client){
 
 
 void print_client(Node* node,int tubsNum){
-    Client *client=node->value;
-    printtabs(tubsNum);
-    printf("first_name:\t%s\n",(client)->first_name);
-    printtabs(tubsNum);
-    printf("last_name:\t%s\n",(client)->last_name);
-    printtabs(tubsNum);
-    printf("id \t%d\n",(client)->id);
-    printtabs(tubsNum);
-    printf("car_license_id :\t%d\n",(client)->car_license_id);
-    printtabs(tubsNum);
-    printf("price_per_hour :\t%d\n",(client)->price_per_hour);
-    printtabs(tubsNum);
-    printf("start_rent_date :\t%d.%d.%d\n",(client)->start_rent_date.day,(client)->start_rent_date.month,(client)->start_rent_date.year);
-    printtabs(tubsNum);
-    printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
+    if(node!=NULL){
+        Client *client=node->value;
+        printtabs(tubsNum);
+        printf("first_name:\t%s\n",(client)->first_name);
+        printtabs(tubsNum);
+        printf("last_name:\t%s\n",(client)->last_name);
+        printtabs(tubsNum);
+        printf("id \t%d\n",(client)->id);
+        printtabs(tubsNum);
+        printf("car_license_id :\t%d\n",(client)->car_license_id);
+        printtabs(tubsNum);
+        printf("price_per_hour :\t%d\n",(client)->price_per_hour);
+        printtabs(tubsNum);
+        printf("start_rent_date :\t%d.%d.%d\n",(client)->start_rent_date.day,(client)->start_rent_date.month,(client)->start_rent_date.year);
+        printtabs(tubsNum);
+        printf("start_rent_time :\t%d:%d\n",(client)->start_rent_time.hour,(client)->start_rent_time.minutes);
+    }else{
+        printf("client was not found \n");
+    }
+
 }
 
 void print_clients(Tree *tree){
     printtree_rec(tree->root,0,print_client);
 }
 
-// void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date){
-//     Client_Node *current = clients_tree->root;
-//     Client *this;
-//     if(id!=NULL){
-//         this= findClientById(clients_tree,id);
-//         head->client=this;
-//     }else{
-//         findClientsByDate(current,head,date);
-//     }
-// }
 
-// Client* findClientById(Clients_Tree *clients_tree, int *id){
-//     Client_Node *current = clients_tree->root;
-//     while(current != NULL){
-//         if( current->client->id == *id){
-//             return current->client;
-//         } else if(current->client->id > *id){
-//             current = current->left;
-//         }else{
-//             current = current->right;
-//         }
-//     }
-//     return NULL;
-//     printf("client does not found");
-// }
 
-// void findClientsByDate(Client_Node *current, Clients_List_Node *head, Date *date){
-//     if(current != NULL){
-//         if( current->client->start_rent_date.year == date->year &&
-//             current->client->start_rent_date.month == date->month &&
-//             current->client->start_rent_date.day == date->day ){
-//             pushClientToList(head,current->client);
-//         }
-//         findClientsByDate(current->left,head->next,date);
-//         findClientsByDate(current->right,head->next,date);
-//     }
-// }
+Node* findClientById(Tree *clients_tree, int *id){
+    printf("line=%d \n",__LINE__);
+    Node *current = clients_tree->root;
+    Client *c=current->value;
+    while(current != NULL){
+        printf("line=%d \n",__LINE__);
+        c=current->value;
+        if( c->id == *id){
+            return current;
+        } else if(c->id > *id){
+            current = current->left;
+        }else{
+            current = current->right;
+        }
+    }
+    printf("line=%d \n",__LINE__);
+    printf("client does not found");
+    return NULL;
+}
 
-// void pushClientToList(Clients_List_Node *current, Client *cli){
-//     Client *temp;
-//     if(current==NULL){
-//         current->client=cli;
-//     }
-//     else if (current->client->id < cli->id)
-//         pushClientToList(current->next,cli);
-//     else{
-//         temp=current->client;
-//         current->client=cli;
-//         pushClientToList(current->next,temp);
-//     }
-// }
 
+
+void pushClientToList(Clients_List_Node *current, Client *cli){
+    Client *temp;
+    if(current==NULL){
+        current->client=cli;
+    }
+    else if (current->client->id < cli->id)
+        pushClientToList(current->next,cli);
+    else{
+        temp=current->client;
+        current->client=cli;
+        pushClientToList(current->next,temp);
+    }
+}
+
+void findClientsByDate(Node *current, Clients_List_Node *head, Date *date){
+    if(current != NULL){
+        Client *c=current->value;
+        if( c->start_rent_date.year == date->year &&
+            c->start_rent_date.month == date->month &&
+            c->start_rent_date.day == date->day ){
+            pushClientToList(head,c);
+        }
+        findClientsByDate(current->left,head->next,date);
+        findClientsByDate(current->right,head->next,date);
+    }
+}
+
+void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date){
+    Node *current = clients_tree->root;
+    Node *this;
+    if(id!=NULL){
+        this= findClientById(clients_tree,id);
+        head->client=this->value;
+    }else{
+        findClientsByDate(current,head,date);
+    }
+}
 // int clientNumberWithGivenCarYear(int year, Clients_Tree *clients_tree,Car_Tree *cars_tree){
 //     int count=0;
 //     Client_Node *current_client = clients_tree->root;
@@ -162,61 +186,40 @@ void print_clients(Tree *tree){
 // }
 
 
-// /* delete all Client */ 
-// int deleteAllClients(Clients_Tree *clients_tree){
-//     if(clients_tree == NULL ){
-//         printf("tree is empty\n");
-//         return -1;
-//     }
-//     while(clients_tree->root!= NULL){
-//         deleteClient(clients_tree->root,clients_tree->root->client->id);
-//     } 
-//     return 0 ; 
-// }
 
 
-//  Client_Node* minValueNode(Client_Node* node)
-// {
-//     Client_Node* current = node;
-//     /* loop down to find the leftmost leaf */
-//     while (current->left != NULL)
-//         current = current->left;
-//     return current;
-// }
+int deleteAllClients(Node *current){
+    if(current==NULL){
+        return 0;
+    }else if(current->left==NULL &&current->right==NULL){
+        free(current->value);
+        free(current);
+        return 0;
+    } 
+    if(current->left!=NULL){
+        deleteAllClients(current->left);
+    }
+    if(current->right!=NULL){
+        deleteAllClients(current->right);
+    }
+}
 
 
-// /* Function to delete the given node */
-// Client_Node* deleteClient(Client_Node* root, int id)
-//     {
-//     Client_Node *temp;
-//     if (root == NULL)
-//         return root;
-//     if (id < root->client->id)
-//         root->left = deleteClient(root->left, id);
-//     else if (id > root->client->id)
-//         root->right = deleteClient(root->right, id);
-//     else
-//     {
-//         if (root->left == NULL)
-//         {
-//             temp = root->right;
-//             free(root->client);
-//             free(root);
-//             return temp;
-//         }
-//         else if (root->right == NULL)
-//         {
-//             temp = root->left;
-//             free(root->client);
-//             free(root);
-//             return temp;
-//         }
-//         temp = minValueNode(root->right);
-//         root->client->id = temp->client->id;
-//         root->right = deleteClient(root->right, temp->client->id);
-//     }
-//     return root;
-// }
+/* Function to delete the given node */
+int deleteClient(Tree* tree, int* id){
+    printf("line=%d \n",__LINE__);
+    Node *cnode=findClientById(tree,id);
+    printf("client to remove: line(%d) \n",__LINE__);
+    print_client(cnode,0);
+    if(cnode!=NULL){
+        int removed=removeNode(tree,tree->root,cnode,theSecond_IsLarger_ByClientId);
+        printf("removed=%d: \n",removed);   
+        if(removed==0){
+            return 0;
+        }
+    }
+        return -1;
+}
 
 
 

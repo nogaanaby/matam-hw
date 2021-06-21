@@ -32,13 +32,23 @@ typedef struct Node{
 typedef struct Tree {
 	Node* root;
 	int elementCount;
-} Tree;
+}Tree;
+
+typedef struct List_Node{
+    void* value;
+    struct List_Node *next;
+}List_Node;
+
+typedef struct Linked_List {
+	List_Node* head;
+	int elementCount;
+}Linked_List;
 
 
 Tree* createTree();
-int addNewNode(Tree* tree,void (*create_obj)(Node*),bool (*orderBy)(Node*,Node*));
+int addNewNode(Tree* tree,void (*create_obj)(Node*),unsigned int (*compare)(Node*,Node*));
 void printtree_rec(Node *root, int level,void (*print_obj)(Node*,int));
 void printtabs(int numtabs);
-
-
+int removeNode(Tree* tree, Node* parent, Node* toRemove,unsigned int (*compare)(Node*,Node*));
+//Linked_List* findNode(Tree* tree, int* id);
 #endif

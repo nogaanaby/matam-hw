@@ -51,21 +51,14 @@ int get_client_input_from_user(struct Client *temp_client);
 void print_client(Node* node,int tubsNum);
 
 void print_clients(Tree* tree);
-// void findClient(Clients_Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
-// Client* findClientById(Clients_Tree *clients_tree, int *id);
-// void findClientsByDate(Client_Node *current, Clients_List_Node *head, Date *date);
-// void pushClientToList(Clients_List_Node *current, Client *cli);
-
-// /* sarch for client in data base */
-// /*struct Client* searchBy( struct Client* cli, char attr[], char* value); */
-// /* int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
-//  *//* delte client cy id number*/
-// Client_Node* minValueNode(Client_Node* node);
-// Client_Node* deleteClient(Client_Node* root, int id);
+void findClient(Tree *clients_tree,Clients_List_Node *head, int *id, Date *date);
+// struct Client* searchBy( struct Client* cli, char attr[], char* value); 
+//  int clientNumberWithGivenCarYear(int year, Clients_List *clients_list,List *cars_list);
+int deleteClient(Tree* tree, int *id);
 // int addNewClient_test(Clients_Tree* clients_tree,char *first_name, char *last_name, int id, int car_license_id, 
 //     int price_per_hour, int year, int month, int day, int hour, int minutes);
 
 // /* delete all client */ 
-// int deleteAllClients(Clients_Tree* clients_tree);
+ int deleteAllClients(Node* current);
 
 #endif
