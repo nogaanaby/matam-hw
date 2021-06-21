@@ -134,7 +134,6 @@ void findClientsByDate(Node *current, List_Node *head, Date *date){
 }
 
 void findClient(Tree *clients_tree,List_Node *head, int *id, Date *date){
-    
     Node *current = clients_tree->root;
     Node *this;
     if(id!=NULL){
