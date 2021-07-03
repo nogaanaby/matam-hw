@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "ex8.h": "c",
+        "linked_list.h": "c"
+    }
+}
