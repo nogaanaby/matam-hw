@@ -4,17 +4,17 @@ FILE* open_for_read_write(char* file_name,const char* mode){
     FILE *fp ; 
     fp = fopen(file_name,mode);
     if(!fp){
-        perror("fopen fail ! : canot open file ! exit programe !\n");
+        perror("fopen fail ! : can't open file ! exit program !\n");
         exit(1);
     }
     return fp;
 } 
 
-void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
+void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
     char temp_buff[MAX_BUFF] ={0};
     char c ;
     /* add the space to the lest elment  in the new list, becuse there is no space 
-    in the end of the santnce */
+    in the end of the sentence */
     temp_buff[0] = ' '; 
     int i = 1 ; 
     for( i = 1 ; (c = fgetc(fp)) != EOF &&  i < MAX_BUFF ; i++){
@@ -24,7 +24,7 @@ void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
                 buffer_clear(temp_buff,i+1);
                 i = 0 ;
             }else if(c == '.'){
-                /* end of sentance */
+                /* end of sentence */
                 temp_buff[i+1] = '\0';
                 addToList(list,temp_buff);
                 addToList(list,".");
@@ -36,7 +36,7 @@ void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
     
 }
 
-/* print one revarse  sentance  to new file */
+/* print one revarse sentence  to new file */
 void print_to_file(char* file_name,Node **list,FILE *fp){
     Node *temp = *list;
     char* data; 
@@ -51,7 +51,7 @@ void print_to_file(char* file_name,Node **list,FILE *fp){
         }
         fputs("\n",fp);
     }else{
-        printf("Error cano't open the file exit prog\n");
+        printf("Error can't open the file exit prog\n");
         exit(1);
     }
 }
