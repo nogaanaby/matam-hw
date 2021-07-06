@@ -12,9 +12,5 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write);
 void print_to_file(char* file_name,Node** list,FILE *fp);
 char* create_new_file_name(char* file_name,char* cat);
 /* part tow :  */
-<<<<<<< HEAD
-void encryption(FILE* fp,FILE *fp_write);
-=======
 void encryption_file(FILE* fp,FILE *fp_write);
->>>>>>> a59098ba0643d9bbddd9332fb1cd197421da92d5
 #endif

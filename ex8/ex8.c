@@ -3,22 +3,23 @@
 FILE* open_for_read_write(char* file_name,const char* mode){
     FILE *fp ; 
     fp = fopen(file_name,mode);
-    if(!fp){
-        perror("fopen fail ! : can't open file ! exit program !\n");
+    if(fp == NULL){
+        printf("for file : %s  can't open file ! exit program !\n",file_name);
+        perror("fopen fail");
         exit(1);
     }
     return fp;
 } 
 
 void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
-    char temp_buff[MAX_BUFF] ={0};
+    char temp_buff[MAX_BUFF] ={0}, *token;
     char c ;
     /* add the space to the lest elment  in the new list, becuse there is no space 
     in the end of the sentence */
     temp_buff[0] = ' '; 
     int i = 1 ; 
     for( i = 1 ; (c = fgetc(fp)) != EOF &&  i < MAX_BUFF ; i++){
-            if(isspace(c)){
+            if(c == ' '){
                 temp_buff[i+1] = '\0';
                 addToList(list,temp_buff); 
                 buffer_clear(temp_buff,i+1);
@@ -26,14 +27,15 @@ void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
             }else if(c == '.'){
                 /* end of sentence */
                 temp_buff[i+1] = '\0';
-                addToList(list,temp_buff);
+                token = strtok(temp_buff,"\n");
+                addToList(list,token);
                 addToList(list,".");
-                print_to_file(file_name,list,fp_write); 
+                print_to_file(file_name,list,fp_write);
+                memset(temp_buff,0,MAX_BUFF);   
                 /* ignore end of line */    
             }
         temp_buff[i] = c ; 
     }
-    
 }
 
 /* print one revarse sentence  to new file */
@@ -81,33 +83,29 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write){
     fclose(fp_write);
 }
 
-<<<<<<< HEAD
-/* part2 -------------------------------------------------- part2 */
-void encryption(FILE* fp,FILE*fp_write){
-
-}
-=======
 /* part2 */
 void encryption_file(FILE* fp,FILE *fp_write){
-    int i = 0 ;
+    int i = 0, res = 0  ;
     char c ;  
+    long start = 0 , end = 1 ;
     if(fp && fp_write){
         /*calc the size of the file*/
-        long start = ftell(fp);
-        fseek(fp,0,SEEK_END);
-        long end = ftell(fp);    
-        long size  = (end-start)/2; 
-        for(i = 0 ; size != ftell(fp)  ; i++){
+        for(i = 0 ; start < end  ; i++){
             /* move corsur  to the start  */
-            fseek(fp,i,SEEK_SET);
-            c = ((char)fgetc(fp));
-            fputs(&c,fp_write);
+            res = fseek(fp,i,SEEK_SET);
+            start = ftell(fp);
+            c = (char) fgetc(fp);
+            /* printf("chack if move to the frant : %d , \n start val : %lu \n end val %lu\n char val : %c\n",res,start,end,(char)c);
+            fgetc(stdin); */
+            fputc(c,fp_write);
             /* move corsur to the end */
-            fseek(fp,i,SEEK_END);
-            c = ((char)fgetc(fp));
-            fputs(&c,fp_write);
+            res = fseek(fp,-i,SEEK_END);
+            end = ftell(fp);
+            c = (char) fgetc(fp);
+           /*  printf("chack if move to the end : %d \n start val : %lu \n end val %lu \n luchar val : %c\n",res,start,end,(char)c);
+            fgetc(stdin);
+            */fputc(c,fp_write);
         }
     }
 }
 
->>>>>>> a59098ba0643d9bbddd9332fb1cd197421da92d5
