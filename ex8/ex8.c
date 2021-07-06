@@ -4,17 +4,17 @@ FILE* open_for_read_write(char* file_name,const char* mode){
     FILE *fp ; 
     fp = fopen(file_name,mode);
     if(!fp){
-        perror("fopen fail ! : canot open file ! exit programe !\n");
+        perror("fopen fail ! : can't open file ! exit program !\n");
         exit(1);
     }
     return fp;
 } 
 
-void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
+void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
     char temp_buff[MAX_BUFF] ={0};
     char c ;
     /* add the space to the lest elment  in the new list, becuse there is no space 
-    in the end of the santnce */
+    in the end of the sentence */
     temp_buff[0] = ' '; 
     int i = 1 ; 
     for( i = 1 ; (c = fgetc(fp)) != EOF &&  i < MAX_BUFF ; i++){
@@ -24,7 +24,7 @@ void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
                 buffer_clear(temp_buff,i+1);
                 i = 0 ;
             }else if(c == '.'){
-                /* end of sentance */
+                /* end of sentence */
                 temp_buff[i+1] = '\0';
                 addToList(list,temp_buff);
                 addToList(list,".");
@@ -36,7 +36,7 @@ void get_sentance_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
     
 }
 
-/* print one revarse  sentance  to new file */
+/* print one revarse sentence  to new file */
 void print_to_file(char* file_name,Node **list,FILE *fp){
     Node *temp = *list;
     char* data; 
@@ -51,7 +51,7 @@ void print_to_file(char* file_name,Node **list,FILE *fp){
         }
         fputs("\n",fp);
     }else{
-        printf("Error cano't open the file exit prog\n");
+        printf("Error can't open the file exit prog\n");
         exit(1);
     }
 }
@@ -81,7 +81,33 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write){
     fclose(fp_write);
 }
 
+<<<<<<< HEAD
 /* part2 -------------------------------------------------- part2 */
 void encryption(FILE* fp,FILE*fp_write){
 
 }
+=======
+/* part2 */
+void encryption_file(FILE* fp,FILE *fp_write){
+    int i = 0 ;
+    char c ;  
+    if(fp && fp_write){
+        /*calc the size of the file*/
+        long start = ftell(fp);
+        fseek(fp,0,SEEK_END);
+        long end = ftell(fp);    
+        long size  = (end-start)/2; 
+        for(i = 0 ; size != ftell(fp)  ; i++){
+            /* move corsur  to the start  */
+            fseek(fp,i,SEEK_SET);
+            c = ((char)fgetc(fp));
+            fputs(&c,fp_write);
+            /* move corsur to the end */
+            fseek(fp,i,SEEK_END);
+            c = ((char)fgetc(fp));
+            fputs(&c,fp_write);
+        }
+    }
+}
+
+>>>>>>> a59098ba0643d9bbddd9332fb1cd197421da92d5
