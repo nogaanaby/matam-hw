@@ -80,3 +80,27 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write){
     fclose(fp);
     fclose(fp_write);
 }
+
+/* part2 */
+void encryption_file(FILE* fp,FILE *fp_write){
+    int i = 0 ;
+    char c ;  
+    if(fp && fp_write){
+        /*calc the size of the file*/
+        long start = ftell(fp);
+        fseek(fp,0,SEEK_END);
+        long end = ftell(fp);    
+        long size  = (end-start)/2; 
+        for(i = 0 ; size != ftell(fp)  ; i++){
+            /* move corsur  to the start  */
+            fseek(fp,i,SEEK_SET);
+            c = ((char)fgetc(fp));
+            fputs(&c,fp_write);
+            /* move corsur to the end */
+            fseek(fp,i,SEEK_END);
+            c = ((char)fgetc(fp));
+            fputs(&c,fp_write);
+        }
+    }
+}
+
