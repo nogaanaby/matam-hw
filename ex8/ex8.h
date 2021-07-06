@@ -12,5 +12,5 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write);
 void print_to_file(char* file_name,Node** list,FILE *fp);
 char* create_new_file_name(char* file_name,char* cat);
 /* part tow :  */
-void increpte_file(FILE* fp,FILE *fp_write);
+void encryption(FILE* fp,FILE *fp_write);
 #endif

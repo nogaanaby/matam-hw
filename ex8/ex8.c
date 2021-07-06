@@ -80,3 +80,8 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write){
     fclose(fp);
     fclose(fp_write);
 }
+
+/* part2 -------------------------------------------------- part2 */
+void encryption(FILE* fp,FILE*fp_write){
+
+}
