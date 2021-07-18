@@ -31,6 +31,7 @@ void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write)
                 addToList(list,token);
                 addToList(list,".");
                 print_to_file(file_name,list,fp_write);
+                /* clear the buffer  */
                 memset(temp_buff,0,MAX_BUFF);   
                 /* ignore end of line */    
             }
