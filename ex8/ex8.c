@@ -14,10 +14,10 @@ FILE* open_for_read_write(char* file_name,const char* mode){
 void get_sentence_from_file(char* file_name,Node **list,FILE *fp,FILE *fp_write){
     char temp_buff[MAX_BUFF] ={0}, *token;
     char c ;
+    int i = 1 ; 
     /* add the space to the lest elment  in the new list, becuse there is no space 
     in the end of the sentence */
     temp_buff[0] = ' '; 
-    int i = 1 ; 
     for( i = 1 ; (c = fgetc(fp)) != EOF &&  i < MAX_BUFF ; i++){
             if(c == ' '){
                 temp_buff[i+1] = '\0';
@@ -61,10 +61,11 @@ void print_to_file(char* file_name,Node **list,FILE *fp){
 
 /* take the old file name and create a new file name => <old_name>_rpl.txt */
 char* create_new_file_name(char* file_name,char* cat){
+    char* token,*new_file_name;
     /* add space for string  "_rpl" */
-    char* new_file_name = (char*) malloc (sizeof(char)*(strlen(file_name)+4));
+    new_file_name = (char*) malloc (sizeof(char)*(strlen(file_name)+4));
     strcpy(new_file_name,file_name);
-    char* token = strtok(new_file_name,".");
+    token = strtok(new_file_name,".");
     strcpy(new_file_name,token);
     strcat(new_file_name,cat);
     return new_file_name;
@@ -86,26 +87,22 @@ void clear(char* file_name,Node* lst,FILE *fp,FILE *fp_write){
 
 /* part2 */
 void encryption_file(FILE* fp,FILE *fp_write){
-    int i = 0, res = 0  ;
+    int i = 0 ;
     char c ;  
     long start = 0 , end = 1 ;
     if(fp && fp_write){
         /*calc the size of the file*/
         for(i = 0 ; start < end  ; i++){
             /* move corsur  to the start  */
-            res = fseek(fp,i,SEEK_SET);
+            fseek(fp,i,SEEK_SET);
             start = ftell(fp);
             c = (char) fgetc(fp);
-            /* printf("chack if move to the frant : %d , \n start val : %lu \n end val %lu\n char val : %c\n",res,start,end,(char)c);
-            fgetc(stdin); */
             fputc(c,fp_write);
             /* move corsur to the end */
-            res = fseek(fp,-i,SEEK_END);
+            fseek(fp,-i,SEEK_END);
             end = ftell(fp);
             c = (char) fgetc(fp);
-           /*  printf("chack if move to the end : %d \n start val : %lu \n end val %lu \n luchar val : %c\n",res,start,end,(char)c);
-            fgetc(stdin);
-            */fputc(c,fp_write);
+            fputc(c,fp_write);
         }
     }
 }
